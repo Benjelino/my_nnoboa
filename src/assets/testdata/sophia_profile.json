@@ -1,0 +1,72 @@
+{
+    "emailAddress": {
+        "emailAddress": "sophiaagyepong@dcubedev.com",
+        "trustTypeId": "EMAIL",
+        "contactMechPurposeId": "EmailPrimary"
+    },
+    "phoneNumber": {
+        "phone": "14044286110",
+        "trustTypeId": "CELLPHONE",
+        "contactMechPurposeId": "PhonePrimary"
+    },
+    "postalAddress": {
+        "city": "Powder Spring",
+        "address1": "4139 McBride Dr",
+        "postalCode": "30127",
+        "trustTypeId": "POSTALADDR",
+        "stateProvince": "GA",
+        "pobox": "P. O. Box KS 1632",
+        "countryCode": "USA",
+        "contactMechPurposeId": "PostalHome",
+        "latitude": "33.897598300000",
+        "longitude": "-84.672595800000"
+    },
+    "contactInfo": {
+        "contactPartyId": "MU_sophia",
+        "contactFirstName": "Sophia",
+        "contactLastName": "Agyepong"
+    },
+    "userAccount": {
+        "currencyUomId": "GHS",
+        "userFullName": "Sophia Agyepong",
+        "timeZone": "US/Eastern",
+        "locale": "en_US",
+        "userId": "MU_sophia",
+        "username": "sophia"
+    },
+    "userId": "MU_sophia",
+    "paymentInfo": {
+        "adn": {
+            "clientKey": "8XULM343Rbt29RwAP49EsP2LuNKMp24PwtseT4m6vSqybXFc2TU8LHw3uSvZpXT4",
+            "apiLoginId": "7U54rekJf"
+        }
+    },
+    "userProfile": {
+        "userLogo": "dbresource://dcube-utils/sophia-passport.png",
+        "nextOfKinPhone": "011233203978954",
+        "photoUrl": "dbresource://dcube-utils/sophia-passport.png",
+        "countryCode": "USA",
+        "lastaccesspage": "lastaccesspage",
+        "image": "VW",
+        "memberTypeDesc": "Agent",
+        "nokSameAddress": "Y",
+        "registrationStatusEnumId": "RgCompltd",
+        "prefContactMethod": "EMAIL",
+        "userId": "MU_sophia",
+        "agentTypeEnumId": "At60C",
+        "memberTypeEnumId": "MtAgt",
+        "contactPartyId": "MU_sophia",
+        "nextOfKinName": "Stephen Agyepong",
+        "userSlogan": "Be proud you earn it",
+        "welcomeMsg": "Hey there! How are you? :-)",
+        "trustPoints": 1310,
+        "agentTypeDesc": "60Capital agent"
+    },
+    "party": {
+        "firstName": "Sophia",
+        "lastName": "Agyepong",
+        "nickname": "Sister Yaa",
+        "partyId": "MU_sophia"
+    },
+    "isContactSame": "N"
+}

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "260968391860",
+    "project_id": "noboa-1a4f3",
+    "storage_bucket": "noboa-1a4f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260968391860:android:ee41ba6db1c704f45523e1",
+        "android_client_info": {
+          "package_name": "com.sabonay.noboa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "260968391860-u9gtsbj507vdi3hvp9bq049m6dfggkah.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq8w9SgJ9cS_im84Yad9tHCzxf9RKP3Qg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "260968391860-u9gtsbj507vdi3hvp9bq049m6dfggkah.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,17 @@
+{
+    "userId": "MU_dcubedev",
+    "username": "dcubedev",
+    "newPassword": "D3Dev@dc2021$",
+    "newPasswordVerify": "D3Dev@dc2021$",
+    "emailAddress": "dcubedev@dcubedev.com",
+    "cphone": "14049999900",
+    "cphoneT": "14047191972",
+    "countryCode": "USA",
+    "currencyUomId": "USD",
+    "userGroupArray": [
+        "DACLIENT",
+        "DASERVICEPROVIDER",
+        "DAPROFSERVPROVIDER",
+        "DAGOODSPROVIDER"
+    ]
+}

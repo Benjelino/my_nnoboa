@@ -1,0 +1,24 @@
+{
+    "CurrencySymbol": "GH₵",
+    "appId": "NOBOA",
+    "serviceId": "NOBOASRVC",
+    "appMode": "DEV",
+    "appCurrencyCode": "GHS",
+    "appLanguage": "en_GH",
+    "mxlogin": "N",
+    "mxreg": "N",
+    "appLocale": {
+        "appCountry": "Ghana",
+        "appCountryCode": "GHA",
+        "appCurrency": "Ghanaian Cedi",
+        "appCurrencyCode": "GHS",
+        "appLanguage": "en_GH"
+    },
+    "appLocaleUS": {
+        "appCountry": "United States of America",
+        "appCountryCode": "USA",
+        "appCurrency": "US Dollar",
+        "appCurrencyCode": "USD",
+        "appLanguage": "en_US"
+    }
+}

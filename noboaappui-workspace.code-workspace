@@ -1,0 +1,38 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "src\\app\\noboa"
+		},
+		{
+			"path": "src\\app\\auth"
+		},
+		{
+			"path": "src\\app\\base-pages"
+		},
+		{
+			"path": "src\\app\\base-services"
+		},
+		
+		{
+			"path": "src\\app\\client-pages"
+		},
+		{
+			"path": "src\\app\\components"
+		},
+		{
+			"path": "src\\app\\components-auth"
+		},
+		
+		{
+			"path": "src\\app\\profile"
+		},
+		
+		{
+			"path": "src\\app\\registration"
+		},
+	],
+	"settings": {}
+}

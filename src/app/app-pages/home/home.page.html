@@ -1,0 +1,110 @@
+<app-header ptitle="Noboa App"></app-header>
+
+<ion-content class="notifications-content">
+  <app-banner-component></app-banner-component>
+
+  <div *ngIf="isLoggedIn">
+    <ion-card>
+      <ion-card-header>
+        Equity Crowdfunding App
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="rForm">
+          <app-geo [showAddress1]="false" [showAddress2]="false" [showDistrict]="true" [showCity]="true"
+            [showRegion]="true" [showSuburb]="false" [showCordinates]="false" [showPostalCode]="false"
+            [showUnitNumber]="false" [partyContactProfile]="geoModel"
+            (formReady)="addFormControl('geo', $event)"></app-geo>
+
+          <ion-row>
+            <ion-col size-md="6" size-sm="6" size-xs="12">
+              <ion-item class="input-item">
+                <ion-label position="floating">Referrals</ion-label>
+                <ion-input formControlName="city" name="city" placeholder="Refer a business partner, friend or family">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size-md="6" size-sm="6" size-xs="12">
+              <ion-item class="input-item">
+                <ion-label position="floating">Comments</ion-label>
+                <ion-input formControlName="comments" name="comments" placeholder="Enter Comments">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-button type="submit" color="primary" fill="solid" size="default" [disabled]="rForm.status!='VALID'">
+              <ion-icon slot="start" name="send"></ion-icon>
+              Submit Form
+            </ion-button>
+          </ion-row>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-grid>
+    <ion-row class="top-bar-row ion-justify-content-center row-bg">
+      <ion-col class="ion-align-self-center" size-xl="5" size-md="4" size-sm="12">
+        <div id="top-bar-container">
+          <h3 class="ion-text-wrap ion-text-start ion-align-self-center">
+            Invest in startups that
+            will change the future
+          </h3>
+          <ion-button class="top-bar-botton">
+            View Companies
+          </ion-button>
+        </div>
+      </ion-col>
+      <ion-col class="ion-align-self-center" size-xl="7" size-md="8" size-sm="12">
+        <ion-slides [options]="option" class="ion-top-slide">
+          <ion-slide *ngFor="let slidData of companiesSlider">
+            <ion-card color="dark">
+              <img src={{slidData.imgSrc}} />
+              <ion-card-header>
+                <ion-card-title>{{slidData.title}}</ion-card-title>
+              </ion-card-header>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <app-separator></app-separator>
+  <div class="sm:ml-10 sm:mr-10 items-center">
+
+    <app-short-cards></app-short-cards>
+  </div>
+  <app-separator></app-separator>
+  <div class="sm:ml-20 sm:mr-20 sm:mt-10 sm:mb-10 flex flex-col justify-start">
+    <app-companycard></app-companycard>
+    <app-upcomingevent-card></app-upcomingevent-card>
+  </div>
+  <app-separator></app-separator>
+  <app-feedback-section></app-feedback-section>
+</ion-content>
+
+<ion-footer>
+  <div>
+    <ion-toolbar>
+      <div style="overflow-x: scroll">
+        <ion-buttons slot="end">
+          <ion-title style="text-align: center">
+            <code>&copy;</code> {{currentYear}} sabonay.com All Rights Reserved.
+          </ion-title>
+          <ion-button style="text-decoration: underline" (click)="showAboutModal()">About</ion-button>
+
+          <ion-button style="text-decoration: underline" (click)="showTermsModal()">Terms of Service</ion-button>
+
+          <ion-button style="text-decoration: underline" (click)="showPrivacyModal()">Privacy</ion-button>
+
+          <ion-button style="text-decoration: underline" (click)="showTermsModal()">Cookies</ion-button>
+
+          <ion-button style="text-decoration: underline" (click)="showPrivacyModal()">FAQ</ion-button>
+        </ion-buttons>
+      </div>
+    </ion-toolbar>
+  </div>
+</ion-footer>

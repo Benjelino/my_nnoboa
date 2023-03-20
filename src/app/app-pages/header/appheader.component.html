@@ -1,0 +1,86 @@
+<ion-header>
+  <div *ngIf="loggedIn == true; else elseBlock">
+    <ion-toolbar color="primary">
+      <div style="width: 100%">
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+          <ion-title>{{ getPtitle() }}</ion-title>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <!-- <ion-button (click)="dashboard()">
+            <ion-icon name="speedometer"></ion-icon>
+            <span class="hide-sm hide-xs">
+              {{ "home.dboard" | translate }}</span
+            >
+          </ion-button> -->
+
+          <ion-button (click)="contactus()" expand="block">
+            <ion-icon name="call-outline"></ion-icon>
+            <span class="hide-sm hide-xs">
+              {{ "contacts.us" | translate }}</span
+            >
+          </ion-button>
+
+          <ion-button (click)="logout()">
+            <ion-icon name="log-out"></ion-icon>
+
+            <span class="hide-sm hide-xs">{{
+              "common.logout" | translate
+            }}</span>
+          </ion-button>
+
+          <ion-button (click)="fundme()">
+            <ion-icon name="wallet-outline"></ion-icon>
+
+            <span class="hide-sm hide-xs"> Fund Me </span>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </ion-toolbar>
+  </div>
+
+  <ng-template #elseBlock>
+    <ion-toolbar color="primary">
+      <ion-grid style="width: 100%">
+        <ion-row ion-align-items-center>
+        <ion-col size="1" style="padding-top: 13px;"><ion-title>{{ getPtitle() }}</ion-title></ion-col>
+        <ion-col >
+          <ion-button (click)="home()"  fill="clear" class="dark-text"> 
+            <ion-icon name="home-outline"></ion-icon>
+            <span class="hide-sm hide-xs">
+              {{ "home.title" | translate }}</span>
+          </ion-button>
+
+          <ion-button (click)="contactusNotLoggedIn()" fill="clear" class="dark-text">
+            <ion-icon name="call-outline"></ion-icon>
+            <span class="hide-sm hide-xs">
+              {{ "contacts.us" | translate }}</span
+            >
+          </ion-button>
+
+          <ion-button (click)="login()" fill="clear" class="dark-text">
+            <ion-icon name="download-outline"></ion-icon>
+            <span class="hide-sm hide-xs">
+              {{ "common.login" | translate }}
+            </span>
+          </ion-button>
+
+          <ion-button (click)="register()" fill="clear" class="dark-text">
+            <ion-icon name="people-circle-outline"></ion-icon>
+            <span class="hide-sm hide-xs">
+              {{ "common.register" | translate }}
+            </span>
+          </ion-button>
+
+          <ion-button (click)="forgot()" fill="clear" class="dark-text">
+            <ion-icon name="person-remove-outline"></ion-icon>
+            <span class="hide-sm hide-xs">
+              {{ "common.reset" | translate }}
+            </span>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      </ion-grid>
+    </ion-toolbar>
+  </ng-template>
+</ion-header>

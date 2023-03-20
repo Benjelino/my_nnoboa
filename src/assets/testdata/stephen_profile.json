@@ -1,0 +1,74 @@
+{
+    "emailAddress": {
+        "emailAddress": "stephenagyepong@dcubedev.com",
+        "trustTypeId": "EMAIL",
+        "contactMechPurposeId": "EmailPrimary"
+    },
+    "phoneNumber": {
+        "phone": "14047191972",
+        "trustTypeId": "CELLPHONE",
+        "contactMechPurposeId": "PhonePrimary"
+    },
+    "postalAddress": {
+        "city": "Smyrna",
+        "address1": "4805 West Village Way",
+        "address2": "Building 200",
+        "unitNumber": "Unit 2307",
+        "postalCode": "30080",
+        "trustTypeId": "POSTALADDR",
+        "stateProvince": "GA",
+        "pobox": "P. O. Box KS 1632",
+        "countryCode": "USA",
+        "contactMechPurposeId": "PostalHome",
+        "latitude": "33.897598300000",
+        "longitude": "-84.672595800000"
+    },
+    "contactInfo": {
+        "contactPartyId": "MU_stephen",
+        "contactFirstName": "Stephen",
+        "contactLastName": "Agyepong"
+    },
+    "userAccount": {
+        "currencyUomId": "GHS",
+        "userFullName": "Stephen Agyepong",
+        "timeZone": "GMT",
+        "locale": "en_GH",
+        "userId": "MU_stephen",
+        "username": "stephen"
+    },
+    "userId": "MU_stephen",
+    "paymentInfo": {
+        "adn": {
+            "clientKey": "8XULM343Rbt29RwAP49EsP2LuNKMp24PwtseT4m6vSqybXFc2TU8LHw3uSvZpXT4",
+            "apiLoginId": "7U54rekJf"
+        }
+    },
+    "userProfile": {
+        "userLogo": "dbresource://dcube-utils/sophia-passport.png",
+        "nextOfKinPhone": "011233549068611",
+        "photoUrl": "dbresource://dcube-utils/sophia-passport.png",
+        "countryCode": "GHA",
+        "lastaccesspage": "lastaccesspage",
+        "image": "VW",
+        "memberTypeDesc": "Agent",
+        "nokSameAddress": "Y",
+        "registrationStatusEnumId": "RgCompltd",
+        "prefContactMethod": "EMAIL",
+        "userId": "MU_stephen",
+        "agentTypeEnumId": "At60C",
+        "memberTypeEnumId": "MtAgt",
+        "contactPartyId": "MU_stephen",
+        "nextOfKinName": "Sophia Agyepong",
+        "userSlogan": "Be proud you earn it",
+        "welcomeMsg": "Hey there! How are you? :-)",
+        "trustPoints": 1310,
+        "agentTypeDesc": "60Capital agent"
+    },
+    "party": {
+        "firstName": "Stephen",
+        "lastName": "Agyepong",
+        "nickname": "Agipgas",
+        "partyId": "MU_stephen"
+    },
+    "isContactSame": "N"
+}

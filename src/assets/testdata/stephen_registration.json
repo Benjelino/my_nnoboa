@@ -1,0 +1,23 @@
+{
+    "CurrencySymbol": "GH₵",
+    "userId": "MU_stephen",
+    "username": "stephen",
+    "newPassword": "Kwadwo2021$",
+    "newPasswordVerify": "Kwadwo2021$",
+    "emailAddress": "stephenagyepong@sabonay.com",
+    "cphone": "14047191972",
+    "cphoneT": "12406466654",
+    "selectedCountry": "Ghana",
+    "countryCode": "GHA",
+    "selectedCurrency": "Ghanaian Cedi",
+    "selectedCurrencyCode": "GHS",
+    "userGroupArray": [
+        "DACLIENT",
+        "DAADMIN",
+        "DASERVICEPROVIDER",
+        "DAPROFSERVPROVIDER",
+        "DAGOODSPROVIDER",
+        "DASUPPORT",
+        "DASUPPORT2"
+    ]
+}

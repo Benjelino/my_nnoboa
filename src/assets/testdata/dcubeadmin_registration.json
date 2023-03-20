@@ -1,0 +1,22 @@
+{
+    "CurrencySymbol": "GH₵",
+    "userId": "MU_dcubeadmin",
+    "username": "dcubeadmin",
+    "newPassword": "MatDev@dc2019$",
+    "newPasswordVerify": "MatDev@dc2019$",
+    "emailAddress": "dcubeadmin@sabonay.com",
+    "cphone": "12406466654",
+    "selectedCountry": "Ghana",
+    "countryCode": "GHA",
+    "selectedCurrency": "Ghanaian Cedi",
+    "selectedCurrencyCode": "GHS",
+    "userGroupArray": [
+        "DACLIENT",
+        "DAADMIN",
+        "DASERVICEPROVIDER",
+        "DAPROFSERVPROVIDER",
+        "DAGOODSPROVIDER",
+        "DASUPPORT",
+        "DASUPPORT2"
+    ]
+}

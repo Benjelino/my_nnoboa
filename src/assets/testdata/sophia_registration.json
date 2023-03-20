@@ -1,0 +1,17 @@
+{
+    "userId": "MU_sophia",
+    "username": "sophia",
+    "newPassword": "SopB@dc2019$",
+    "newPasswordVerify": "SopB@dc2019$",
+    "emailAddress": "sophiaagyepong@sabonay.com",
+    "cphone": "14044286110",
+    "cphoneT": "14047191972",
+    "selectedCountry": "United States of America",
+    "countryCode": "USA",
+    "selectedCurrency": "United States of America Dollar",
+    "selectedCurrencyCode": "USD",
+    "userGroupArray": [
+        "DACLIENT",
+        "DASERVICEPROVIDER"
+    ]
+}

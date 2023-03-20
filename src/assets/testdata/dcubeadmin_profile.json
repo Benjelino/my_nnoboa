@@ -1,0 +1,72 @@
+{
+    "emailAddress": {
+        "emailAddress": "dcubeadmin@dcubedev.com",
+        "trustTypeId": "EMAIL",
+        "contactMechPurposeId": "EmailPrimary"
+    },
+    "phoneNumber": {
+        "phone": "12406466654",
+        "trustTypeId": "CELLPHONE",
+        "contactMechPurposeId": "PhonePrimary"
+    },
+    "postalAddress": {
+        "city": "Lowell",
+        "address1": "50 Dowling Dr",
+        "postalCode": "01854",
+        "trustTypeId": "POSTALADDR",
+        "stateProvince": "MA",
+        "pobox": "P. O. Box KS 1632",
+        "countryCode": "USA",
+        "contactMechPurposeId": "PostalHome",
+        "latitude": "33.897598300000",
+        "longitude": "-84.672595800000"
+    },
+    "contactInfo": {
+        "contactPartyId": "MU_sophia",
+        "contactFirstName": "Sophia",
+        "contactLastName": "Agyepong"
+    },
+    "userAccount": {
+        "currencyUomId": "GHS",
+        "userFullName": "Admin Dcubeapp",
+        "timeZone": "US/Eastern",
+        "locale": "en_US",
+        "userId": "MU_dcubeadmin",
+        "username": "dcubeadmin"
+    },
+    "userId": "MU_dcubeadmin",
+    "paymentInfo": {
+        "adn": {
+            "clientKey": "8XULM343Rbt29RwAP49EsP2LuNKMp24PwtseT4m6vSqybXFc2TU8LHw3uSvZpXT4",
+            "apiLoginId": "7U54rekJf"
+        }
+    },
+    "userProfile": {
+        "userLogo": "https://68.media.tumblr.com/avatar_d28d7149f567_128.png",
+        "nextOfKinPhone": "0241164079",
+        "photoUrl": "https://68.media.tumblr.com/avatar_d28d7149f567_128.png",
+        "countryCode": "USA",
+        "lastaccesspage": "lastaccesspage",
+        "image": "VW",
+        "memberTypeDesc": "Agent",
+        "nokSameAddress": "Y",
+        "registrationStatusEnumId": "RgCompltd",
+        "prefContactMethod": "EMAIL",
+        "userId": "MU_dcubeadmin",
+        "agentTypeEnumId": "At60C",
+        "memberTypeEnumId": "MtAgt",
+        "contactPartyId": "MU_sophia",
+        "nextOfKinName": "Sophia Agyepong",
+        "userSlogan": "Be proud you earn it",
+        "welcomeMsg": "Hey there! How are you? :-)",
+        "trustPoints": 1310,
+        "agentTypeDesc": "60Capital agent"
+    },
+    "party": {
+        "firstName": "Admin",
+        "lastName": "Dcubeapp",
+        "nickname": "dcubeadmin",
+        "partyId": "MU_dcubeadmin"
+    },
+    "isContactSame": "N"
+}

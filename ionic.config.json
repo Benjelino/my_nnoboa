@@ -1,0 +1,11 @@
+{
+    "name": "noboaapp",
+    "integrations": {
+        "cordova": {},
+        "capacitor": {}
+    },
+    "type": "angular",
+    "hooks": {
+        "build:before": "src/assets/scripts/copyres.js"
+    }
+}

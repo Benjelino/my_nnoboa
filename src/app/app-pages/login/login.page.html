@@ -1,0 +1,29 @@
+<app-header ptitle="Login"></app-header>
+
+<ion-content class="login-content">
+  <thome>
+    <div hostcontentlogo>
+      <ion-slides [options]="sliderConfig">
+        <ion-slide>
+          <img
+            src="assets/images/loginimage.png"
+            alt="Login image"
+            loading="lazy"
+            style="
+              display: block;
+              max-width: 450px;
+              max-height: 450px;
+              width: 100%;
+              height: auto;
+              object-fit: contain;
+            "
+          />
+        </ion-slide>
+      </ion-slides>
+    </div>
+
+    <div hostcontentlogin>
+      <tlogin></tlogin>
+    </div>
+  </thome>
+</ion-content>
