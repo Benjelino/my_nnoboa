@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 
 import { Storage } from "@ionic/storage";
 
-import { Observable } from "RxJS/Rx";
+import { Observable } from "rxjs";
 
 //import * as Models from "src/app/chat/services/chat-model.service";
 import * as CModels from "src/app/base-services/common-service/models/common-model.service";

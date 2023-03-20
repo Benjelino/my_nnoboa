@@ -12,7 +12,7 @@ import { Events } from '../../base-services/publish-subscribe/events.service';
   templateUrl: './ecprofile.component.html',
   styleUrls: ['./ecprofile.component.scss'],
 })
-export class EcprofileComponent  implements OnInit {
+export class EcprofileComponent implements OnInit {
 
   isLoggedIn = false;
   isLoading = false;
@@ -31,6 +31,7 @@ export class EcprofileComponent  implements OnInit {
   formValid: boolean = false;
   roleCount: number = 1;
   appId = "";
+  file: File;
 
   constructor(
     private auth: AuthenticationService,
@@ -38,7 +39,7 @@ export class EcprofileComponent  implements OnInit {
     private toast: ToastComponent,
     public fb: UntypedFormBuilder,
     private events: Events
-  ) { 
+  ) {
     this.userForm = fb.group({
       message: [
         "",
@@ -80,12 +81,16 @@ export class EcprofileComponent  implements OnInit {
       }
     );
   }
-    
+
 
   onChanges(): void {
     this.userForm.valueChanges.subscribe((data) => {
       this.formValid =
-        this.captcha && this.userForm.valid && this.roleCount > 0;
+        this.userForm.valid && this.roleCount > 0;
     });
+  }
+
+  changeListener($event): void {
+    this.file = $event.target.files[0];
   }
 }

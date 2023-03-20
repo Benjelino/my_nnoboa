@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { NgZone } from "@angular/core";
 import {
-  UntypedFormBuilder,
-  UntypedFormGroup,
+  FormBuilder,
+  FormGroup,
   Validators,
-  UntypedFormControl,
+  FormControl,
 } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AlertController } from "@ionic/angular";
@@ -45,8 +45,8 @@ const DEFAULT_COUNTRY_CODE = "GHA";
 })
 export class RegisterPage implements OnInit {
   userId: string = "";
-  userForm: UntypedFormGroup;
-  matching_passwords_group: UntypedFormGroup;
+  userForm: FormGroup;
+  matching_passwords_group: FormGroup;
   userGroupId: string[];
   latitude: number;
   longitude: number;
@@ -84,7 +84,7 @@ export class RegisterPage implements OnInit {
     private modalController: ModalController,
     private toastCtrl: ToastComponent,
     private zone: NgZone,
-    public fb: UntypedFormBuilder,
+    public fb: FormBuilder,
     private commonSvrc: CommonService,
     private psprof: ProfileService,
     private testingSvrc: TestingService,
@@ -94,9 +94,9 @@ export class RegisterPage implements OnInit {
   ) {
     this.appId = AuthenticationService.env.appId;
 
-    this.matching_passwords_group = new UntypedFormGroup(
+    this.matching_passwords_group = new FormGroup(
       {
-        password: new UntypedFormControl(
+        password: new FormControl(
           "",
           Validators.compose([
             Validators.minLength(5),
@@ -106,9 +106,9 @@ export class RegisterPage implements OnInit {
             ),
           ])
         ),
-        confirm_password: new UntypedFormControl("", Validators.required),
+        confirm_password: new FormControl("", Validators.required),
       },
-      (formGroup: UntypedFormGroup) => {
+      (formGroup: FormGroup) => {
         return PasswordValidator.areNotEqual(formGroup);
       }
     );

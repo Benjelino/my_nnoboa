@@ -136,32 +136,32 @@ export class ContactusPage implements OnInit {
   postContactUs(value: any) {
     this.remoteSvrc.saveContactUs(
       this.appId,
-        value.contacttype.ctId,
-        value.email,
-        value.phone,
-        encodeURIComponent(value.message),
-        null,
-        null
-      ).subscribe(
-        (data) => {
-          this.isSaved = false;
-          this.response = data;
-          this.isSaved = true;
-          this.userForm.reset();
+      value.contacttype.ctId,
+      value.email,
+      value.phone,
+      encodeURIComponent(value.message),
+      null,
+      null
+    ).subscribe(
+      (data) => {
+        this.isSaved = false;
+        this.response = data;
+        this.isSaved = true;
+        this.userForm.reset();
 
-          this.events.publish("contactus:save", {
-            user: null,
-            time: new Date(),
-          });
+        this.events.publish("contactus:save", {
+          user: null,
+          time: new Date(),
+        });
 
-          this.toast.presentSuccessToast("Mesesage sent Successfully");
-        },
-        (err) => {
-          this.toast.presentFailedToast(
-            "Server Error | " + JSON.stringify(err)
-          );
-        }
-      );
+        this.toast.presentSuccessToast("Mesesage sent Successfully");
+      },
+      (err) => {
+        this.toast.presentFailedToast(
+          "Server Error | " + JSON.stringify(err)
+        );
+      }
+    );
   }
 
 }

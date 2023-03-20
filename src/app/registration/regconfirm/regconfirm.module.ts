@@ -11,13 +11,16 @@ import { RegconfirmPageRoutingModule } from './regconfirm-routing.module';
 import { RegconfirmPage } from './regconfirm.page';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        IonicModule,
-        ComponentsPageModule,
-        RegconfirmPageRoutingModule
-    ],
-    declarations: [RegconfirmPage]
+  entryComponents: [
+    Appheader
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    ComponentsPageModule,
+    RegconfirmPageRoutingModule
+  ],
+  declarations: [RegconfirmPage]
 })
 export class RegconfirmPageModule {}

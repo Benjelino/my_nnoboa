@@ -21,11 +21,7 @@
   </ion-row>
   <ion-card *ngIf="isShowPerson" color="light">
     <ion-card-content>
-      <app-expandable
-        expanded="isShowPerson"
-        expandHeight="1200px"
-        title="Personal Information"
-      >
+      <app-expandable expanded="isShowPerson" expandHeight="1200px" title="Personal Information">
         Please give us as much information as you can so we can serve you better
         with services customized for your need
         <ion-list>
@@ -34,12 +30,8 @@
               <ion-col size-md="6" size-sm="6" size-xs="12">
                 <ion-item class="input-item">
                   <ion-label position="floating">First Name</ion-label>
-                  <ion-input
-                    formControlName="firstName"
-                    name="firstName"
-                    placeholder="Enter First Name"
-                    (blur)="copyField('firstName')"
-                  >
+                  <ion-input formControlName="firstName" name="firstName" placeholder="Enter First Name"
+                    (blur)="copyField('firstName')">
                   </ion-input>
                 </ion-item>
               </ion-col>
@@ -47,12 +39,8 @@
               <ion-col size-md="6" size-sm="6" size-xs="12">
                 <ion-item class="input-item">
                   <ion-label position="floating">Middle Name</ion-label>
-                  <ion-input
-                    formControlName="middleName"
-                    name="middleName"
-                    placeholder="Middle Name"
-                    (blur)="copyField('middleName')"
-                  >
+                  <ion-input formControlName="middleName" name="middleName" placeholder="Middle Name"
+                    (blur)="copyField('middleName')">
                   </ion-input>
                 </ion-item>
               </ion-col>
@@ -60,12 +48,8 @@
               <ion-col size-md="6" size-sm="6" size-xs="12">
                 <ion-item class="input-item">
                   <ion-label position="floating">Last Name</ion-label>
-                  <ion-input
-                    formControlName="lastName"
-                    name="lastName"
-                    placeholder="Enter Last Name"
-                    (blur)="copyField('lastName')"
-                  >
+                  <ion-input formControlName="lastName" name="lastName" placeholder="Enter Last Name"
+                    (blur)="copyField('lastName')">
                   </ion-input>
                 </ion-item>
               </ion-col>
@@ -73,11 +57,7 @@
               <ion-col size-md="6" size-sm="6" size-xs="12">
                 <ion-item class="input-item">
                   <ion-label position="floating">Preferred Name</ion-label>
-                  <ion-input
-                    formControlName="preferredName"
-                    name="preferredName"
-                    placeholder="Enter Preferred Name"
-                  >
+                  <ion-input formControlName="preferredName" name="preferredName" placeholder="Enter Preferred Name">
                   </ion-input>
                 </ion-item>
               </ion-col>
@@ -90,11 +70,7 @@
 
   <ion-card *ngIf="!isShowPerson" color="light">
     <ion-card-content>
-      <app-expandable
-        expanded="!isShowPerson"
-        expandHeight="6200px"
-        title="Company/Logo Information"
-      >
+      <app-expandable expanded="!isShowPerson" expandHeight="6200px" title="Company/Logo Information">
         You may register as yourself or as a company.This is optional but if you
         register as a company, any payment from Sabonay will be made to your
         companny. The rules and regulations may depend on the country.
@@ -104,49 +80,29 @@
               <ion-col size-md="6" size-sm="6" size-xs="12">
                 <ion-item class="input-item">
                   <ion-label position="floating">Company name</ion-label>
-                  <ion-input
-                    formControlName="companyName"
-                    placeholder="Enter Company Name"
-                  ></ion-input>
+                  <ion-input formControlName="companyName" placeholder="Enter Company Name"></ion-input>
                 </ion-item>
               </ion-col>
 
               <ion-col size-md="6" size-sm="6" size-xs="12">
                 <ion-item class="input-item">
                   <ion-label position="floating">Company slogan</ion-label>
-                  <ion-textarea
-                    rows="4"
-                    cols="20"
-                    formControlName="slogan"
-                    placeholder="company slogan"
-                  ></ion-textarea>
+                  <ion-textarea rows="4" cols="20" formControlName="slogan" placeholder="company slogan"></ion-textarea>
                 </ion-item>
               </ion-col>
             </ion-row>
-
+            
             <ion-row>
               <ion-col size="12">
                 <div>
-                  <ion-button
-                    color="medium"
-                    size="small"
-                    (click)="selectLogoImageSource()"
-                    >Upload Logo Image</ion-button
-                  >
+                  <ion-button color="medium" size="small" (click)="selectLogoImageSource()">Upload Logo
+                    Image</ion-button>
                 </div>
 
-                <ion-img
-                  [src]="logo || '../assets/images/house.png'"
-                  alt=""
-                  class="image-placeholder image-border"
-                ></ion-img>
-                <input
-                  type="file"
-                  style="display: none"
-                  accept=".jpg, .jpeg, .png"
-                  (change)="logoSelected($event)"
-                  #logoFileInput
-                />
+                <ion-img [src]="logo || '../assets/images/house.png'" alt=""
+                  class="image-placeholder image-border"></ion-img>
+                <input type="file" style="display: none" accept=".jpg, .jpeg, .png" (change)="logoSelected($event)"
+                  #logoFileInput />
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -344,19 +300,9 @@
           </ion-grid>
         </ion-list> -->
 
-        <app-geo
-          [showAddress1]="true"
-          [showAddress2]="true"
-          [showDistrict]="true"
-          [showCity]="true"
-          [showRegion]="true"
-          [showSuburb]="false"
-          [showCordinates]="true"
-          [showPostalCode]="true"
-          [showUnitNumber]="true"
-          [partyContactProfile]="geoModel"
-          (formReady)="addFormControl('geo', $event)"
-        ></app-geo>
+        <app-geo [showAddress1]="true" [showAddress2]="true" [showDistrict]="true" [showCity]="true" [showRegion]="true"
+          [showSuburb]="false" [showCordinates]="true" [showPostalCode]="true" [showUnitNumber]="true"
+          [partyContactProfile]="geoModel" (formReady)="addFormControl('geo', $event)"></app-geo>
       </app-expandable>
     </ion-card-content>
   </ion-card>
@@ -396,47 +342,32 @@
                 <ion-col size-md="6" size-sm="6" size-xs="12">
                   <ion-item class="input-item">
                     <ion-label position="floating">First name</ion-label>
-                    <ion-input
-                      formControlName="contactFirstName"
-                      placeholder="First Name"
-                    ></ion-input>
+                    <ion-input formControlName="contactFirstName" placeholder="First Name"></ion-input>
                   </ion-item>
                 </ion-col>
 
                 <ion-col size-md="6" size-sm="6" size-xs="12">
                   <ion-item class="input-item">
                     <ion-label position="floating">Middle name</ion-label>
-                    <ion-input
-                      formControlName="contactMiddleName"
-                      placeholder="Middle Name"
-                    ></ion-input>
+                    <ion-input formControlName="contactMiddleName" placeholder="Middle Name"></ion-input>
                   </ion-item>
                 </ion-col>
                 <ion-col size-md="6" size-sm="6" size-xs="12">
                   <ion-item class="input-item">
                     <ion-label position="floating">Last name</ion-label>
-                    <ion-input
-                      formControlName="contactLastName"
-                      placeholder="Last Name"
-                    ></ion-input>
+                    <ion-input formControlName="contactLastName" placeholder="Last Name"></ion-input>
                   </ion-item>
                 </ion-col>
                 <ion-col size-md="6" size-sm="6" size-xs="12">
                   <ion-item class="input-item">
                     <ion-label position="floating">Cell Phone</ion-label>
-                    <ion-input
-                      formControlName="contactCellPhone"
-                      placeholder="cell phone"
-                    ></ion-input>
+                    <ion-input formControlName="contactCellPhone" placeholder="cell phone"></ion-input>
                   </ion-item>
                 </ion-col>
                 <ion-col size-md="6" size-sm="6" size-xs="12">
                   <ion-item class="input-item">
                     <ion-label position="floating">Email</ion-label>
-                    <ion-input
-                      formControlName="contactEmailAddress"
-                      placeholder="email"
-                    ></ion-input>
+                    <ion-input formControlName="contactEmailAddress" placeholder="email"></ion-input>
                   </ion-item>
                 </ion-col>
               </ion-row>
@@ -474,20 +405,14 @@
                 <ion-col size-md="6" size-sm="6" size-xs="12">
                   <ion-item class="input-item">
                     <ion-label position="floating">Cell Phone</ion-label>
-                    <ion-input
-                      formControlName="contactCellPhone"
-                      placeholder="Enter phone number"
-                    ></ion-input>
+                    <ion-input formControlName="contactCellPhone" placeholder="Enter phone number"></ion-input>
                   </ion-item>
                 </ion-col>
 
                 <ion-col size-md="6" size-sm="6" size-xs="12">
                   <ion-item class="input-item">
                     <ion-label position="floating">Email</ion-label>
-                    <ion-input
-                      formControlName="contactEmailAddress"
-                      placeholder="Enter Email"
-                    ></ion-input>
+                    <ion-input formControlName="contactEmailAddress" placeholder="Enter Email"></ion-input>
                   </ion-item>
                 </ion-col>
               </ion-row>
@@ -498,12 +423,7 @@
         <div *ngIf="testing">
           <ion-item class="input-item">
             <ion-label position="floating">Json File to Load</ion-label>
-            <ion-input
-              type="text"
-              formControlName="filename"
-              name="filename"
-              placeholder="filename"
-            >
+            <ion-input type="text" formControlName="filename" name="filename" placeholder="filename">
             </ion-input>
           </ion-item>
 
@@ -518,27 +438,15 @@
         <ion-row>
           <ion-col size="12" size-md="4">
             <div>
-              <ion-button
-                color="medium"
-                size="small"
-                (click)="selectAvatarImageSource()"
-                >Upload Avatar Image</ion-button
-              >
+              <ion-button color="medium" size="small" (click)="selectAvatarImageSource()">Upload Avatar
+                Image</ion-button>
             </div>
 
-            <ion-img
-              [src]="avatar || '../assets/images/house.png'"
-              alt=""
-              class="image-placeholder image-border"
-            ></ion-img>
+            <ion-img [src]="avatar || '../assets/images/house.png'" alt=""
+              class="image-placeholder image-border"></ion-img>
 
-            <input
-              type="file"
-              style="display: none"
-              accept=".jpg, .jpeg, .png"
-              (change)="avatarSelected($event)"
-              #avatarFileInput
-            />
+            <input type="file" style="display: none" accept=".jpg, .jpeg, .png" (change)="avatarSelected($event)"
+              #avatarFileInput />
           </ion-col>
         </ion-row>
       </app-expandable>
@@ -550,65 +458,35 @@
         <ion-list>
           <ion-grid>
             <ion-row>
-              <ion-col
-                *ngIf="!appLocale?.appCurrency"
-                size-md="6"
-                size-sm="6"
-                size-xs="12"
-              >
+              <ion-col *ngIf="!appLocale?.appCurrency" size-md="6" size-sm="6" size-xs="12">
                 <ion-item class="input-item">
-                  <ion-label position="floating"
-                    >3 Digit Currency Code</ion-label
-                  >
+                  <ion-label position="floating">3 Digit Currency Code</ion-label>
 
-                  <ionic-selectable
-                    formControlName="selectedCurrencyCode"
-                    [hasVirtualScroll]="true"
-                    [items]="currencies"
-                    [canSearch]="true"
-                    itemValueField="uomId"
-                    itemTextField="description"
+                  <ionic-selectable formControlName="selectedCurrencyCode" [hasVirtualScroll]="true"
+                    [items]="currencies" [canSearch]="true" itemValueField="uomId" itemTextField="description"
                     (onChange)="ionChangeCurrency($event)"
-                    searchPlaceholder="Enter first few characters to narrow search"
-                  >
+                    searchPlaceholder="Enter first few characters to narrow search">
                   </ionic-selectable>
                 </ion-item>
               </ion-col>
-              <ion-col
-                *ngIf="appLocale?.appCurrency"
-                size-md="6"
-                size-sm="6"
-                size-xs="12"
-              >
+              <ion-col *ngIf="appLocale?.appCurrency" size-md="6" size-sm="6" size-xs="12">
                 <ion-item class="input-item">
-                  <ion-label position="floating"
-                    >3 Digit Currency Code</ion-label
-                  >
+                  <ion-label position="floating">3 Digit Currency Code</ion-label>
 
-                  <ion-input
-                    readonly
-                    class="form-input"
-                    formControlName="selectedCurrencyCode"
-                  ></ion-input>
+                  <ion-input readonly class="form-input" formControlName="selectedCurrencyCode"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size-md="6" size-sm="6" size-xs="12">
                 <ion-item>
                   <ion-label position="floating">Locale</ion-label>
-                  <ion-input
-                    class="form-input"
-                    formControlName="locale"
-                  ></ion-input>
+                  <ion-input class="form-input" formControlName="locale"></ion-input>
                 </ion-item>
               </ion-col>
 
               <ion-col size-md="6" size-sm="6" size-xs="12">
                 <ion-item>
                   <ion-label>Time Zone</ion-label>
-                  <ion-input
-                    class="form-input"
-                    formControlName="timeZone"
-                  ></ion-input>
+                  <ion-input class="form-input" formControlName="timeZone"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -624,36 +502,21 @@
         <ion-list>
           <ion-item>
             <ion-label>Welcome Message</ion-label>
-            <ion-input
-              class="form-input"
-              formControlName="welcomeMsg"
-            ></ion-input>
+            <ion-input class="form-input" formControlName="welcomeMsg"></ion-input>
           </ion-item>
 
           <ion-row>
             <ion-col size="12" size-md="4">
               <div>
-                <ion-button
-                  color="medium"
-                  size="small"
-                  (click)="selectAvatarImageSource()"
-                  >Upload Avatar Image</ion-button
-                >
+                <ion-button color="medium" size="small" (click)="selectAvatarImageSource()">Upload Avatar
+                  Image</ion-button>
               </div>
 
-              <ion-img
-                [src]="avatar || '../assets/images/sabonay_logo.png'"
-                alt=""
-                class="image-placeholder image-border"
-              ></ion-img>
+              <ion-img [src]="avatar || '../assets/images/sabonay_logo.png'" alt=""
+                class="image-placeholder image-border"></ion-img>
 
-              <input
-                type="file"
-                style="display: none"
-                accept=".jpg, .jpeg, .png"
-                (change)="avatarSelected($event)"
-                #avatarFileInput
-              />
+              <input type="file" style="display: none" accept=".jpg, .jpeg, .png" (change)="avatarSelected($event)"
+                #avatarFileInput />
             </ion-col>
           </ion-row>
         </ion-list>
@@ -664,12 +527,7 @@
   <div *ngIf="testing">
     <ion-item class="input-item">
       <ion-label position="floating">Json File to Load</ion-label>
-      <ion-input
-        type="text"
-        formControlName="filename"
-        name="filename"
-        placeholder="filename"
-      >
+      <ion-input type="text" formControlName="filename" name="filename" placeholder="filename">
       </ion-input>
     </ion-item>
 
@@ -681,14 +539,8 @@
     </ion-item>
   </div>
 
-  <ion-button
-    type="button"
-    color="primary"
-    fill="solid"
-    size="default"
-    [disabled]="rForm.status!='VALID'"
-    (click)="submitForm(rForm)"
-  >
+  <ion-button type="button" color="primary" fill="solid" size="default" [disabled]="rForm.status!='VALID'"
+    (click)="submitForm(rForm)">
     <ion-icon slot="start" name="send"></ion-icon>
     Submit Form
   </ion-button>

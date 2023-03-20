@@ -30,18 +30,19 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        IonicModule,
-        RouterModule.forChild(routes),
-        ComponentsPageModule,
-        TranslateModule.forChild(),
-        RecaptchaModule,
-        IonicSelectableModule,
-    ],
-    providers: [ToastComponent],
-    declarations: [RegisterPage]
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    IonicModule,
+    RouterModule.forChild(routes),
+    ComponentsPageModule,
+    TranslateModule.forChild(),
+    RecaptchaModule,
+    IonicSelectableModule,
+  ],
+  providers: [ToastComponent],
+  entryComponents: [Appheader, TermsOfServicePage, PrivacyPolicyPage],
+  declarations: [RegisterPage],
 })
 export class RegisterPageModule {}

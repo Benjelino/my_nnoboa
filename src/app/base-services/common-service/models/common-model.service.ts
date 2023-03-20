@@ -1207,12 +1207,13 @@ export interface PropertyQueryInfo {
 }
 
 export interface CompanyType {
-  compId: string;
-  AppId: string;
+  enumId: string;
+  enumTypeId: string;
   description: string;
+  lastUpdatedStamp?: number;
 }
 
-export interface CompanyTypes{
+export interface CompanyTypes {
   Companies: CompanyType[];
 }
 
@@ -1221,5 +1222,5 @@ export interface CompanyTypes{
 })
 
 export class CommonModelService {
-  constructor() {}
+  constructor() { }
 }
