@@ -1,0 +1,360 @@
+<ion-searchbar
+  *ngIf=" userType=='all'"
+  [(ngModel)]="searchTerm"
+  [formControl]="searchControl"
+  (ionInput)="onSearchInput()"
+></ion-searchbar>
+<!-- 
+<div *ngIf="isLoading && userType=='all'" class="spinner-container">
+  <ion-spinner></ion-spinner>
+</div> -->
+
+<div *ngIf="searching && userType=='all'" class="spinner-container">
+  <ion-spinner></ion-spinner>
+</div>
+
+<ion-item-group *ngIf="userType=='user'">
+  <ion-item-divider sticky>
+    <ion-label>User Tourism Data</ion-label>
+  </ion-item-divider>
+</ion-item-group>
+
+<div *ngIf="userType=='user' && tourismUserData.length<=0">
+  <ion-item>
+    <p text-wrap no-lines>User does not have any Tourism Data</p>
+    <ion-icon name="warning" item-left></ion-icon>
+  </ion-item>
+</div>
+
+<!-- <cdk-virtual-scroll-viewport
+  class="notifications-content"
+  #scroll
+  [itemSize]="56"
+  minBufferPx="900"
+  maxBufferPx="1350"
+  *ngIf="userType=='all'"
+></cdk-virtual-scroll-viewport> -->
+
+<ion-list class="notifications-content" *ngIf="userType=='user'">
+  <ion-item
+    *ngFor="let item of tourismUserData; trackBy: trackByFn"
+    class="notification-item"
+    lines="none"
+  >
+    <ion-row class="notification-item-wrapper">
+      <ion-col size="5" class="details-wrapper">
+        <p class="details-name">{{ item.tourismName }}</p>
+
+        <p class="details-description">Location: {{ item.tourismLocation }}</p>
+        <p class="details-description">Phone: {{ item.phone }}</p>
+      </ion-col>
+
+      <ion-col size="5" class="details-wrapper">
+        <p class="details-name">{{ item.tourismType }} - {{ item.grade }}</p>
+
+        <p class="details-description">Cost: {{ item.tourismCost }}</p>
+        <p class="details-description">Capacity: {{ item.capacity }}</p>
+      </ion-col>
+
+      <ion-col size="2">
+        <ion-button tappable color="facebook" (click)="showTourForm(item)">
+          <ion-icon name="create-outline"></ion-icon>
+          <span class="hide-sm hide-xs"> <h6>Edit Tour</h6></span>
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="6" class="details-wrapper">
+        <h4 class="details-description">Country: {{item.GeoData.country}}</h4>
+        <p class="details-description">Region: {{ item.GeoData.region}}</p>
+        <p *ngIf="item.GeoData.district" class="details-description">
+          District: {{ item.GeoData.district}}
+        </p>
+      </ion-col>
+
+      <ion-col size="5" class="details-wrapper">
+        <p *ngIf="item.GeoData.city" class="details-description">
+          City: {{ item.GeoData.city}}
+        </p>
+        <h4 class="details-description">Id: {{item.GeoData.suburb}}</h4>
+        <p class="details-description">Status: {{ item.GeoData.status}}</p>
+      </ion-col>
+
+      <!-- <ion-col size="2">
+        <ion-button
+          tappable
+          (click)="showGeoForm(item.GeoData)"
+          color="facebook"
+        >
+          <ion-icon name="create-outline"></ion-icon>
+          <span class="hide-sm hide-xs"> <h6>Edit Geo Data</h6></span>
+        </ion-button>
+      </ion-col> -->
+    </ion-row>
+  </ion-item>
+</ion-list>
+
+<ion-grid>
+  <ion-list class="notifications-content" *ngIf="userType=='all'">
+    <ion-item
+      *ngFor="let item of tourData; trackBy: trackByFn"
+      class="notification-item"
+      lines="none"
+    >
+      <ion-row class="notification-item-wrapper">
+        <ion-col size="5" class="details-wrapper">
+          <p class="details-name">{{ item.tourismName }}</p>
+
+          <p class="details-description">
+            Location: {{ item.tourismLocation }}
+          </p>
+          <p class="details-description">Phone: {{ item.phone }}</p>
+        </ion-col>
+
+        <ion-col size="5" class="details-wrapper">
+          <p class="details-name">{{ item.tourismType }} - {{ item.grade }}</p>
+          <p class="details-description">Cost: {{ item.tourismCost }}</p>
+          <p class="details-description">Capacity: {{ item.capacity }}</p>
+          <p *ngIf="item.directions" class="details-description">
+            Direction: {{ item.directions }}
+          </p>
+        </ion-col>
+
+        <ion-col size="2">
+          <ion-button tappable color="facebook" (click)="showTourForm(item)">
+            <ion-icon name="create-outline"></ion-icon>
+            <span class="hide-sm hide-xs"> <h6>Edit Tour</h6></span>
+          </ion-button>
+        </ion-col>
+
+        <ion-col size="6" class="details-wrapper">
+          <h4 class="details-description">Country: {{item.GeoData.country}}</h4>
+          <p class="details-description">Region: {{ item.GeoData.region}}</p>
+          <p *ngIf="item.GeoData.district" class="details-description">
+            District: {{ item.GeoData.district}}
+          </p>
+        </ion-col>
+
+        <ion-col size="5" class="details-wrapper">
+          <p *ngIf="item.GeoData.city" class="details-description">
+            City: {{ item.GeoData.city}}
+          </p>
+          <h4 class="details-description">Id: {{item.GeoData.geoDataId}}</h4>
+          <p class="details-description">Status: {{ item.GeoData.status}}</p>
+        </ion-col>
+
+        <!-- <ion-col size="2">
+          <ion-button
+            tappable
+            (click)="showGeoForm(item.GeoData)"
+            color="facebook"
+          >
+            <ion-icon name="create-outline"></ion-icon>
+            <span class="hide-sm hide-xs"> <h6>Edit Geo Data</h6></span>
+          </ion-button>
+        </ion-col> -->
+      </ion-row>
+    </ion-item>
+  </ion-list>
+</ion-grid>
+
+<ion-item-group *ngIf="userType=='user' && defaultTourismType">
+  <!--  <form (ngSubmit)="storeData(userForm.value)" [formGroup]="userForm">
+    <ion-list>
+      <ion-row>
+        <ion-col size-md="6" size-sm="6" size-xs="12">
+          <ion-item class="input-item">
+            <ion-label position="floating">Type</ion-label>
+            <ionic-selectable
+              formControlName="tourismType"
+              [hasVirtualScroll]="true"
+              [items]="tourismTypes"
+              [canSearch]="true"
+              itemValueField="enumId"
+              itemTextField="description"
+              searchPlaceholder="Enter first few characters to narrow search"
+            >
+            </ionic-selectable>
+          </ion-item>
+
+          <div class="error-container">
+            <div *ngFor="let validation of validationMessages.tourismType">
+              <div
+                class="error-message"
+                *ngIf="userForm.get('tourismType').hasError(validation.type) && (userForm.get('tourismType').dirty || userForm.get('tourismType').touched)"
+              >
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+
+        <ion-col size-md="6" size-sm="6" size-xs="12">
+          <ion-item class="input-item">
+            <ion-label position="floating">Name</ion-label>
+            <ion-input
+              formControlName="tourismName"
+              name="tourismName"
+              placeholder="Tourism Name"
+              clearInput
+            ></ion-input>
+          </ion-item>
+          <div class="error-container">
+            <div *ngFor="let validation of validationMessages.tourismName">
+              <div
+                class="error-message"
+                *ngIf="userForm.get('tourismName').hasError(validation.type) && (userForm.get('tourismName').dirty || userForm.get('tourismName').touched)"
+              >
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-md="6" size-sm="6" size-xs="12">
+          <ion-item class="input-item">
+            <ion-label position="floating">Phone</ion-label>
+            <ion-input
+              type="text"
+              formControlName="phone"
+              name="phone"
+              clearInput
+            >
+            </ion-input>
+          </ion-item>
+
+          <div class="error-container">
+            <div *ngFor="let validation of validationMessages.phone">
+              <div
+                class="error-message"
+                *ngIf="userForm.get('phone').hasError(validation.type) && (userForm.get('phone').dirty || userForm.get('phone').touched)"
+              >
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+
+        <ion-col size-md="6" size-sm="6" size-xs="12">
+          <ion-item class="input-item">
+            <ion-label position="floating">Cost</ion-label>
+            <ion-input
+              type="text"
+              formControlName="tourismCost"
+              name="tourismCost"
+            >
+            </ion-input>
+          </ion-item>
+
+          <div class="error-container">
+            <div *ngFor="let validation of validationMessages.tourismCost">
+              <div
+                class="error-message"
+                *ngIf="userForm.get('tourismCost').hasError(validation.type) && (userForm.get('tourismCost').dirty || userForm.get('tourismCost').touched)"
+              >
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size-md="6" size-sm="6" size-xs="12">
+          <ion-item class="input-item">
+            <ion-label position="floating">Capacity</ion-label>
+            <ion-input type="number" formControlName="capacity" name="capacity">
+            </ion-input>
+          </ion-item>
+
+          <div class="error-container">
+            <div *ngFor="let validation of validationMessages.capacity">
+              <div
+                class="error-message"
+                *ngIf="userForm.get('capacity').hasError(validation.type) && (userForm.get('capacity').dirty || userForm.get('capacity').touched)"
+              >
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+
+        <ion-col size-md="6" size-sm="6" size-xs="12">
+          <ion-item class="input-item">
+            <ion-label position="floating">Data Status</ion-label>
+            <ionic-selectable
+              formControlName="status"
+              [hasVirtualScroll]="true"
+              [items]="geoDataStatus"
+              [canSearch]="true"
+              itemValueField="enumId"
+              itemTextField="description"
+              searchPlaceholder="Enter first few characters to narrow search"
+            >
+            </ionic-selectable>
+          </ion-item>
+
+          <div class="error-container">
+            <div *ngFor="let validation of validationMessages.status">
+              <div
+                class="error-message"
+                *ngIf="userForm.get('status').hasError(validation.type) && (userForm.get('status').dirty || userForm.get('status').touched)"
+              >
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <app-geo
+        [showAddress1]="true"
+        [showAddress2]="false"
+        [showDistrict]="true"
+        [showCity]="true"
+        [showRegion]="true"
+        [showSuburb]="true"
+        [showCordinates]="false"
+        [showPostalCode]="false"
+        [showUnitNumber]="false"
+        [showDirection]="false"
+        (formReady)="addFormControl('geo', $event)"
+      ></app-geo>
+    </ion-list>
+
+    <ion-row>
+      <ion-col>
+        <ion-button color="primary" type="submit" [disabled]="!userForm.valid">
+          <ion-icon name="save"></ion-icon>
+          Save
+        </ion-button>
+      </ion-col>
+
+      <ion-col>
+        <ion-button color="secondary" type="button">
+          <ion-icon name="close"></ion-icon>
+          Cancel
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form> -->
+</ion-item-group>
+
+<div *ngIf="!isLoading &&  userType=='all'" class="spinner-container">
+  <ion-spinner></ion-spinner>
+</div>
+
+<ion-infinite-scroll
+  (ionInfinite)="loadData(true, $event)"
+  *ngIf="userType=='all'"
+>
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data..."
+  >
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>

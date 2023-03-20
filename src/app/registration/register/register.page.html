@@ -1,0 +1,198 @@
+<app-header ptitle="common.register"></app-header>
+
+<ion-content padding class="register">
+    <ion-item-group>
+        <ion-item-divider sticky>
+            <ion-label class="ion-text-wrap">
+                Fill form to begin registration
+            </ion-label>
+        </ion-item-divider>
+    </ion-item-group>
+
+    <ion-row>
+        <ion-col col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4>
+            <ion-card>
+                <ion-card-content>
+                    <form [formGroup]="userForm">
+                        <ion-list class="inputs-list">
+                            <ion-item class="input-item">
+                                <ion-label position="floating">Username</ion-label>
+                                <ion-input type="text" formControlName="username" name="username" (change)="onValueChanged($event.target.value)">
+                                </ion-input>
+                            </ion-item>
+                            <div class="error-container">
+                                <ng-container *ngFor="let validation of validation_messages.username">
+                                    <div class="error-message" *ngIf="userForm.get('username').hasError(validation.type) && (userForm.get('username').dirty || userForm.get('username').touched)">
+                                        <ion-icon name="information-circle-outline"></ion-icon>
+                                        <span>{{ validation.message }}</span>
+                                    </div>
+                                </ng-container>
+                            </div>
+
+                            <div formGroupName="matching_passwords">
+                                <ion-item class="input-item">
+                                    <ion-label position="floating">New Password</ion-label>
+                                    <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+                                </ion-item>
+                                <div class="error-container">
+                                    <ng-container *ngFor="let validation of validation_messages.password">
+                                        <div class="error-message" *ngIf="userForm.get('matching_passwords').get('password').hasError(validation.type) && (userForm.get('matching_passwords').get('password').dirty || userForm.get('matching_passwords').get('password').touched)">
+                                            <ion-icon name="information-circle-outline"></ion-icon>
+                                            <span>{{ validation.message }}</span>
+                                        </div>
+                                    </ng-container>
+                                </div>
+
+                                <ion-item class="input-item">
+                                    <ion-label position="floating">Confirm Password</ion-label>
+                                    <ion-input type="password" placeholder="Confirm Password" formControlName="confirm_password"></ion-input>
+                                </ion-item>
+                                <div class="error-container">
+                                    <ng-container *ngFor="let validation of validation_messages.confirm_password">
+                                        <div class="error-message" *ngIf="userForm.get('matching_passwords').get('confirm_password').hasError(validation.type) && (userForm.get('matching_passwords').get('confirm_password').dirty || userForm.get('matching_passwords').get('confirm_password').touched)">
+                                            <ion-icon name="information-circle-outline"></ion-icon>
+                                            <span>{{ validation.message }}</span>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="error-container">
+                                <ng-container *ngFor="let validation of validation_messages.matching_passwords">
+                                    <div class="error-message" *ngIf="userForm.get('matching_passwords').hasError(validation.type) && (userForm.get('matching_passwords').get('confirm_password').dirty || userForm.get('matching_passwords').get('confirm_password').touched)">
+                                        <ion-icon name="information-circle-outline"></ion-icon>
+                                        <span>{{ validation.message }}</span>
+                                    </div>
+                                </ng-container>
+                            </div>
+
+                            <ion-item class="input-item">
+                                <ion-label position="floating">EmailAddress</ion-label>
+                                <ion-input type="email" formControlName="email" name="email" (change)="onValueChanged($event.target.value)"></ion-input>
+                            </ion-item>
+                            <div class="error-container">
+                                <ng-container *ngFor="let validation of validation_messages.email">
+                                    <div class="error-message" *ngIf="userForm.get('email').hasError(validation.type) && (userForm.get('email').dirty || userForm.get('email').touched)">
+                                        <ion-icon name="information-circle-outline"></ion-icon>
+                                        <span>{{ validation.message }}</span>
+                                    </div>
+                                </ng-container>
+                            </div>
+
+                            <ion-item class="input-item">
+                                <ion-label position="floating">Cell Phone Number</ion-label>
+                                <ion-input type="tel" formControlName="cphone" name="cphone" placeholder="Phone number" (change)="onValueChanged($event.target.value)"></ion-input>
+                            </ion-item>
+                            <div class="error-container">
+                                <ng-container *ngFor="let validation of validation_messages.cphone">
+                                    <div class="error-message" *ngIf="userForm.get('cphone').hasError(validation.type) && (userForm.get('cphone').dirty || userForm.get('cphone').touched)">
+                                        <ion-icon name="information-circle-outline"></ion-icon>
+                                        <span>{{ validation.message }}</span>
+                                    </div>
+                                </ng-container>
+                            </div>
+
+                            <ion-item class="input-item" *ngIf="appLocale?.appCountryCode">
+                                <ion-label position="floating">3 Digit Country Code</ion-label>
+
+                                <ion-input readonly class="form-input" formControlName="countryCode"></ion-input>
+                            </ion-item>
+                            <ion-item class="input-item" *ngIf="!appLocale?.appCountryCode">
+                                <ion-label position="floating">3 Digit Country Code</ion-label>
+
+                                <ionic-selectable formControlName="countryCode" [hasVirtualScroll]="true" [items]="countries" [canSearch]="true" itemValueField="geoId" itemTextField="geoName" searchPlaceholder="Enter first few characters to narrow search">
+                                </ionic-selectable>
+                            </ion-item>
+                            <div class="error-container">
+                                <ng-container *ngFor="let validation of validation_messages.countryCode">
+                                    <div class="error-message" *ngIf="userForm.get('countryCode').hasError(validation.type) && (userForm.get('countryCode').dirty || userForm.get('countryCode').touched)">
+                                        <ion-icon name="information-circle-outline"></ion-icon>
+                                        <span>{{ validation.message }}</span>
+                                    </div>
+                                </ng-container>
+                            </div>
+
+                            <ion-item class="input-item" *ngIf="appLocale?.appCurrency">
+                                <ion-label position="floating">3 Digit Currency Code</ion-label>
+
+                                <ion-input readonly class="form-input" formControlName="selectedCurrencyCode"></ion-input>
+                            </ion-item>
+                            <ion-item class="input-item" *ngIf="!appLocale?.appCurrency">
+                                <ion-label position="floating">3 Digit Currency Code</ion-label>
+
+                                <ionic-selectable formControlName="selectedCurrencyCode" [hasVirtualScroll]="true" [items]="currencies" [canSearch]="true" itemValueField="uomId" itemTextField="description" searchPlaceholder="Enter first few characters to narrow search">
+                                </ionic-selectable>
+                            </ion-item>
+                            <div class="error-container">
+                                <ng-container *ngFor="let validation of validation_messages.selectedCurrencyCode">
+                                    <div class="error-message" *ngIf="userForm.get('selectedCurrencyCode').hasError(validation.type) && (userForm.get('selectedCurrencyCode').dirty || userForm.get('selectedCurrencyCode').touched)">
+                                        <ion-icon name="information-circle-outline"></ion-icon>
+                                        <span>{{ validation.message }}</span>
+                                    </div>
+                                </ng-container>
+                            </div>
+
+                            <ion-list>
+                                <ion-list-header lines="full">
+                                    <ion-label class="list-header">I Want To (you may select more than one):</ion-label>
+                                </ion-list-header>
+                                <ion-item class="input-item">
+                                    <ion-label class="service-item">Use services</ion-label>
+                                    <ion-checkbox [(ngModel)]="DACLIENT" [ngModelOptions]="{standalone: true}" (ionChange)="cbClientChanged($event)"></ion-checkbox>
+                                </ion-item>
+                                <ion-item class="input-item">
+                                    <ion-label class="service-item">Provide Services</ion-label>
+                                    <ion-checkbox [(ngModel)]="DASERVICEPROVIDER" [ngModelOptions]="{standalone: true}" (ionChange)="cbServiceChanged($event)"></ion-checkbox>
+                                </ion-item>
+                            </ion-list>
+
+                            <ion-item class="input-item" lines="full">
+                                <ion-toggle item-left formControlName="agree" name="agree" type="button" (change)="onValueChanged($event.target.value)"></ion-toggle>
+                                <div class="legal-stuff">
+                                    When you create an account you agree to our
+                                    <a class="legal-action" (click)="showPrivacyModal()">Privacy Policy</a> and
+                                    <a class="legal-action" (click)="showTermsModal()">Terms Of Use</a>.
+                                </div>
+                            </ion-item>
+                            <div class="error-container">
+                                <ng-container *ngFor="let validation of validation_messages.agree">
+                                    <div class="error-message" *ngIf="userForm.get('agree').hasError(validation.type) && (userForm.get('agree').dirty || userForm.get('agree').touched)">
+                                        <ion-icon name="information-circle-outline"></ion-icon>
+                                        <span>{{ validation.message }}</span>
+                                    </div>
+                                </ng-container>
+                            </div>
+
+                            <div *ngIf="testing">
+                                <ion-item class="input-item">
+                                    <ion-label position="floating">UserId</ion-label>
+                                    <ion-input type="text" formControlName="userId" name="userId" placeholder="User ID">
+                                    </ion-input>
+                                </ion-item>
+
+                                <ion-item class="input-item">
+                                    <ion-label floating>Json File to Load</ion-label>
+                                    <ion-input type="text" formControlName="filename" name="filename" placeholder="filename">
+                                    </ion-input>
+                                </ion-item>
+
+                                <ion-item button (click)="loadRegistrationData(userForm)">
+                                    <ion-label>
+                                        Load Registration Data
+                                        <ion-icon name="download"></ion-icon>
+                                    </ion-label>
+                                </ion-item>
+                            </div>
+                        </ion-list>
+
+                        <div class="g-recaptcha" data-sitekey="6LeZajkUAAAAACZUJqR3mkzxhrA5GhHgp2ZwL8ot"></div>
+                        <re-captcha (resolved)="captchaResolved($event)" siteKey="6LeZajkUAAAAACZUJqR3mkzxhrA5GhHgp2ZwL8ot"></re-captcha>
+                        <ion-button round end favorite [disabled]="!formValid" (click)="storeBaseRegistration()">
+                            Create Account
+                        </ion-button>
+                    </form>
+                </ion-card-content>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+</ion-content>

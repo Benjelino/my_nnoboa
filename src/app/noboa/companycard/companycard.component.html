@@ -1,0 +1,45 @@
+<div class="navigation-block" style="padding-left: 20px; width: 100%; height: 100px">
+  <div class="fund-text" style="float: left">
+    <ion-text color="dark" ion-padding>
+      <h1>Latest Funded Companies</h1>
+    </ion-text>
+  </div>
+  <div class="nav-btn">
+    <button type="button" (click)="swipeNext()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </button>
+    <button type="button" (click)="swipePrevious()">
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </button>
+  </div>
+</div>
+
+<swiper [slidesPerView]="4.5" [breakpoints]="option" [freeMode]="true" [pagination]="{
+    clickable: true
+  }" class="mySwiper" (swiper)="setSwiperInstance($event)">
+  <ng-template swiperSlide *ngFor="let company of latestFundedCompanies">
+    <ion-card class="company-card">
+      <img src="{{ company.bgImg }}" class="top-cimage" />
+
+      <ion-avatar item-start>
+        <img src="{{ company.companyImg }}" />
+      </ion-avatar>
+
+      <ion-card-header>
+        <ion-card-title >{{ company.title }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        {{ company.desc }}
+      </ion-card-content>
+      <ion-card-content><b>Founded:</b> {{ company.foundedDate }}</ion-card-content>
+      <ion-grid>
+        <ion-row >
+          <ion-col *ngFor="let tags of company.tags; let i = index" size="auto" class="chip-column">
+            <ion-chip [ngStyle]="{'background-color': colors[i]}">{{ tags }}</ion-chip>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </ng-template>
+</swiper>

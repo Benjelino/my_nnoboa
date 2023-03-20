@@ -1,0 +1,43 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Tributes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-card class="travel-details-content">
+    <ion-card-content>
+      <div>
+        <p *ngIf="tributeList.length == 0" class="details-name">
+          No record found
+        </p>
+
+        <ion-card-content
+          *ngFor="let item of tributeList; let i = index"
+          style="padding-top: 0px; padding-bottom: 0px"
+        >
+          <ion-item class="notification-item">
+            <ion-label class="ion-text-wrap">
+              <h4 class="ion-text-wrap no-lines">
+                {{ i + 1 }} : Author: {{ item.author }}
+                <span *ngIf="item.location"
+                  >| Location: {{ item.location }}</span
+                >
+              </h4>
+              <h5 class="slide-title">
+                <p class="slide-title" [innerHTML]="item.title"></p>
+              </h5>
+
+              <h6>
+                <p class="details-description">{{ item.content }}</p>
+              </h6>
+            </ion-label>
+          </ion-item>
+        </ion-card-content>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

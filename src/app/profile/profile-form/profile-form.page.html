@@ -1,0 +1,711 @@
+<app-header ptitle="common.profile-form"></app-header>
+
+<ion-content padding>
+  <!-- <form [formGroup]="rForm">
+    <ion-row>
+      <ion-list>
+        <ion-radio-group formControlName="isPersonReg">
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Personal Registration</ion-label>
+                <ion-radio value="Y"></ion-radio>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <ion-label>Company Registration</ion-label>
+                <ion-radio value="N"></ion-radio>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-radio-group>
+      </ion-list>
+    </ion-row>
+    <ion-card *ngIf="isShowPerson" color="light">
+      <ion-card-content>
+        <app-expandable
+          expanded="isShowPerson"
+          expandHeight="1200px"
+          title="Personal Information"
+        >
+          Please give us as much information as you can so we can serve you
+          better with services customized for your need
+          <ion-list>
+            <ion-grid>
+              <ion-row>
+                <ion-col size-md="6" size-sm="6" size-xs="12">
+                  <ion-item class="input-item">
+                    <ion-label position="floating">First Name</ion-label>
+                    <ion-input
+                      formControlName="firstName"
+                      name="firstName"
+                      placeholder="Enter First Name"
+                      (blur)="copyField('firstName')"
+                    >
+                    </ion-input>
+                  </ion-item>
+                </ion-col>
+
+                <ion-col size-md="6" size-sm="6" size-xs="12">
+                  <ion-item class="input-item">
+                    <ion-label position="floating">Middle Name</ion-label>
+                    <ion-input
+                      formControlName="middleName"
+                      name="middleName"
+                      placeholder="Middle Name"
+                      (blur)="copyField('middleName')"
+                    >
+                    </ion-input>
+                  </ion-item>
+                </ion-col>
+
+                <ion-col size-md="6" size-sm="6" size-xs="12">
+                  <ion-item class="input-item">
+                    <ion-label position="floating">Last Name</ion-label>
+                    <ion-input
+                      formControlName="lastName"
+                      name="lastName"
+                      placeholder="Enter Last Name"
+                      (blur)="copyField('lastName')"
+                    >
+                    </ion-input>
+                  </ion-item>
+                </ion-col>
+
+                <ion-col size-md="6" size-sm="6" size-xs="12">
+                  <ion-item class="input-item">
+                    <ion-label position="floating">Preferred Name</ion-label>
+                    <ion-input
+                      formControlName="preferredName"
+                      name="preferredName"
+                      placeholder="Enter Preferred Name"
+                    >
+                    </ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-list>
+        </app-expandable>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="!isShowPerson" color="light">
+      <ion-card-content>
+        <app-expandable
+          expanded="!isShowPerson"
+          expandHeight="6200px"
+          title="Company/Logo Information"
+        >
+          You may register as yourself or as a company.This is optional but if
+          you register as a company, any payment from Sabonay will be made to
+          your companny. The rules and regulations may depend on the country.
+          <ion-list>
+            <ion-grid>
+              <ion-row>
+                <ion-col size-md="6" size-sm="6" size-xs="12">
+                  <ion-item class="input-item">
+                    <ion-label position="floating">Company name</ion-label>
+                    <ion-input
+                      formControlName="companyName"
+                      placeholder="Enter Company Name"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+
+                <ion-col size-md="6" size-sm="6" size-xs="12">
+                  <ion-item class="input-item">
+                    <ion-label position="floating">Company slogan</ion-label>
+                    <ion-textarea
+                      rows="4"
+                      cols="20"
+                      formControlName="slogan"
+                      placeholder="company slogan"
+                    ></ion-textarea>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="12">
+                  <div>
+                    <ion-button
+                      color="medium"
+                      size="small"
+                      (click)="selectLogoImageSource()"
+                      >Upload Logo Image</ion-button
+                    >
+                  </div>
+
+                  <ion-img
+                    [src]="logo || '../assets/images/house.png'"
+                    alt=""
+                    class="image-placeholder image-border"
+                  ></ion-img>
+                  <input
+                    type="file"
+                    style="display: none"
+                    accept=".jpg, .jpeg, .png"
+                    (change)="logoSelected($event)"
+                    #logoFileInput
+                  />
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-list>
+        </app-expandable>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card color="light">
+      <ion-card-content>
+        <app-expandable expandHeight="1200px" title="Address Information">
+          Provide your address information if you are registering as an
+          individual. Provide your company address if you are registering as a
+          company
+          <ion-list>
+            <ion-grid>
+              <ion-row>
+                <ion-col size-md="6" size-sm="6" size-xs="12">
+                  <ion-item class="input-item">
+                    <ion-label position="floating">Address 1</ion-label>
+                    <ion-input
+                      formControlName="addrLine1"
+                      placeholder=" Enter Address 1"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+
+                <ion-col size-md="6" size-sm="6" size-xs="12">
+                  <ion-item class="input-item">
+                    <ion-label position="floating">Address 2</ion-label>
+                    <ion-input
+                      formControlName="addrLine2"
+                      placeholder="Enter Address 2, if any"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+
+                <ion-col size-md="6" size-sm="6" size-xs="12">
+                  <ion-item class="input-item">
+                    <ion-label position="floating">Unit Number</ion-label>
+                    <ion-input
+                      formControlName="unitNumber"
+                      placeholder="Enter Apt or Unit number"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+
+                <ion-col
+                  *ngIf="!appLocale?.appCountryCode"
+                  size-md="6"
+                  size-sm="6"
+                  size-xs="12"
+                >
+                  <ion-item class="input-item">
+                    <ion-label position="floating">Country</ion-label>
+
+                    <ionic-selectable
+                      formControlName="countryCode"
+                      [hasVirtualScroll]="true"
+                      [items]="countries"
+                      [canSearch]="true"
+                      itemValueField="geoId"
+                      itemTextField="geoName"
+                      (onChange)="ionChangeCountry($event)"
+                      searchPlaceholder="Enter first few characters to narrow search"
+                    >
+                    </ionic-selectable>
+                  </ion-item>
+                </ion-col>
+                <ion-col
+                  *ngIf="appLocale?.appCountryCode"
+                  size-md="6"
+                  size-sm="6"
+                  size-xs="12"
+                >
+                  <ion-item class="input-item">
+                    <ion-label position="floating">Country</ion-label>
+                    <ion-input
+                      readonly
+                      class="form-input"
+                      formControlName="countryCode"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+
+                <ion-col
+                  *ngIf="!appLocale?.appRegion"
+                  size-md="6"
+                  size-sm="6"
+                  size-xs="12"
+                >
+                  <ion-item class="input-item">
+                    <ion-label position="floating"
+                      >State/Province/Region</ion-label
+                    >
+
+                    <ionic-selectable
+                      formControlName="statePRLine"
+                      [hasVirtualScroll]="true"
+                      [items]="stateCodes"
+                      [canSearch]="true"
+                      itemValueField="geoId"
+                      itemTextField="geoName"
+                      (onChange)="ionChangeRegion($event)"
+                      searchPlaceholder="Enter first few characters to narrow search"
+                    >
+                    </ionic-selectable>
+                  </ion-item>
+                </ion-col>
+                <ion-col
+                  *ngIf="appLocale?.appRegion"
+                  size-md="6"
+                  size-sm="6"
+                  size-xs="12"
+                >
+                  <ion-item class="input-item">
+                    <ion-label position="floating"
+                      >State/Province/Region</ion-label
+                    >
+                    <ion-input
+                      readonly
+                      class="form-input"
+                      formControlName="statePRLine"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+
+                <ion-col
+                  *ngIf="!appLocale?.appCity"
+                  size-md="6"
+                  size-sm="6"
+                  size-xs="12"
+                >
+                  <ion-item>
+                    <ion-label position="floating">City</ion-label>
+
+                    <ionic-selectable
+                      formControlName="cityLine"
+                      [hasVirtualScroll]="true"
+                      [items]="cities"
+                      [canSearch]="true"
+                      [searchDebounce]="500"
+                      (onSearch)="searchCities($event)"
+                      searchPlaceholder="Enter first few characters to narrow search"
+                      itemValueField="geoId"
+                      itemTextField="geoName"
+                    >
+                    </ionic-selectable>
+                  </ion-item>
+                </ion-col>
+                <ion-col
+                  *ngIf="appLocale?.appCity"
+                  size-md="6"
+                  size-sm="6"
+                  size-xs="12"
+                >
+                  <ion-item class="input-item">
+                    <ion-label position="floating">City</ion-label>
+                    <ion-input
+                      readonly
+                      class="form-input"
+                      formControlName="cityLine"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+
+                <ion-col size-md="6" size-sm="6" size-xs="12">
+                  <ion-item class="input-item">
+                    <ion-label position="floating">Postal Code</ion-label>
+                    <ion-input
+                      class="form-input"
+                      formControlName="postalCode"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size-md="6" size-sm="6" size-xs="12">
+                  <ion-item class="input-item">
+                    <ion-label position="floating">Latitude</ion-label>
+                    <ion-input
+                      formControlName="latitude"
+                      placeholder="35.979873"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size-md="6" size-sm="6" size-xs="12">
+                  <ion-item class="input-item">
+                    <ion-label position="floating">Longitude</ion-label>
+                    <ion-input
+                      formControlName="longitude"
+                      placeholder="-78.509723"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-list>
+        </app-expandable>
+      </ion-card-content>
+    </ion-card>
+    <ion-card color="light">
+      <ion-card-content>
+        <app-expandable expandHeight="1200px" title="Contact Information">
+          Provide your contact information or the company contact information of
+          the person who will be responsible for managing this provider account.
+
+          <ion-list>
+            <ion-list-header>
+              <ion-label>Is Contact Same?</ion-label>
+            </ion-list-header>
+
+            <ion-radio-group formControlName="isContactSame">
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label>Yes</ion-label>
+                    <ion-radio value="Y"></ion-radio>
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <ion-label>No</ion-label>
+                    <ion-radio value="N"></ion-radio>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-radio-group>
+          </ion-list>
+
+          <div *ngIf="isShowExtra">
+            <ion-list>
+              <ion-grid>
+                <ion-row>
+                  <ion-col size-md="6" size-sm="6" size-xs="12">
+                    <ion-item class="input-item">
+                      <ion-label position="floating">First name</ion-label>
+                      <ion-input
+                        formControlName="contactFirstName"
+                        placeholder="First Name"
+                      ></ion-input>
+                    </ion-item>
+                  </ion-col>
+
+                  <ion-col size-md="6" size-sm="6" size-xs="12">
+                    <ion-item class="input-item">
+                      <ion-label position="floating">Middle name</ion-label>
+                      <ion-input
+                        formControlName="contactMiddleName"
+                        placeholder="Middle Name"
+                      ></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-md="6" size-sm="6" size-xs="12">
+                    <ion-item class="input-item">
+                      <ion-label position="floating">Last name</ion-label>
+                      <ion-input
+                        formControlName="contactLastName"
+                        placeholder="Last Name"
+                      ></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-md="6" size-sm="6" size-xs="12">
+                    <ion-item class="input-item">
+                      <ion-label position="floating">Cell Phone</ion-label>
+                      <ion-input
+                        formControlName="contactCellPhone"
+                        placeholder="cell phone"
+                      ></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size-md="6" size-sm="6" size-xs="12">
+                    <ion-item class="input-item">
+                      <ion-label position="floating">Email</ion-label>
+                      <ion-input
+                        formControlName="contactEmailAddress"
+                        placeholder="email"
+                      ></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-list>
+
+            <ion-list>
+              <ion-list-header>
+                <ion-label>Preferred Contact method</ion-label>
+              </ion-list-header>
+
+              <ion-radio-group formControlName="prefContactMethod">
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label>Cell Phone</ion-label>
+                      <ion-radio value="PHONE"></ion-radio>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label>Email</ion-label>
+                      <ion-radio value="EMAIL"></ion-radio>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-radio-group>
+            </ion-list>
+          </div>
+
+          <div *ngIf="!isShowExtra">
+            <ion-list>
+              <ion-grid>
+                <ion-row>
+                  <ion-col size-md="6" size-sm="6" size-xs="12">
+                    <ion-item class="input-item">
+                      <ion-label position="floating">Cell Phone</ion-label>
+                      <ion-input
+                        formControlName="contactCellPhone"
+                        placeholder="Enter phone number"
+                      ></ion-input>
+                    </ion-item>
+                  </ion-col>
+
+                  <ion-col size-md="6" size-sm="6" size-xs="12">
+                    <ion-item class="input-item">
+                      <ion-label position="floating">Email</ion-label>
+                      <ion-input
+                        formControlName="contactEmailAddress"
+                        placeholder="Enter Email"
+                      ></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-list>
+          </div>
+
+          <div *ngIf="testing">
+            <ion-item class="input-item">
+              <ion-label position="floating">Json File to Load</ion-label>
+              <ion-input
+                type="text"
+                formControlName="filename"
+                name="filename"
+                placeholder="filename"
+              >
+              </ion-input>
+            </ion-item>
+
+            <ion-item button (click)="loadSubscriptionContactData(rForm)">
+              <ion-label>
+                Load Profile Data
+                <ion-icon name="download"></ion-icon>
+              </ion-label>
+            </ion-item>
+          </div>
+
+          <ion-row>
+            <ion-col size="12" size-md="4">
+              <div>
+                <ion-button
+                  color="medium"
+                  size="small"
+                  (click)="selectAvatarImageSource()"
+                  >Upload Avatar Image</ion-button
+                >
+              </div>
+
+              <ion-img
+                [src]="avatar || '../assets/images/house.png'"
+                alt=""
+                class="image-placeholder image-border"
+              ></ion-img>
+
+              <input
+                type="file"
+                style="display: none"
+                accept=".jpg, .jpeg, .png"
+                (change)="avatarSelected($event)"
+                #avatarFileInput
+              />
+            </ion-col>
+          </ion-row>
+        </app-expandable>
+      </ion-card-content>
+    </ion-card>
+    <ion-card color="light">
+      <ion-card-content>
+        <app-expandable expandHeight="1200px" title="Locale Information">
+          <ion-list>
+            <ion-grid>
+              <ion-row>
+                <ion-col
+                  *ngIf="!appLocale?.appCurrency"
+                  size-md="6"
+                  size-sm="6"
+                  size-xs="12"
+                >
+                  <ion-item class="input-item">
+                    <ion-label position="floating"
+                      >3 Digit Currency Code</ion-label
+                    >
+
+                    <ionic-selectable
+                      formControlName="selectedCurrencyCode"
+                      [hasVirtualScroll]="true"
+                      [items]="currencies"
+                      [canSearch]="true"
+                      itemValueField="uomId"
+                      itemTextField="description"
+                      (onChange)="ionChangeCurrency($event)"
+                      searchPlaceholder="Enter first few characters to narrow search"
+                    >
+                    </ionic-selectable>
+                  </ion-item>
+                </ion-col>
+                <ion-col
+                  *ngIf="appLocale?.appCurrency"
+                  size-md="6"
+                  size-sm="6"
+                  size-xs="12"
+                >
+                  <ion-item class="input-item">
+                    <ion-label position="floating"
+                      >3 Digit Currency Code</ion-label
+                    >
+
+                    <ion-input
+                      readonly
+                      class="form-input"
+                      formControlName="selectedCurrencyCode"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size-md="6" size-sm="6" size-xs="12">
+                  <ion-item>
+                    <ion-label position="floating">Locale</ion-label>
+                    <ion-input
+                      class="form-input"
+                      formControlName="locale"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+
+                <ion-col size-md="6" size-sm="6" size-xs="12">
+                  <ion-item>
+                    <ion-label>Time Zone</ion-label>
+                    <ion-input
+                      class="form-input"
+                      formControlName="timeZone"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-list>
+        </app-expandable>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card color="light">
+      <ion-card-content>
+        <app-expandable expandHeight="1200px" title="Chat Information">
+          <ion-list>
+            <ion-item>
+              <ion-label>Welcome Message</ion-label>
+              <ion-input
+                class="form-input"
+                formControlName="welcomeMsg"
+              ></ion-input>
+            </ion-item>
+
+            <ion-row>
+              <ion-col size="12" size-md="4">
+                <div>
+                  <ion-button
+                    color="medium"
+                    size="small"
+                    (click)="selectAvatarImageSource()"
+                    >Upload Avatar Image</ion-button
+                  >
+                </div>
+
+                <ion-img
+                  [src]="avatar || '../assets/images/sabonay_logo.png'"
+                  alt=""
+                  class="image-placeholder image-border"
+                ></ion-img>
+
+                <input
+                  type="file"
+                  style="display: none"
+                  accept=".jpg, .jpeg, .png"
+                  (change)="avatarSelected($event)"
+                  #avatarFileInput
+                />
+              </ion-col>
+            </ion-row>
+          </ion-list>
+        </app-expandable>
+      </ion-card-content>
+    </ion-card>
+
+    <div *ngIf="testing">
+      <ion-item class="input-item">
+        <ion-label position="floating">Json File to Load</ion-label>
+        <ion-input
+          type="text"
+          formControlName="filename"
+          name="filename"
+          placeholder="filename"
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item button (click)="loadSubscriptionContactData(rForm)">
+        <ion-label>
+          Load Profile Data
+          <ion-icon name="download"></ion-icon>
+        </ion-label>
+      </ion-item>
+    </div>
+
+    <ion-button
+      type="button"
+      color="primary"
+      fill="solid"
+      size="default"
+      [disabled]="rForm.status!='VALID'"
+      (click)="submitForm(rForm)"
+    >
+      <ion-icon slot="start" name="send"></ion-icon>
+      Submit Form
+    </ion-button>
+  </form> -->
+
+  <app-profile-edit
+    [partyContactProfile]="partyContactProfile"
+  ></app-profile-edit>
+</ion-content>
+
+<ion-footer>
+  <ion-item button *ngIf="'true'==displayCancel" (click)="cancel()">
+    <ion-label>
+      Cancel
+      <ion-icon name="close"></ion-icon>
+    </ion-label>
+  </ion-item>
+  <!-- <ion-toolbar>
+    <ion-buttons *ngIf="'false'==displayCancel" slot="end">
+      <ion-button
+        type="button"
+        color="primary"
+        fill="solid"
+        size="default"
+        (click)="goToNext()"
+      >
+        <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar> -->
+</ion-footer>

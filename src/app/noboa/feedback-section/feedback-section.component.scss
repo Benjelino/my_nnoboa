@@ -1,0 +1,25 @@
+.main {
+  background-color: black;
+  color: #ffdc73;
+  padding-left: 200px;
+  padding-right: 200px;
+  height: 300px;
+}
+
+
+h2 {
+  font-size: xx-large;
+  font-weight: lighter;
+}
+
+@media (max-width: 768px) {
+  .main{
+    padding: 10px;
+    height: auto;
+  }
+  h2 {
+    font-size: x-large;
+    font-weight: lighter;
+  }
+  
+}

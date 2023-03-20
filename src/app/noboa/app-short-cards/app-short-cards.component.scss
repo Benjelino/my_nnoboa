@@ -1,0 +1,36 @@
+div.divider{
+    width: 90%; 
+    border: 0.2px solid rgba(100, 100, 100, 0.1); 
+    border-radius: 50%; 
+    margin: 0 auto;
+}
+
+/* iOS places the subtitle above the title */
+ion-card-header.ios {
+    display: flex;
+    flex-flow: column-reverse;
+  }
+
+  ion-card-header{
+
+    // Card Title
+  ion-card-title {
+    // Card img
+    ion-img{
+        width: fit-content;
+        height: fit-content;
+        display: inline-flex;
+        padding-right: 0.5rem;
+      }
+    //   All card Title
+      font-size: x-large;
+      font-weight: bolder;
+      padding-right: 2rem;
+  }
+//   card subTitle
+ion-card-subtitle{
+    font-weight: bold;
+    font-size: large;
+    padding-left: 0.5rem;
+}
+}

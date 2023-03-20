@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Announcement Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="isLoading">
+    <ion-card>
+      <ion-card-header>
+        <ion-button
+          [routerLink]="['/new-link/', data.mediumId]"
+          routerDirection="forward"
+          >New Link</ion-button
+        >
+
+        <ion-item>
+          <ion-label position="floating" class="ion-text-wrap no-lines"
+            ><b>{{data.title}}</b></ion-label
+          >
+        </ion-item>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-card-subtitle>
+          <ion-label>
+            {{data.author}} | {{ (data.datePosted !== null) ? (data.datePosted |
+            date: 'dd/MM/yyyy') : "" }}</ion-label
+          >
+        </ion-card-subtitle>
+        <ion-item>
+          <ion-row>
+            <p>{{data.content}}</p>
+          </ion-row>
+          <br />
+        </ion-item>
+      </ion-card-content>
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img
+            src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+            alt="Avatar"
+          />
+        </ion-thumbnail>
+        <ion-label>Sample Images</ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+</ion-content>

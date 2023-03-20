@@ -1,0 +1,22 @@
+<ion-card>
+  <div *ngIf="linksLoaded">
+    <p *ngIf="links.list.length == 0" class="details-name">No record found</p>
+
+    <ion-card-content
+      *ngFor="let item of links.list let i = index"
+      style="padding-top: 0px; padding-bottom: 0px"
+    >
+      <ion-item tappable (click)="openLink(item.urlink)">
+        <h2 class="details-name">
+          <ion-text color="facebook">
+            {{i+1}} :
+            <span
+              [innerHTML]="item.title"
+              style="text-decoration: underline"
+            ></span
+          ></ion-text>
+        </h2>
+      </ion-item>
+    </ion-card-content>
+  </div>
+</ion-card>

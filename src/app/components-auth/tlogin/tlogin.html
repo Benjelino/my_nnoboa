@@ -1,0 +1,64 @@
+<div hostcontentlogin>
+  <form #loginForm="ngForm" novalidate>
+    <p class="options-divider"></p>
+    <ion-list class="inputs-list" lines="full">
+      <ion-item class="input-item">
+        <ion-label position="floating" color="primary">Username</ion-label>
+        <ion-input
+          [(ngModel)]="login.username"
+          name="username"
+          type="text"
+          #username="ngModel"
+          spellcheck="false"
+          autocapitalize="off"
+          required
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-text color="danger">
+        <p [hidden]="username.valid || submitted == false" padding-left>
+          Username is required
+        </p>
+      </ion-text>
+
+      <ion-item class="input-item">
+        <ion-label position="stacked" color="primary">Password</ion-label>
+        <ion-input
+          [(ngModel)]="login.password"
+          name="password"
+          type="password"
+          #password="ngModel"
+          required
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-text color="danger">
+        <p [hidden]="password.valid || submitted == false" padding-left>
+          Password is required
+        </p>
+      </ion-text>
+    </ion-list>
+
+    <p class="options-divider"></p>
+
+    <ion-button
+      (click)="onLogin(loginForm)"
+      class="login-btn"
+      type="submit"
+      expand="block"
+      [disabled]="!loginForm.valid"
+    >
+      {{'common.login' | translate}}
+    </ion-button>
+    <ion-row class="other-auth-options-row">
+      <ion-button class="forgot-btn" fill="clear" (click)="forgotpasswd()">
+        {{'common.forgotpwd' | translate}}
+      </ion-button>
+      <ion-button class="signup-btn" fill="clear" (click)="register()">
+        {{'common.register' | translate}}
+      </ion-button>
+    </ion-row>
+  </form>
+</div>

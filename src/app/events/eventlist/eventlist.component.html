@@ -1,0 +1,50 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Events</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-card class="travel-details-content">
+    <ion-card-content>
+      <div>
+        <p *ngIf="eventList.length == 0" class="details-name">
+          No record found
+        </p>
+
+        <ion-card-content
+          *ngFor="let item of eventList; let i = index"
+          style="padding-top: 0px; padding-bottom: 0px"
+        >
+          <ion-item class="notification-item">
+            <ion-label class="ion-text-wrap">
+              <h5 class="slide-title">
+                <div>
+                  <p>
+                    <b>{{ i + 1 }} : {{ item.description }}</b>
+                  </p>
+                </div>
+              </h5>
+              <h3 class="ion-text-wrap no-lines">
+                {{ item.locationName }}
+                <div *ngIf="item.locationGPS">| {{ item.locationGPS }}</div>
+                <div *ngIf="item.startDate && !item.endDate">
+                  | {{ item.startDate | date: "EEEE, YYYY-MMM-dd , HH:mm aa" }}
+                </div>
+
+                <div *ngIf="item.startDate && item.endDate">
+                  |
+                  {{ item.startDate | date: "EEEE, YYYY-MMM-dd , HH:mm aa" }} -
+                  {{ item.endDate | date: "EEEE, YYYY-MMM-dd , HH:mm aa" }}
+                </div>
+              </h3>
+            </ion-label>
+          </ion-item>
+        </ion-card-content>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

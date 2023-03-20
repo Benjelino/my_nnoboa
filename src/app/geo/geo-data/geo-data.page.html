@@ -1,0 +1,190 @@
+<ion-searchbar
+  [(ngModel)]="searchTerm"
+  [formControl]="searchControl"
+  (ionInput)="onSearchInput()"
+></ion-searchbar>
+
+<!-- <div *ngIf="loading" class="spinner-container">
+  <ion-spinner></ion-spinner>
+</div> -->
+
+<div *ngIf="searching" class="spinner-container">
+  <ion-spinner></ion-spinner>
+</div>
+
+<div *ngIf="!dataFound">
+  <ion-item>
+    <p text-wrap no-lines>No Record Found !!!</p>
+    <ion-icon name="warning" item-left></ion-icon>
+  </ion-item>
+</div>
+
+<!-- <cdk-virtual-scroll-viewport
+  
+  #scroll
+  [itemSize]="56"
+  minBufferPx="900"
+  maxBufferPx="1350"
+>
+ 
+</cdk-virtual-scroll-viewport> -->
+
+<ion-list class="notifications-content" *ngIf="!searched">
+  <ion-item
+    *ngFor="let item of geoDataList;trackBy: trackByFn"
+    class="notification-item"
+    lines="none"
+  >
+    <ion-row class="notification-item-wrapper">
+      <ion-col size="12">
+        <ion-row>
+          <ion-col size="6" class="details-wrapper">
+            <p class="details-name">
+              {{ item.TourData?.tourismName }} - {{ item.TourData?.tourismType
+              }}
+            </p>
+            <p class="details-description">
+              Location: {{ item.TourData?.tourismLocation }}
+            </p>
+            <p class="details-description">Phone: {{ item.TourData?.phone }}</p>
+          </ion-col>
+
+          <ion-col size="6" class="details-wrapper">
+            <p class="details-description">Grade: {{ item.TourData?.grade }}</p>
+            <p class="details-description">
+              Cost: {{ item.TourData?.tourismCost }}
+            </p>
+            <p class="details-description">
+              Capacity: {{ item.TourData?.capacity }}
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="5" class="details-wrapper">
+        <h4 class="details-description">Country: {{item.country}}</h4>
+        <p class="details-description">Region: {{ item.region}}</p>
+        <p *ngIf=" item.district" class="details-description">
+          District: {{ item.district}}
+        </p>
+      </ion-col>
+
+      <ion-col size="5" class="details-wrapper">
+        <h4 *ngIf="item.city" class="details-description">
+          City: {{item.city}}
+        </h4>
+        <h4 *ngIf="item.suburb" class="details-description">
+          suburb: {{item.suburb}}
+        </h4>
+        <p class="details-description">Status: {{ item.status}}</p>
+      </ion-col>
+
+      <ion-col size="2">
+        <ion-button tappable (click)="showGeoForm(item)" color="facebook">
+          <ion-icon name="create-outline"></ion-icon>
+          <span class="hide-sm hide-xs"> <h6>Edit</h6></span>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-item>
+</ion-list>
+
+<ion-list class="notifications-content" *ngIf="searched">
+  <ion-item
+    *ngFor="let data of searchData;trackBy: trackByFn"
+    class="notification-item"
+    lines="none"
+  >
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-row>
+            <ion-col size="6" class="details-wrapper">
+              <p class="details-description">
+                User Name: {{ data.UserProfile.userFullName}}
+              </p>
+              <p class="details-description">
+                Organisation: {{ data.UserProfile.organizationName }}
+              </p>
+            </ion-col>
+
+            <ion-col size="6" class="details-wrapper">
+              <p class="details-description">
+                Email Address: {{ data.UserProfile.emailAddress}}
+              </p>
+              <p class="details-description">
+                Website: {{ data.UserProfile.website }}
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-row
+        class="notification-item-wrapper"
+        *ngFor="let item of data.GeoData;trackBy: trackByFn"
+      >
+        <ion-col size="12">
+          <ion-row>
+            <ion-col size="6" class="details-wrapper">
+              <p class="details-name">
+                {{ item.TourData?.tourismName }} - {{ item.TourData?.tourismType
+                }}
+              </p>
+              <p class="details-description">
+                Location: {{ item.TourData?.tourismLocation }}
+              </p>
+              <p class="details-description">
+                Phone: {{ item.TourData?.phone }}
+              </p>
+            </ion-col>
+
+            <ion-col size="6" class="details-wrapper">
+              <p class="details-description">
+                Grade: {{ item.TourData?.grade }}
+              </p>
+              <p class="details-description">
+                Cost: {{ item.TourData?.tourismCost }}
+              </p>
+              <p class="details-description">
+                Capacity: {{ item.TourData?.capacity }}
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="5" class="details-wrapper">
+          <h4 class="details-description">Country: {{item.country}}</h4>
+          <p class="details-description">Region: {{ item.region}}</p>
+          <p class="details-description">District: {{ item.district}}</p>
+        </ion-col>
+
+        <ion-col size="5" class="details-wrapper">
+          <h4 class="details-description">City: {{item.city}}</h4>
+          <h4 class="details-description">Suburb: {{item.suburb}}</h4>
+          <p class="details-description">Status: {{ item.status}}</p>
+        </ion-col>
+
+        <ion-col size="2">
+          <ion-button tappable (click)="showGeoForm(item)" color="facebook">
+            <ion-icon name="create-outline"></ion-icon>
+            <span class="hide-sm hide-xs"> <h6>Edit</h6></span>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+</ion-list>
+
+<div *ngIf="!isLoaded &&  userType=='all'" class="spinner-container">
+  <ion-spinner></ion-spinner>
+</div>
+
+<ion-infinite-scroll
+  (ionInfinite)="loadGeoData(true, $event)"
+  *ngIf="userType=='all'"
+>
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data..."
+  >
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>

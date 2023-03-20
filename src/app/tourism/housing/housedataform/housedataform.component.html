@@ -1,0 +1,350 @@
+<ion-content>
+  <form (ngSubmit)="submitForm(userForm.value)" [formGroup]="userForm">
+    <ion-item-divider color="twitter">
+      <ion-label> Update Housing Data</ion-label>
+    </ion-item-divider>
+
+    <ion-row>
+      <ion-col>
+        <ion-button color="primary" type="submit" [disabled]="!userForm.valid">
+          <ion-icon name="save"></ion-icon>
+          Save
+        </ion-button>
+      </ion-col>
+
+      <ion-col>
+        <ion-button color="secondary" type="button" (click)="cancelModal()">
+          <ion-icon name="close"></ion-icon>
+          Cancel
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-md="6" size-sm="6" size-xs="12">
+        <ion-item class="input-item">
+          <ion-label position="floating">Property Type</ion-label>
+          <ionic-selectable
+            formControlName="propertyType"
+            [hasVirtualScroll]="true"
+            [items]="propertyType"
+            [canSearch]="true"
+            itemValueField="enumId"
+            itemTextField="description"
+            searchPlaceholder="Enter first few characters to narrow search"
+            (onChange)="ionChangePropertyType($event)"
+          >
+          </ionic-selectable>
+        </ion-item>
+
+        <div class="error-container">
+          <div *ngFor="let validation of validationMessages.propertyType">
+            <div
+              class="error-message"
+              *ngIf="
+                userForm.get('propertyType').hasError(validation.type) &&
+                (userForm.get('propertyType').dirty ||
+                  userForm.get('propertyType').touched)
+              "
+            >
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col
+        size-md="6"
+        size-sm="6"
+        size-xs="12"
+        *ngIf="selectedPropertyType != 'Land'"
+      >
+        <ion-item class="input-item">
+          <ion-radio-group value="Y" formControlName="furnished">
+            <ion-list-header>
+              <ion-label>Furnished</ion-label>
+            </ion-list-header>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label>Yes</ion-label>
+                    <ion-radio slot="start" value="Y"></ion-radio>
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <ion-label>No</ion-label>
+                    <ion-radio slot="start" value="N"></ion-radio>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-radio-group>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-md="6" size-sm="6" size-xs="12">
+        <ion-item class="input-item">
+          <ion-label position="floating">Lease Type</ion-label>
+          <ionic-selectable
+            formControlName="leaseType"
+            [hasVirtualScroll]="true"
+            [items]="leaseType"
+            [canSearch]="true"
+            (onChange)="ionChangeLeaseType($event)"
+            itemValueField="enumId"
+            itemTextField="description"
+            searchPlaceholder="Enter first few characters to narrow search"
+          >
+          </ionic-selectable>
+        </ion-item>
+
+        <div class="error-container">
+          <div *ngFor="let validation of validationMessages.leaseType">
+            <div
+              class="error-message"
+              *ngIf="
+                userForm.get('leaseType').hasError(validation.type) &&
+                (userForm.get('leaseType').dirty ||
+                  userForm.get('leaseType').touched)
+              "
+            >
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col
+        size-md="6"
+        size-sm="6"
+        size-xs="12"
+        *ngIf="selectedLeaseType == 'RentP' || selectedLeaseType == 'ShareP'"
+      >
+        <ion-item class="input-item">
+          <ion-label position="floating">Rental Type</ion-label>
+          <ionic-selectable
+            formControlName="rentalType"
+            [hasVirtualScroll]="true"
+            [items]="rentalType"
+            [canSearch]="true"
+            itemValueField="enumId"
+            itemTextField="description"
+            searchPlaceholder="Enter first few characters to narrow search"
+          >
+          </ionic-selectable>
+        </ion-item>
+
+        <div class="error-container">
+          <div *ngFor="let validation of validationMessages.rentalType">
+            <div
+              class="error-message"
+              *ngIf="
+                userForm.get('rentalType').hasError(validation.type) &&
+                (userForm.get('rentalType').dirty ||
+                  userForm.get('rentalType').touched)
+              "
+            >
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col
+        size-md="6"
+        size-sm="6"
+        size-xs="12"
+        *ngIf="selectedLeaseType == 'RentP' || selectedLeaseType == 'ShareP'"
+      >
+        <ion-item class="input-item">
+          <ion-label position="floating">Period Of Lease</ion-label>
+          <ion-input
+            type="number"
+            formControlName="periodOfLease"
+            name="periodOfLease"
+            placeholder="Period of Lease"
+            clearInput
+          ></ion-input>
+        </ion-item>
+        <div class="error-container">
+          <div *ngFor="let validation of validationMessages.periodOfLease">
+            <div
+              class="error-message"
+              *ngIf="
+                userForm.get('periodOfLease').hasError(validation.type) &&
+                (userForm.get('periodOfLease').dirty ||
+                  userForm.get('periodOfLease').touched)
+              "
+            >
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-md="6" size-sm="6" size-xs="12">
+        <ion-item class="input-item">
+          <ion-label position="floating">Property Status</ion-label>
+          <ionic-selectable
+            formControlName="propertyStatus"
+            [hasVirtualScroll]="true"
+            [items]="propertyStatusType"
+            [canSearch]="true"
+            itemValueField="enumId"
+            itemTextField="description"
+            searchPlaceholder="Enter first few characters to narrow search"
+          >
+          </ionic-selectable>
+        </ion-item>
+
+        <div class="error-container">
+          <div *ngFor="let validation of validationMessages.propertyStatus">
+            <div
+              class="error-message"
+              *ngIf="
+                userForm.get('propertyStatus').hasError(validation.type) &&
+                (userForm.get('propertyStatus').dirty ||
+                  userForm.get('propertyStatus').touched)
+              "
+            >
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col size-md="6" size-sm="6" size-xs="12">
+        <ion-item class="input-item">
+          <ion-label position="floating">Amount</ion-label>
+          <ion-input
+            type="number"
+            formControlName="amount"
+            name="amount"
+            placeholder="Property Cost"
+            clearInput
+          ></ion-input>
+        </ion-item>
+        <div class="error-container">
+          <div *ngFor="let validation of validationMessages.amount">
+            <div
+              class="error-message"
+              *ngIf="
+                userForm.get('amount').hasError(validation.type) &&
+                (userForm.get('amount').dirty || userForm.get('amount').touched)
+              "
+            >
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col size-md="6" size-sm="6" size-xs="12">
+        <ion-item class="input-item">
+          <ion-label position="floating">{{ roomLabel }}</ion-label>
+          <ion-input
+            type="number"
+            formControlName="noOfRooms"
+            name="noOfRooms"
+            [placeholder]="roomLabel"
+            clearInput
+          ></ion-input>
+        </ion-item>
+        <div class="error-container">
+          <div *ngFor="let validation of validationMessages.noOfRooms">
+            <div
+              class="error-message"
+              *ngIf="
+                userForm.get('noOfRooms').hasError(validation.type) &&
+                (userForm.get('noOfRooms').dirty ||
+                  userForm.get('noOfRooms').touched)
+              "
+            >
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col size-md="6" size-sm="6" size-xs="12">
+        <ion-item class="input-item">
+          <ion-label position="floating">Currency</ion-label>
+
+          <ionic-selectable
+            formControlName="currencyUomId"
+            [hasVirtualScroll]="true"
+            [items]="currencies"
+            [canSearch]="true"
+            itemValueField="uomId"
+            itemTextField="description"
+            searchPlaceholder="Enter first character to narrow search"
+          >
+          </ionic-selectable>
+        </ion-item>
+        <div class="error-container">
+          <ng-container *ngFor="let validation of formErrors.currencyUomId">
+            <div
+              class="error-message"
+              *ngIf="
+                userForm.get('currencyUomId').hasError(validation.type) &&
+                (userForm.get('currencyUomId').dirty ||
+                  userForm.get('currencyUomId').touched)
+              "
+            >
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </ng-container>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <app-geo
+      [showAddress1]="true"
+      [showAddress2]="true"
+      [showDistrict]="true"
+      [showCity]="true"
+      [showRegion]="true"
+      [showSuburb]="true"
+      [showCordinates]="true"
+      [showPostalCode]="true"
+      [showUnitNumber]="true"
+      [showDirection]="true"
+      [partyContactProfile]="geoModel"
+      (formReady)="addFormControl('geo', $event)"
+    ></app-geo>
+
+    <ion-row>
+      <ion-item>
+        <ion-button color="medium" (click)="selectImageSource()"
+          >Load file</ion-button
+        >
+      </ion-item>
+
+      <ion-col size="12" size-md="4">
+        <ion-img
+          [src]="image || '../assets/images/house.png'"
+          alt=""
+          class="image-placeholder image-border"
+        ></ion-img>
+        <input
+          type="file"
+          style="display: none"
+          accept=".jpg, .jpeg, .png, .doc, .docx, .pdf"
+          (change)="imageSelected($event)"
+          #fileInput
+          capture
+        />
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

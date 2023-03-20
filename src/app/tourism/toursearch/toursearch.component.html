@@ -1,0 +1,109 @@
+<ion-row>
+  <ion-col size="10">
+    <form [formGroup]="searchForm">
+      <ion-searchbar
+        placeholder="Search for hotels, guest houses and other tourism establishments"
+        formControlName="searchControl"
+        value=""
+      ></ion-searchbar>
+    </form>
+  </ion-col>
+  <ion-col size="2">
+    <ion-button tappable (click)="searchAll()" color="facebook">
+      <ion-icon name="eye-outline"></ion-icon>
+      <span class="hide-sm hide-xs"> <h6>Clear Filters</h6></span>
+    </ion-button>
+  </ion-col>
+</ion-row>
+
+<ion-item-group>
+  <ion-item-divider sticky>
+    <ion-label>List Of Locations</ion-label>
+  </ion-item-divider>
+</ion-item-group>
+<p *ngIf="errorOccurred == true" class="details-name">
+  Error Occured, Please contact Administrator
+</p>
+<div *ngIf="isLoading && errorOccurred == false">
+  <p *ngIf="testData.length == 0" class="details-name">No record found</p>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size-md="4"
+        size-sm="6"
+        size-xs="12"
+        *ngFor="let item of testData; let i = index"
+      >
+        <ion-card>
+          <ion-item>
+            <ion-label>
+              <h3>{{ item.tourismLocation }}</h3>
+              <p>
+                <ion-text
+                  style="
+                    color: #004261;
+                    text-decoration: underline;
+                    font-weight: bold;
+                  "
+                  tappable
+                  (click)="searchByRegion(item.region)"
+                >
+                  {{ item.region }}</ion-text
+                >
+              </p>
+            </ion-label>
+          </ion-item>
+
+          <ion-card-header>
+            <ion-card-title>{{ item.tourismName }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-input color="success" type="phone" readonly>
+              <span><ion-icon name="call-outline"></ion-icon></span>
+              {{ item.phone }}
+            </ion-input>
+          </ion-card-content>
+
+          <ion-footer>
+            <ion-row>
+              <ion-col size="4" style="align-items: center">
+                <ion-icon name="cash-outline"></ion-icon>
+                <div>{{ item.tourismCost }}</div>
+              </ion-col>
+              <ion-col size="4" style="align-items: center">
+                <ion-icon name="star-outline"></ion-icon>
+                <div>{{ item.grade }}</div>
+              </ion-col>
+              <ion-col
+                size="4"
+                style="
+                  color: #004261;
+                  text-decoration: underline;
+                  font-weight: bold;
+                "
+                tappable
+                (click)="searchByTouristType(item.tourismType)"
+              >
+                <ion-icon name="home-outline"></ion-icon>
+                <div>{{ item.tourismType }}</div>
+              </ion-col>
+            </ion-row>
+          </ion-footer>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
+<div *ngIf="!isLoading && errorOccurred == false" class="spinner-container">
+  <ion-spinner></ion-spinner>
+</div>
+
+<ion-infinite-scroll (ionInfinite)="loadData(true, $event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data..."
+  >
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>

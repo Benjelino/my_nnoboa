@@ -1,0 +1,300 @@
+<form [formGroup]="rForm">
+  <div>
+    <ion-row>
+      <ion-col size-md="6" size-sm="6" size-xs="12">
+        <ion-item class="input-item">
+          <ion-label position="floating">Country</ion-label>
+          <ionic-selectable 
+            formControlName="countryCode"
+            [hasVirtualScroll]="true"
+            [items]="countries"
+            [canSearch]="true"
+            itemValueField="geoId"
+            itemTextField="geoName"
+            (onChange)="ionChangeCountry($event)"
+            searchPlaceholder="Enter first few characters to narrow search"
+          >
+          </ionic-selectable>
+        </ion-item>
+      </ion-col>
+      <ion-col *ngIf="showRegion" size-md="6" size-sm="6" size-xs="12">
+        <ion-item class="input-item">
+          <ion-label position="floating">State/Province/Region</ion-label>
+          <ionic-selectable
+            formControlName="statePRLine"
+            [hasVirtualScroll]="true"
+            [items]="stateCodes"
+            [canSearch]="true"
+            itemValueField="geoId"
+            itemTextField="geoName"
+            (onChange)="ionChangeRegion($event)"
+            searchPlaceholder="Enter first few characters to narrow search"
+          >
+          </ionic-selectable>
+        </ion-item>
+      </ion-col>
+
+      <ion-col *ngIf="showDistrict" size-md="6" size-sm="6" size-xs="12">
+        <ion-item class="input-item">
+          <ion-label position="floating">District/County</ion-label>
+          <ionic-selectable
+            formControlName="district"
+            [hasVirtualScroll]="true"
+            [items]="districts"
+            [canSearch]="true"
+            (onChange)="ionChangeDistrict($event)"
+            itemValueField="geoId"
+            itemTextField="geoName"
+            searchPlaceholder="Enter first few characters to narrow search"
+          >
+          </ionic-selectable>
+        </ion-item>
+      </ion-col>
+
+      <ion-col *ngIf="showCity" size-md="6" size-sm="6" size-xs="12">
+        <ion-item>
+          <ion-label position="floating">City</ion-label>
+          <ionic-selectable
+            class="item-ionic-selectable"
+            #cityComponent
+            formControlName="cityLine"
+            [hasVirtualScroll]="true"
+            [items]="cities"
+            [canSearch]="true"
+            [searchDebounce]="500"
+            (onSearch)="searchCities($event)"
+            (onChange)="ionChangeCity($event)"
+            searchPlaceholder="Enter first few characters to narrow search"
+            itemValueField="geoId"
+            itemTextField="geoName"
+            [canAddItem]="isLoggedIn && selectedDistrictCode"
+            [canSaveItem]="false"
+            [canClear]="true"
+            (onSaveItem)="onSaveCity($event)"
+          >
+            <ng-template
+              ionicSelectableAddItemTemplate
+              let-port="item"
+              let-isAdd="isAdd"
+            >
+              <form [formGroup]="cityForm">
+                <ion-list>
+                  <ion-item-divider>
+                    {{ isCityAdd ? "Add" : "Edit" }} City
+                  </ion-item-divider>
+                  <ion-item>
+                    <ion-label>Name</ion-label>
+                    <ion-input
+                      type="text"
+                      formControlName="cityName"
+                      autocorrect="off"
+                      autocapitalize="none"
+                    >
+                    </ion-input>
+                  </ion-item>
+                </ion-list>
+              </form>
+              <ion-footer>
+                <ion-toolbar>
+                  <ion-row>
+                    <ion-col>
+                      <button
+                        ion-button
+                        full
+                        (click)="cityComponent.hideAddItemTemplate()"
+                      >
+                        Cancel
+                      </button>
+                    </ion-col>
+                    <ion-col>
+                      <button
+                        ion-button
+                        full
+                        (click)="isCityAdd ? addCity() : saveCity(port)"
+                        [disabled]="!cityForm.valid"
+                      >
+                        {{ isCityAdd ? "Add" : "Save" }}
+                      </button>
+                    </ion-col>
+                  </ion-row>
+                </ion-toolbar>
+              </ion-footer>
+            </ng-template>
+            <ng-template ionicSelectableFooterTemplate>
+              <ion-toolbar>
+                <ion-row>
+                  <ion-col *ngIf="cityComponent.canAddItem">
+                    <ion-button
+                      size="small"
+                      color="secondary"
+                      (click)="onAddCity()"
+                    >
+                      {{ cityComponent.addButtonText }}
+                    </ion-button>
+                  </ion-col>
+                  <ion-col>
+                    <ion-button
+                      size="small"
+                      color="secondary"
+                      (click)="cityConfirm()"
+                    >
+                      {{ cityComponent.confirmButtonText }}
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-toolbar>
+            </ng-template>
+          </ionic-selectable>
+        </ion-item>
+      </ion-col>
+
+      <ion-col *ngIf="showSuburb" size-md="6" size-sm="6" size-xs="12">
+        <ion-item>
+          <ion-label position="floating">Suburb</ion-label>
+
+          <ionic-selectable
+            #suburbComponent
+            formControlName="suburb"
+            [hasVirtualScroll]="true"
+            [items]="suburbs"
+            [canSearch]="true"
+            searchPlaceholder="Enter first few characters to narrow search"
+            itemValueField="geoId"
+            itemTextField="geoName"
+            [canAddItem]="isLoggedIn && selectedCityCode"
+            [canSaveItem]="false"
+            [canClear]="true"
+            (onSaveItem)="onSaveSuburb($event)"
+          >
+            <ng-template
+              ionicSelectableAddItemTemplate
+              let-port="item"
+              let-isAdd="isAdd"
+            >
+              <form [formGroup]="suburbForm">
+                <ion-list>
+                  <ion-item-divider>
+                    {{ isSuburbAdd ? "Add" : "Edit" }} Suburb
+                  </ion-item-divider>
+                  <ion-item>
+                    <ion-label>Name</ion-label>
+                    <ion-input
+                      type="text"
+                      formControlName="suburbName"
+                      autocorrect="off"
+                      autocapitalize="none"
+                    >
+                    </ion-input>
+                  </ion-item>
+                </ion-list>
+              </form>
+              <ion-footer>
+                <ion-toolbar>
+                  <ion-row>
+                    <ion-col>
+                      <ion-button
+                        size="small"
+                        color="secondary"
+                        (click)="suburbComponent.hideAddItemTemplate()"
+                      >
+                        Cancel
+                      </ion-button>
+                    </ion-col>
+                    <ion-col>
+                      <ion-button
+                        size="small"
+                        color="secondary"
+                        (click)="isSuburbAdd ? addSuburb() : saveSuburb(port)"
+                        [disabled]="!suburbForm.valid"
+                      >
+                        {{ isSuburbAdd ? "Add" : "Save" }}
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-toolbar>
+              </ion-footer>
+            </ng-template>
+            <ng-template ionicSelectableFooterTemplate>
+              <ion-toolbar>
+                <ion-row>
+                  <ion-col *ngIf="suburbComponent.canAddItem">
+                    <button ion-button full (click)="onAddsuburb()">
+                      {{ suburbComponent.addButtonText }}
+                    </button>
+                  </ion-col>
+                  <ion-col>
+                    <button ion-button full (click)="cityConfirm()">
+                      {{ suburbComponent.confirmButtonText }}
+                    </button>
+                  </ion-col>
+                </ion-row>
+              </ion-toolbar>
+            </ng-template>
+          </ionic-selectable>
+        </ion-item>
+      </ion-col>
+
+      <ion-col *ngIf="showPostalCode" size-md="6" size-sm="6" size-xs="12">
+        <ion-item>
+          <ion-label position="floating">Postal Code</ion-label>
+          <ion-input
+            class="form-input"
+            formControlName="postalCode"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col *ngIf="showAddress1" size-md="6" size-sm="6" size-xs="12">
+        <ion-item>
+          <ion-label position="floating">Address 1</ion-label>
+          <ion-input class="form-input" formControlName="address1"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col *ngIf="showAddress2" size-md="6" size-sm="6" size-xs="12">
+        <ion-item>
+          <ion-label position="floating">Address 2</ion-label>
+          <ion-input class="form-input" formControlName="address2"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col *ngIf="showUnitNumber" size-md="6" size-sm="6" size-xs="12">
+        <ion-item>
+          <ion-label position="floating">Unit No./Apartment No.</ion-label>
+          <ion-input
+            class="form-input"
+            formControlName="unitNumber"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col *ngIf="showCordinates" size-md="6" size-sm="6" size-xs="12">
+        <ion-item>
+          <ion-label position="floating">Latittude</ion-label>
+          <ion-input class="form-input" formControlName="latitude"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col *ngIf="showCordinates" size-md="6" size-sm="6" size-xs="12">
+        <ion-item>
+          <ion-label position="floating">Longitude</ion-label>
+          <ion-input class="form-input" formControlName="longitude"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col *ngIf="showDirection" size-md="6" size-sm="6" size-xs="12">
+        <ion-item>
+          <ion-label position="floating">Directions</ion-label>
+          <ion-input class="form-input" formControlName="direction"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col *ngIf="showComment" size-md="6" size-sm="6" size-xs="12">
+        <ion-item>
+          <ion-label position="floating">Comment</ion-label>
+          <ion-input class="form-input" formControlName="comment"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </div>
+</form>

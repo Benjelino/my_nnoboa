@@ -1,0 +1,16 @@
+<ion-grid class="main">
+    <ion-row class="top-row">
+      <h2 >
+        This is what our members are saying
+      </h2>
+    </ion-row>
+    <ion-grid class="img-content">
+    <ion-row>
+      <ion-col *ngFor="let users of feedbacks, let i = index">
+        <ion-avatar (mouseenter)="presentPopover($event, i)" >
+          <img src={{users.imgUrl}}>
+        </ion-avatar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-grid>

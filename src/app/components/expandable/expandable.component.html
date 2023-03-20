@@ -1,0 +1,8 @@
+<h2 (click)="expandItem()">
+    {{ title }}
+    <span *ngIf="expanded">&#9650;</span>
+    <span *ngIf="!expanded">&#9660;</span>
+</h2>
+<div #expandWrapper class="expand-wrapper" [class.collapsed]="!expanded">
+  <ng-content></ng-content>
+</div>

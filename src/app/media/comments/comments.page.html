@@ -1,0 +1,159 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Comment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  class="notifications-content">
+  <ion-item-group>
+    <ion-item-divider sticky>
+      <div *ngIf="isSaved">
+        <ion-label>{{response.message}}</ion-label>
+      </div>
+      <div *ngIf="isLoading">
+        <ion-label>{{mediaType[medium.mtype]}}</ion-label>
+      </div>
+     
+    </ion-item-divider>
+    <div *ngIf="isLoading">
+    <ion-item class="notification-item" lines="none">
+      <ion-row class="notification-item-wrapper">
+        
+        <ion-col class="details-wrapper">
+          <h2 class="details-name">{{ medium.author }}</h2>
+          <p class="details-description">{{ medium.title }}</p>
+        </ion-col>
+        <ion-col size="2" class="date-wrapper">
+          <h3 class="notification-date">{{ (medium.datePosted | appTimeAgo)}}</h3>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </div>
+  </ion-item-group>
+
+  
+
+  
+
+  <div *ngIf="isLoading">
+    
+      
+        <ion-item-group>
+          <ion-item-divider sticky>
+              <ion-label>Comments</ion-label>
+          </ion-item-divider>
+        </ion-item-group>
+
+        <div *ngIf="commentLoaded">
+       
+          <ion-card-content *ngFor="let item of comments.cmap let i = index">
+            <ion-item>      
+              <ion-label  class="ion-text-wrap">
+                <h2 >
+                  <div >
+                    <p><b> {{i+1}}  :  {{item.subject}} </b> | {{item.name}} | {{ (item.dateCommented !== null) ? (item.dateCommented | date: 'dd/MM/yyyy') : "" }}</p>
+                  </div>                                            
+                </h2>
+                <h3 class="ion-text-wrap no-lines">{{item.comment}}</h3>
+              </ion-label>     
+            </ion-item>
+      
+        </ion-card-content>
+
+        </div>
+     
+      <!--   <p class="options-divider"> New Comment</p> -->
+      <div *ngIf="isLoggedIn==true">
+
+        <ion-item-group>
+          <ion-item-divider sticky>
+              <ion-label>New Comments</ion-label>
+          </ion-item-divider>
+   
+  
+          <form (ngSubmit)="postComment(userForm.value)" [formGroup]="userForm">
+            <ion-list>
+  
+              <ion-item class="input-item">
+                <ion-label position="floating">Userame</ion-label>
+                <ion-input type="text" formControlName="name" name="name">
+                </ion-input>
+              </ion-item>
+  
+              <div class="error-container">
+                <ng-container *ngFor="let validation of formErrors.name">
+                  <div class="error-message" *ngIf="userForm.get('name').hasError(validation.type) && (userForm.get('name').dirty || userForm.get('name').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon>
+                    <span>{{ validation.message }}</span>
+                  </div>
+                </ng-container>
+              </div>
+  
+             
+      
+             
+              <ion-item class="input-item">
+                <ion-label position="floating">Subject</ion-label>
+                <ion-input type="text" formControlName="subject" name="subject" placeholder="subject">
+                </ion-input>
+              </ion-item>
+  
+              <div class="error-container">
+                <div *ngFor="let validation of validationMessages.subject">
+                  <div class="error-message" *ngIf="userForm.get('subject').hasError(validation.type) && (userForm.get('subject').dirty || userForm.get('subject').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon>
+                    <span>{{ validation.message }}</span>
+                  </div>
+                </div>
+              </div>
+  
+  
+             
+             
+      
+              <ion-item class="input-item">
+                <ion-label>Comment</ion-label>
+                <ion-textarea rows="6" cols="20" formControlName="comment" name="comment"
+                placeholder="comment"></ion-textarea>
+              </ion-item>
+      
+  
+              <div class="error-container">
+                <div *ngFor="let validation of validationMessages.comment">
+                  <div class="error-message" *ngIf="userForm.get('comment').hasError(validation.type) && (userForm.get('comment').dirty || userForm.get('comment').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon>
+                    <span>{{ validation.message }}</span>
+                  </div>
+                </div>
+              </div>
+  
+      
+            </ion-list>
+      
+           
+            <!--  <button ion-button round end favorite type="submit" [disabled]="!userForm.valid">Get Vehicles</button>
+               -->
+            <ion-row>
+              <ion-col>
+                <ion-button color="primary" type="submit" [disabled]="!userForm.valid" >
+                  <ion-icon name="save"></ion-icon>
+               Save Comment
+                </ion-button>
+              </ion-col>
+            
+            </ion-row>
+            
+           
+          </form>
+        </ion-item-group>
+
+      </div>
+     
+        
+    
+  
+  </div>
+</ion-content>

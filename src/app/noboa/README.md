@@ -1,0 +1,2 @@
+# noboa
+equity crowdfunding component

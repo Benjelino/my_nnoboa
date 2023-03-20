@@ -1,0 +1,9 @@
+<ion-spinner class="spinner"></ion-spinner>
+<img
+  class="inner-img"
+  [src]="_src"
+  [alt]="_alt"
+  (load)="_imageLoaded()"
+  style="max-width: 365px; max-height: 125px; width: auto; height: auto"
+/>
+<ng-content *ngIf="_display === 'cover'"></ng-content>

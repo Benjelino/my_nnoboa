@@ -1,0 +1,79 @@
+<app-header ptitle="Announcements"></app-header>
+
+<ion-content class="notifications-content">
+  <form [formGroup]="searchForm">
+    <ion-searchbar
+      placeholder="search..."
+      formControlName="searchControl"
+      value=""
+    ></ion-searchbar>
+  </form>
+
+  <ion-item-group>
+    <ion-item-divider sticky>
+      <ion-label>List Of Announcements</ion-label>
+    </ion-item-divider>
+  </ion-item-group>
+  <p *ngIf="errorOccurred == true" class="details-name">
+    Error Occured, Please contact Administrator
+  </p>
+  <div *ngIf="isLoading && errorOccurred == false">
+    <p *ngIf="testData.length == 0" class="details-name">No record found</p>
+
+    <ion-card-content
+      *ngFor="let item of testData let i = index"
+      style="padding-top: 0px; padding-bottom: 0px"
+    >
+      <ion-item
+        class="notification-item"
+        lines="none"
+        tappable
+        [routerLink]="['/medium-detail/', item.mediumId]"
+        routerDirection="forward"
+      >
+        <ion-row class="notification-item-wrapper">
+          <ion-col class="details-wrapper">
+            <ion-row>
+              <ion-col>
+                <h2 class="details-name">
+                  <ion-text>{{ item.author }} </ion-text>
+                </h2>
+              </ion-col>
+              <ion-col>
+                <h2 class="details-name">
+                  <ion-text color="facebook">
+                    <div [innerHTML]="item.title | highlight:searchTerm "></div
+                  ></ion-text>
+                </h2>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <div
+                class="details-description"
+                [innerHTML]="item.content | truncatetext:150 |
+                highlight:searchTerm"
+              ></div>
+            </ion-row>
+          </ion-col>
+          <ion-col size="3" class="date-wrapper">
+            <h3 class="notification-date">
+              {{ (item.datePosted | appTimeAgo)}}
+            </h3>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-card-content>
+  </div>
+
+  <div *ngIf="!isLoading && errorOccurred == false" class="spinner-container">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <ion-infinite-scroll (ionInfinite)="loadNews(true, $event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more annoucements..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

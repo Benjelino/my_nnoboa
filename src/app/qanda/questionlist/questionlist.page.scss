@@ -1,0 +1,202 @@
+// Custom variables
+// Note:  These ones were added by us and have nothing to do with Ionic CSS Custom Properties
+:host {
+    --page-margin: var(--app-narrow-margin);
+  }
+  
+ 
+  .error-container {
+    .error-message {
+      margin: calc(var(--page-margin) / 2) 0px;
+      display: flex;
+      align-items: center;
+      color: var(--ion-color-danger);
+      font-size: 14px;
+  
+      ion-icon {
+        padding-inline-end: calc(var(--page-margin) / 2);
+      }
+    }
+  }
+  // Note:  All the CSS variables defined below are overrides of Ionic elements CSS Custom Properties
+  .notifications-content {
+    ion-item-divider {
+      --background: var(--ion-color-light);
+      --padding-start: var(--page-margin);
+    }
+
+    .description-row {
+      --ion-grid-column-padding: 0px;
+  
+      padding: var(--page-margin) var(--page-margin) calc(var(--page-margin) * 2);
+  
+      .details-name {
+        margin: 0px;
+        font-size: 20px;
+      }
+  
+      .details-short-description {
+        margin-top: calc(var(--page-margin) / 2);
+        margin-bottom: var(--page-margin);
+        font-size: 14px;
+      }
+  
+      .details-score {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: var(--page-margin);
+  
+        .score-item {
+          display: flex;
+          align-items: center;
+  
+          &:not(:last-child) {
+            padding-right: var(--page-margin);
+          }
+  
+          .score-icon {
+            font-size: 24px;
+            color: var(--ion-color-dark-tint);
+          }
+  
+          .score-value {
+            font-size: 16px;
+            margin-left: 4px;
+          }
+        }
+      }
+  
+      .details-tags {
+        --ion-grid-column-padding: 0px;
+  
+        justify-content: left;
+        margin-top: calc(var(--page-tags-vertical-gutter) * -1);
+  
+        .tag-wrapper {
+          padding: var(--page-tags-vertical-gutter) var(--page-tags-horizontal-gutter) var(--page-tags-vertical-gutter) 0px;
+          flex-grow: 0;
+          min-width: fit-content;
+  
+          &:last-child {
+            padding-right: 0px;
+          }
+        }
+  
+        .item-tag {
+          display: block;
+          border-radius: var(--app-narrow-radius);
+          border: 1px solid var(--ion-color-light-shade);
+          padding: var(--page-tags-vertical-gutter) var(--page-tags-horizontal-gutter);
+          font-size: 14px;
+          color: var(--ion-color-facebook-tint);
+        }
+      }
+  
+      .details-description {
+        margin: calc(var(--page-margin) * 2) 0px 0px;
+        line-height: 1.3;
+        font-size: 14px;
+      }
+    }
+  
+    .notification-item {
+      --padding-start: 0px;
+      --inner-padding-end: 0px;
+  
+      padding: var(--page-margin);
+      color: var(--ion-color-medium);
+    
+  
+      .notification-item-wrapper {
+        --ion-grid-column-padding: 0px;
+  
+        width: 100%;
+        align-items: center;
+      }
+  
+      .description-row {
+        --ion-grid-column-padding: 0px;
+    
+        padding: var(--page-margin) var(--page-margin) calc(var(--page-margin) * 2);
+    
+        .details-name {
+          margin: 0px;
+          font-size: 20px;
+        }
+    
+        .details-short-description {
+          margin-top: calc(var(--page-margin) / 2);
+          margin-bottom: var(--page-margin);
+          font-size: 14px;
+        }
+    
+        .details-score {
+          display: flex;
+          justify-content: flex-start;
+          margin-bottom: var(--page-margin);
+    
+          .score-item {
+            display: flex;
+            align-items: center;
+    
+            &:not(:last-child) {
+              padding-right: var(--page-margin);
+            }
+    
+            .score-icon {
+              font-size: 24px;
+              color: var(--ion-color-dark-tint);
+            }
+    
+            .score-value {
+              font-size: 16px;
+              margin-left: 4px;
+            }
+          }
+        }
+    
+        .details-tags {
+          --ion-grid-column-padding: 0px;
+    
+          justify-content: center;
+          margin-top: calc(var(--page-tags-vertical-gutter) * -1);
+    
+          .tag-wrapper {
+            padding: var(--page-tags-vertical-gutter) var(--page-tags-horizontal-gutter) var(--page-tags-vertical-gutter) 0px;
+            flex-grow: 0;
+            min-width: fit-content;
+    
+            &:last-child {
+              padding-right: 0px;
+            }
+          }
+    
+          .item-tag {
+            display: block;
+            border-radius: var(--app-narrow-radius);
+            border: 1px solid var(--ion-color-light-shade);
+            padding: var(--page-tags-vertical-gutter) var(--page-tags-horizontal-gutter);
+            font-size: 14px;
+            color: var(--ion-color-medium-tint);
+          }
+        }
+    
+        .details-description {
+          margin: calc(var(--page-margin) * 2) 0px 0px;
+          line-height: 1.3;
+          font-size: 14px;
+        }
+      }
+  
+      .date-wrapper {
+        align-self: flex-start;
+  
+        .notification-date {
+          margin: 0px;
+          font-size: 12px;
+          text-align: end;
+        }
+      }
+    }
+  }
+  

@@ -1,0 +1,21 @@
+<ion-grid [fixed]="true">
+  <ion-row >
+    <ion-col *ngFor="let card of listShortCards" >
+      <ion-card >
+        <ion-card-header>
+        <ion-card-title><ion-img  src={{card.icon}}> </ion-img>{{card.numberOf}}</ion-card-title>
+          <ion-card-subtitle>{{card.title}}</ion-card-subtitle>
+        </ion-card-header>
+        <!-- Divider code -->
+        <div class="divider"></div>
+        <!-- Divider End -->
+        <ion-card-content>
+          {{card.desc}}
+        </ion-card-content>
+      </ion-card>
+
+    </ion-col>
+   
+    
+  </ion-row>
+</ion-grid>

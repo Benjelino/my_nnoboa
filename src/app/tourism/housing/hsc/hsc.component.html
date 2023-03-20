@@ -1,0 +1,312 @@
+<ion-item-divider color="twitter">
+  <ion-label> Search House Listing</ion-label>
+</ion-item-divider>
+<p *ngIf="errorOccurred == true" class="details-name">
+  Error Occured, Please contact Administrator
+</p>
+
+<div>
+  <ion-row>
+    <ion-col size="5">
+      <form (ngSubmit)="submitForm(userForm.value)" [formGroup]="userForm">
+        <ion-row>
+          <ion-col>
+            <ion-button
+              color="primary"
+              type="submit"
+              [disabled]="!userForm.valid"
+            >
+              <ion-icon name="search"></ion-icon>
+              Search
+            </ion-button>
+          </ion-col>
+
+          <ion-col>
+            <ion-button color="secondary" type="button" (click)="resetForm()">
+              <ion-icon name="close"></ion-icon>
+              Reset
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size-md="6" size-sm="6" size-xs="12">
+            <ion-item class="input-item">
+              <ion-label position="floating">Property Type</ion-label>
+              <ionic-selectable
+                formControlName="propertyType"
+                [hasVirtualScroll]="true"
+                [items]="propertyType"
+                [canSearch]="true"
+                itemValueField="enumId"
+                itemTextField="description"
+                searchPlaceholder="Enter first few characters to narrow search"
+              >
+              </ionic-selectable>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size-md="6" size-sm="6" size-xs="12">
+            <ion-item class="input-item">
+              <ion-label position="floating">Rental Type</ion-label>
+              <ionic-selectable
+                formControlName="rentalType"
+                [hasVirtualScroll]="true"
+                [items]="rentalType"
+                [canSearch]="true"
+                itemValueField="enumId"
+                itemTextField="description"
+                searchPlaceholder="Enter first few characters to narrow search"
+              >
+              </ionic-selectable>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size-md="6" size-sm="6" size-xs="12">
+            <ion-item class="input-item">
+              <ion-label position="floating">Lease Type</ion-label>
+              <ionic-selectable
+                formControlName="leaseType"
+                [hasVirtualScroll]="true"
+                [items]="leaseType"
+                [canSearch]="true"
+                itemValueField="enumId"
+                itemTextField="description"
+                searchPlaceholder="Enter first few characters to narrow search"
+              >
+              </ionic-selectable>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size-md="6" size-sm="12" size-xs="12">
+            <ion-item class="input-item">
+              <ion-label position="floating">No. Of Rooms</ion-label>
+              <ion-input
+                type="number"
+                formControlName="noOfRooms"
+                name="noOfRooms"
+                placeholder="No. Of Rooms"
+                clearInput
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size-md="6" size-sm="6" size-xs="12">
+            <ion-item class="input-item">
+              <ion-label position="floating">Amount From</ion-label>
+              <ion-input
+                type="number"
+                formControlName="amountFrom"
+                name="amount"
+                placeholder="Property Cost"
+                clearInput
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size-md="6" size-sm="6" size-xs="12">
+            <ion-item class="input-item">
+              <ion-label position="floating">Amount To</ion-label>
+              <ion-input
+                type="number"
+                formControlName="amountTo"
+                name="amount"
+                placeholder="Property Cost"
+                clearInput
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size-md="6" size-sm="6" size-xs="12">
+            <ion-item class="input-item">
+              <ion-label position="floating">Period Of Lease</ion-label>
+              <ion-input
+                type="number"
+                formControlName="periodOfLease"
+                name="periodOfLease"
+                placeholder="Period of Lease"
+                clearInput
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size-md="6" size-sm="6" size-xs="12">
+            <ion-item class="input-item">
+              <ion-label position="floating">Currency</ion-label>
+
+              <ionic-selectable
+                formControlName="currencyUomId"
+                [hasVirtualScroll]="true"
+                [items]="currencies"
+                [canSearch]="true"
+                itemValueField="uomId"
+                itemTextField="description"
+                searchPlaceholder="Enter first character to narrow search"
+              >
+              </ionic-selectable>
+            </ion-item>
+          </ion-col>
+          <ion-col size-md="12" size-sm="12" size-xs="12">
+            <app-geo
+              [showAddress1]="false"
+              [showAddress2]="false"
+              [showDistrict]="true"
+              [showCity]="true"
+              [showRegion]="true"
+              [showSuburb]="true"
+              (formReady)="addFormControl('geo', $event)"
+            ></app-geo>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-col>
+    <ion-col size="7">
+      <p *ngIf="testData.length == 0" class="details-name">No record found</p>
+      <ion-card-content
+        *ngFor="let item of testData; let i = index"
+        style="padding-top: 0px; padding-bottom: 0px"
+      >
+        <ion-item>
+          <ion-label class="ion-text-wrap">
+            <ion-row class="full" align-items-center>
+              <ion-col
+                size-md="2"
+                size-sm="12"
+                size-xs="12"
+                class="paymentColSection"
+              >
+                <ion-row align-items-center class="imgSection">
+                  <img
+                    [src]="getPicture(item)"
+                    style="width: 70px; height: 70px"
+                    alt=""
+                  />
+                </ion-row>
+              </ion-col>
+              <ion-col
+                size-md="5"
+                size-sm="12"
+                size-xs="12"
+                class="ion-justify-content-center"
+              >
+                <ion-row align-items-center>
+                  <p no-margin>
+                    Property: <strong>{{ item.dPropertyType }}</strong>
+                  </p>
+                </ion-row>
+                <ion-row align-items-center>
+                  <p no-margin>
+                    Lease: <strong>{{ item.dLeaseType }}</strong>
+                  </p>
+                </ion-row>
+                <ion-row align-items-center>
+                  <p no-margin>
+                    Rental: <strong>{{ item.dRentalType }}</strong>
+                  </p>
+                </ion-row>
+
+                <ion-row>
+                  <p no-margin>
+                    Amount: <strong>{{ item.amount }}</strong>
+                  </p>
+                </ion-row>
+                <ion-row>
+                  <p no-margin>
+                    Rooms: <strong>{{ item.noOfRooms }}</strong>
+                  </p>
+                </ion-row>
+
+                <ion-row>
+                  <p no-margin>
+                    Period: <strong>{{ item.periodOfLease }}</strong>
+                  </p>
+                </ion-row>
+              </ion-col>
+              <ion-col
+                size-md="5"
+                size-sm="12"
+                size-xs="12"
+                class="ion-justify-content-center"
+              >
+                <ion-row *ngIf="item.postalAddress.country">
+                  <p no-margin>
+                    Country:
+                    <strong>{{ item.postalAddress.country }}</strong>
+                  </p>
+                </ion-row>
+
+                <ion-row *ngIf="item.postalAddress.region">
+                  <p no-margin>
+                    Region:
+                    <strong>{{ item.postalAddress.region }}</strong>
+                  </p>
+                </ion-row>
+
+                <ion-row *ngIf="item.postalAddress.district">
+                  <p no-margin>
+                    District:
+                    <strong>{{ item.postalAddress.district }}</strong>
+                  </p>
+                </ion-row>
+
+                <ion-row *ngIf="item.postalAddress.city">
+                  <p no-margin>
+                    City:
+                    <strong>{{ item.postalAddress.city }}</strong>
+                  </p>
+                </ion-row>
+
+                <ion-row *ngIf="item.postalAddress.address1">
+                  <p no-margin>
+                    Address:
+                    <strong>{{ item.postalAddress.address1 }}</strong>
+                  </p>
+                </ion-row>
+
+                <ion-row *ngIf="item.postalAddress.postalCode">
+                  <p no-margin>
+                    Postal Code:
+                    <strong>{{ item.postalAddress.postalCode }}</strong>
+                  </p>
+                </ion-row>
+
+                <ion-row *ngIf="item.postalAddress.directions">
+                  <p no-margin>
+                    Directions:
+                    <strong>{{ item.postalAddress.directions }}</strong>
+                  </p>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="pref">
+              <ion-button
+                class="social-auth-btn facebook-auth-btn"
+                expand="block"
+                color="facebook"
+                (click)="postInterest(item)"
+              >
+                <ion-icon name="thumbs-up"></ion-icon>
+                <div>Interested</div>
+              </ion-button>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-col>
+  </ion-row>
+</div>
+
+<div *ngIf="!isLoading && errorOccurred == false" class="spinner-container">
+  <ion-spinner></ion-spinner>
+</div>
+
+<ion-infinite-scroll (ionInfinite)="loadData(true, $event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more opinions..."
+  >
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>

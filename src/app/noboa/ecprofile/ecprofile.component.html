@@ -1,0 +1,125 @@
+<div *ngIf="isLoading">
+  <ion-item-group>
+    <ion-item-divider sticky>
+      <ion-label>Company Profile</ion-label>
+    </ion-item-divider>
+
+    <form  [formGroup]="userForm">
+      <ion-list>
+        <ion-item class="input-item">
+          <ion-label position="floating">Company Type</ion-label>
+          
+
+          <ionic-selectable
+                    formControlName="companytype"
+                    [hasVirtualScroll]="true"
+                    [items]="companyTypes"
+                    [canSearch]="true"
+                    itemValueField="ctId"
+                    itemTextField="description"
+                    searchPlaceholder="Enter first character to narrow search"
+                  >
+                  </ionic-selectable>
+        </ion-item>
+
+        <div class="error-container">
+          <ng-container *ngFor="let validation of formErrors.companytype">
+            <div
+              class="error-message"
+              *ngIf="userForm.get('companytype').hasError(validation.type) && (userForm.get('companytype').dirty || userForm.get('companytype').touched)"
+            >
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </ng-container>
+        </div>
+
+        <ion-item class="input-item">
+          <ion-label position="floating">Email Address</ion-label>
+          <ion-input
+            type="email"
+            formControlName="email"
+            name="email"
+            placeholder="email"
+          >
+          </ion-input>
+        </ion-item>
+
+        <!-- <div class="error-container">
+          <ng-container >
+            <div
+              class="error-message"
+              *ngIf="userForm.get('email').hasError(validation.type) && (userForm.get('email').dirty || userForm.get('email').touched)"
+            >
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </ng-container>
+        </div> -->
+
+        <ion-item class="input-item">
+          <ion-label position="floating">Phone</ion-label>
+          <ion-input
+            type="tel"
+            formControlName="phone"
+            name="phone"
+            placeholder="phone"
+          >
+          </ion-input>
+        </ion-item>
+
+        <!-- <div class="error-container">
+          <div *ngFor="let validation of validationMessages.phone">
+            <div
+              class="error-message"
+              *ngIf="userForm.get('phone').hasError(validation.type) && (userForm.get('phone').dirty || userForm.get('phone').touched)"
+            >
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </div>
+        </div> -->
+
+        <ion-item class="input-item">
+          <ion-label position="floating">Message</ion-label>
+          <ion-textarea
+            rows="6"
+            cols="20"
+            formControlName="message"
+            name="message"
+            placeholder="message"
+          ></ion-textarea>
+        </ion-item>
+
+        <div class="error-container">
+          <div *ngFor="let validation of validationMessages.message">
+            <div
+              class="error-message"
+              *ngIf="userForm.get('message').hasError(validation.type) && (userForm.get('message').dirty || userForm.get('message').touched)"
+            >
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </div>
+        </div>
+      </ion-list>
+   
+      <!-- <div
+        class="g-recaptcha"
+        data-sitekey="6LeZajkUAAAAACZUJqR3mkzxhrA5GhHgp2ZwL8ot"
+      ></div> -->
+      <!-- <re-captcha
+        (resolved)="captchaResolved($event)"
+        siteKey="6LeZajkUAAAAACZUJqR3mkzxhrA5GhHgp2ZwL8ot"
+      ></re-captcha> -->
+      <ion-row>
+        <ion-col>
+          <ion-button color="primary" type="submit" [disabled]="!formValid">
+            <ion-icon name="send"></ion-icon>
+            Submit
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-item-group>
+</div>

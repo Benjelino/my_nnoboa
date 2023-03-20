@@ -1,0 +1,142 @@
+<app-header ptitle="Chat Preferences"></app-header>
+
+<ion-content class="notifications-content">
+  <ion-item-divider color="twitter">
+    <ion-label> My Chat Preferences </ion-label>
+  </ion-item-divider>
+
+  <form (ngSubmit)="SaveUserPref(userForm.value)" [formGroup]="userForm">
+    <ion-list class="inputs-list" lines="full">
+      <ion-item class="input-item">
+        <ion-label>Theme</ion-label>
+        <ion-select formControlName="theme" name="theme">
+          <ion-select-option
+            *ngFor="let key of Themekeys"
+            [value]="ThemeEnum[key]"
+            >{{key}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <div class="error-container">
+        <div *ngFor="let validation of validationMessages.theme">
+          <div
+            class="error-message"
+            *ngIf="userForm.get('theme').hasError(validation.type) && (userForm.get('theme').dirty || userForm.get('theme').touched)"
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>{{ validation.message }}</span>
+          </div>
+        </div>
+      </div>
+
+      <ion-item class="input-item">
+        <ion-label>Audio Enabled</ion-label>
+        <ion-select formControlName="audioEnabled" name="audioEnabled">
+          <ion-select-option
+            *ngFor="let key of YesNokeys"
+            [value]="YesNoEnum[key]"
+            >{{key}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <div class="error-container">
+        <div *ngFor="let validation of validationMessages.audioEnabled">
+          <div
+            class="error-message"
+            *ngIf="userForm.get('audioEnabled').hasError(validation.type) && (userForm.get('audioEnabled').dirty || userForm.get('audioEnabled').touched)"
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>{{ validation.message }}</span>
+          </div>
+        </div>
+      </div>
+
+      <ion-item class="input-item">
+        <ion-label>Browser Notifications Enabled</ion-label>
+        <ion-select
+          formControlName="browserNotificationsEnable"
+          name="browserNotificationsEnable"
+        >
+          <ion-select-option
+            *ngFor="let key of YesNokeys"
+            [value]="YesNoEnum[key]"
+            >{{key}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <div class="error-container">
+        <div
+          *ngFor="let validation of validationMessages.browserNotificationsEnable"
+        >
+          <div
+            class="error-message"
+            *ngIf="userForm.get('browserNotificationsEnable').hasError(validation.type) && (userForm.get('browserNotificationsEnable').dirty || userForm.get('browserNotificationsEnable').touched)"
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>{{ validation.message }}</span>
+          </div>
+        </div>
+      </div>
+
+      <ion-item class="input-item">
+        <ion-label>Online Presence</ion-label>
+        <ion-select formControlName="presence" name="presence">
+          <ion-select-option
+            *ngFor="let key of Presencekeys"
+            [value]="PresenceEnum[key]"
+            >{{key}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <div class="error-container">
+        <div *ngFor="let validation of validationMessages.presence">
+          <div
+            class="error-message"
+            *ngIf="userForm.get('presence').hasError(validation.type) && (userForm.get('presence').dirty || userForm.get('presence').touched)"
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>{{ validation.message }}</span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isLoading">
+        <ion-item class="input-item">
+          <ion-label position="floating">Status Message</ion-label>
+          <ion-select class="form-input" formControlName="statusMsg">
+            <ion-select-option
+              *ngFor="let typ of chatStatusTypes.OnlineStatusType"
+              [value]="typ.description"
+              >{{typ.description}}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+      </div>
+     
+
+      <div class="error-container">
+        <div *ngFor="let validation of validationMessages.statusMsg">
+          <div
+            class="error-message"
+            *ngIf="userForm.get('statusMsg').hasError(validation.type) && (userForm.get('statusMsg').dirty || userForm.get('statusMsg').touched)"
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>{{ validation.message }}</span>
+          </div>
+        </div>
+      </div>
+    </ion-list>
+
+    <ion-row>
+      <ion-col>
+        <ion-button color="primary" type="submit" [disabled]="!userForm.valid">
+          <ion-icon name="save"></ion-icon>
+          Save Preference
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

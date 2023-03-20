@@ -1,0 +1,74 @@
+<app-header ptitle="common.forgotpwd"></app-header>
+
+<ion-content padding class="notifications-content">
+    <ion-item-group>
+        <ion-item-divider sticky>
+            <ion-label class="ion-text-wrap">
+                Enter username, submit form, check your email for new temporary password and change this password.
+            </ion-label>
+        </ion-item-divider>
+    </ion-item-group>
+
+    <ion-card>
+        <form (ngSubmit)="forgot(userForm.value)" [formGroup]="userForm">
+            <ion-list class="inputs-list">
+                <ion-item class="input-item">
+                    <ion-label position="floating">Username</ion-label>
+                    <ion-input type="text" formControlName="username" name="username" (change)="onValueChanged($event.target.value)"></ion-input>
+                </ion-item>
+
+                <div class="error-container">
+                    <ng-container *ngFor="let validation of validation_messages.username">
+                        <div class="error-message" *ngIf="userForm.get('username').hasError(validation.type) && (userForm.get('username').dirty || userForm.get('username').touched)">
+                            <ion-icon name="information-circle-outline"></ion-icon>
+                            <span>{{ validation.message }}</span>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <ion-item class="input-item">
+                    <ion-label position="floating">Email Address</ion-label>
+                    <ion-input type="email" formControlName="emailAddr" name="emailAddr" (change)="onValueChanged($event.target.value)"></ion-input>
+                </ion-item>
+
+                <div class="error-container">
+                    <ng-container *ngFor="let validation of validation_messages.emailAddr">
+                        <div class="error-message" *ngIf="userForm.get('emailAddr').hasError(validation.type) && (userForm.get('emailAddr').dirty || userForm.get('emailAddr').touched)">
+                            <ion-icon name="information-circle-outline"></ion-icon>
+                            <span>{{ validation.message }}</span>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <ion-item class="input-item">
+                    <ion-label position="floating">Mobile Phone Number</ion-label>
+                    <ion-input type="tel" formControlName="mobileNumber" name="mobileNumber" (change)="onValueChanged($event.target.value)"></ion-input>
+                </ion-item>
+
+                <div class="error-container">
+                    <ng-container *ngFor="let validation of validation_messages.mobileNumber">
+                        <div class="error-message" *ngIf="userForm.get('mobileNumber').hasError(validation.type) && (userForm.get('mobileNumber').dirty || userForm.get('mobileNumber').touched)">
+                            <ion-icon name="information-circle-outline"></ion-icon>
+                            <span>{{ validation.message }}</span>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <ion-item class="tos input-item">
+                    <ion-toggle item-left formControlName="agree" name="agree" type="button" (change)="onValueChanged($event.target.value)"></ion-toggle>
+                    <ion-label item-right> Agree to terms and conditions </ion-label>
+                </ion-item>
+
+                <div class="error-container">
+                    <ng-container *ngFor="let validation of validation_messages.agree">
+                        <div class="error-message" *ngIf="userForm.get('agree').hasError(validation.type) && (userForm.get('agree').dirty || userForm.get('agree').touched)">
+                            <ion-icon name="information-circle-outline"></ion-icon>
+                            <span>{{ validation.message }}</span>
+                        </div>
+                    </ng-container>
+                </div>
+            </ion-list>
+            <ion-button round end favorite [disabled]="!userForm.valid">Submit</ion-button>
+        </form>
+    </ion-card>
+</ion-content>

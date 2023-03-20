@@ -1,0 +1,16 @@
+<form [formGroup]="rForm">
+  <ion-item class="input-item">
+    <ion-label position="floating">Currency</ion-label>
+
+    <ionic-selectable
+      formControlName="currencyCode"
+      [hasVirtualScroll]="true"
+      [items]="currencies"
+      [canSearch]="true"
+      itemValueField="uomId"
+      itemTextField="description"
+      searchPlaceholder="Enter first few characters to narrow search"
+    >
+    </ionic-selectable>
+  </ion-item>
+</form>

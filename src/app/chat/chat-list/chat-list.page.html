@@ -1,0 +1,21 @@
+<app-header ptitle="Chat List"></app-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header> Recent Conversations </ion-list-header>
+
+    <ion-item
+      tappable
+      *ngFor="let chat of recentChats"
+      (click)="openPreviousChat(chat)"
+    >
+      <ion-avatar slot="start">
+        <!--  <img src="/assets/images/image1.jpg" style="border: 1px solid #ddd" /> -->
+        <img [src]="chat.avatar" style="border: 1px solid #ddd" />
+      </ion-avatar>
+      <ion-label>
+        <h2>{{chat.otherUserId}}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

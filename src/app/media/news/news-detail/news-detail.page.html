@@ -1,0 +1,260 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabnav/home"></ion-back-button>
+    </ion-buttons>
+    <div *ngIf="isLoading">
+      <ion-title class="ion-text-center">{{mediaType[data.mtype]}}</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="travel-details-content">
+  <div *ngIf="isLoading">
+    <ion-card>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img
+            src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+            alt="Avatar"
+          />
+        </ion-avatar>
+        <ion-label>
+          <h3>{{data.author}}</h3>
+          <p>
+            {{ (data.datePosted !== null) ? (data.datePosted) : "" }} {{
+            (data.datePosted !== null) ? (data.datePosted | appTimeAgo ) : "" }}
+          </p>
+        </ion-label>
+      </ion-item>
+
+      <img
+        [src]="imageData"
+        alt="Place image title"
+        *ngIf="imageLoaded; else noImageFound"
+        class="image-placeholder image-border"
+        height="250"
+        width="250"
+        animation="spinner"
+      />
+
+      <ng-template #noImageFound> </ng-template>
+
+      <ion-card-header>
+        <ion-card-title>{{data.title}}</ion-card-title>
+        <ion-row class="description-row">
+          <ion-col size="12">
+            <ion-row class="details-tags">
+              <ion-col
+                class="tag-wrapper"
+                *ngFor="let tag of data.tag.split(',')"
+              >
+                <span class="item-tag"> {{tag}} </span>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-col size="12">
+          <p class="details-description" [innerHTML]="data.content">
+            <!--    {{data.content}} -->
+          </p>
+        </ion-col>
+        <p></p>
+      </ion-card-content>
+
+      <div *ngIf=" isAnnouncement==true ">
+        <ion-item-divider color="twitter">
+          <ion-label> Related Events </ion-label>
+
+          <div *ngIf="isLoggedIn==true" slot="end">
+            <ion-button
+              class="signup-btn"
+              [routerLink]="['/new-event/', data.mediumId]"
+              routerDirection="forward"
+            >
+              New Event!
+            </ion-button>
+          </div>
+        </ion-item-divider>
+
+        <p *ngIf="data.events.length == 0" class="details-name">
+          No record found
+        </p>
+
+        <ion-card-content
+          *ngFor="let item of data.events let i = index"
+          style="padding-top: 0px; padding-bottom: 0px"
+        >
+          <ion-item class="notification-item">
+            <ion-label class="ion-text-wrap">
+              <h5 class="slide-title">
+                <div>
+                  <p>
+                    <b>{{i+1}} : {{item.description}}</b>
+                  </p>
+                </div>
+              </h5>
+              <h3 class="ion-text-wrap no-lines">
+                {{item.locationName}}
+                <div *ngIf="item.locationGPS">| {{item.locationGPS}}</div>
+                <div *ngIf="item.startDate  && !item.endDate">
+                  | {{(item.startDate | date:'EEEE, YYYY-MMM-dd , HH:mm aa')}}
+                </div>
+
+                <div *ngIf="item.startDate  && item.endDate">
+                  | {{(item.startDate | date:'EEEE, YYYY-MMM-dd , HH:mm aa')}} -
+                  {{(item.endDate | date:'EEEE, YYYY-MMM-dd , HH:mm aa')}}
+                </div>
+              </h3>
+            </ion-label>
+          </ion-item>
+        </ion-card-content>
+      </div>
+
+      <div *ngIf=" isAnnouncement==true ">
+        <ion-item-divider color="twitter">
+          <ion-label> Related Tributes </ion-label>
+
+          <div *ngIf="isLoggedIn==true " slot="end">
+            <ion-button class="signup-btn" (click)="showTributeForm()">
+              New Tribute
+            </ion-button>
+          </div>
+        </ion-item-divider>
+
+        <p *ngIf="data.tributes.length == 0" class="details-name">
+          No record found
+        </p>
+
+        <ion-card-content
+          *ngFor="let item of data.tributes let i = index"
+          style="padding-top: 0px; padding-bottom: 0px"
+        >
+          <ion-item class="notification-item">
+            <ion-label class="ion-text-wrap">
+              <h4 class="ion-text-wrap no-lines">
+                {{i+1}} : Author: {{item.author}}
+                <span *ngIf="item.location">| Location: {{item.location}}</span>
+              </h4>
+              <h5 class="slide-title">
+                <p class="slide-title" [innerHTML]="item.title"></p>
+              </h5>
+
+              <h6>
+                <p class="details-description">{{item.content}}</p>
+              </h6>
+              <h6>
+                <ion-button
+                  *ngIf="item.imageUrl"
+                  class="signup-btn"
+                  (click)="openLink(item.imageUrl)"
+                >
+                  View Content
+                </ion-button>
+              </h6>
+            </ion-label>
+          </ion-item>
+        </ion-card-content>
+      </div>
+
+      <div *ngIf="linksLoaded">
+        <ion-item-divider color="twitter">
+          <ion-label> Related Links </ion-label>
+
+          <div *ngIf="isLoggedIn==true " slot="end">
+            <ion-button
+              class="signup-btn"
+              [routerLink]="['/new-link/', data.mediumId]"
+              routerDirection="forward"
+            >
+              New Link!
+            </ion-button>
+          </div>
+        </ion-item-divider>
+
+        <p *ngIf="data.links.length == 0" class="details-name">
+          No record found
+        </p>
+
+        <ion-card-content
+          *ngFor="let item of data.links let i = index"
+          style="padding-top: 0px; padding-bottom: 0px"
+        >
+          <ion-item tappable (click)="openLink(item.urlink)">
+            <!-- <ion-label class="ion-text-wrap">
+              <h5 class="slide-title">
+                <div>
+                  <p>{{i+1}} : {{item.title}}</p>
+                </div>
+              </h5>
+            </ion-label> -->
+
+            <h2 class="details-name">
+              <ion-text color="facebook">
+                {{i+1}} :
+                <span
+                  [innerHTML]="item.title"
+                  style="text-decoration: underline"
+                ></span
+              ></ion-text>
+            </h2>
+          </ion-item>
+        </ion-card-content>
+
+        <ion-footer>
+          <ion-row>
+            <ion-col center text-center size="3">
+              <ion-button
+                class="social-auth-btn facebook-auth-btn"
+                expand="block"
+                color="facebook"
+                (click)="postLike()"
+              >
+                <ion-icon name="thumbs-up"></ion-icon>
+                <div>{{data.LikeStats.totLikeMediumIdLikeCount}}</div>
+              </ion-button>
+            </ion-col>
+            <ion-col center text-center size="3">
+              <ion-button
+                class="social-auth-btn twitter-auth-btn"
+                expand="block"
+                color="twitter"
+                [routerLink]="['/comments/', data.mediumId]"
+                routerDirection="forward"
+              >
+                <ion-icon name="reader"></ion-icon>
+                <div>{{data.CommentStats.totCommentMediumIdCount}} Comment</div>
+              </ion-button>
+            </ion-col>
+            <ion-col center text-center size="3">
+              <ion-button
+                class="social-auth-btn google-auth-btn"
+                expand="block"
+                color="google"
+                (click)="sendShare(data.title, 
+              'Ionic CMS')"
+              >
+                <ion-icon name="share"></ion-icon>
+                <div>Share</div>
+              </ion-button>
+            </ion-col>
+            <ion-col center text-center size="3">
+              <ion-button
+                class="social-auth-btn twitter-auth-btn"
+                expand="block"
+                color="twitter"
+                (click)="createPdf()"
+              >
+                <ion-icon name="print-outline"></ion-icon>
+                <div>Print</div>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-footer>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

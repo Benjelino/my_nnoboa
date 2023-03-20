@@ -1,0 +1,63 @@
+<<app-header ptitle="common.regconfirm"></app-header>
+
+    <ion-content>
+        <div *ngIf="confirmEmail">
+            <ion-item-group>
+                <ion-item-divider sticky>
+                    <ion-label class="ion-text-wrap">
+                        Please check your email and confirm registration and then Login or request a new confirmation code to proceed with fully using the app
+                    </ion-label>
+                </ion-item-divider>
+            </ion-item-group>
+
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <ion-button (click)="requestEmailConfirmation()">
+                            Request New Email Registration Code
+                            <ion-icon name="add"></ion-icon>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+
+
+        <div *ngIf="confirmOtp">
+            <ion-item-group>
+                <ion-item-divider sticky>
+                    <ion-label class="ion-text-wrap">
+                        Please enter OTP sent you or request a new one to confirm registration. OTP will be valid for 01h:00m:00s
+                    </ion-label>
+                </ion-item-divider>
+            </ion-item-group>
+
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-4>
+                        <ion-label>Received OTP</ion-label>
+                    </ion-col>
+                    <ion-col col-8>
+                        <ion-item class="input-item">
+                            <ion-input [(ngModel)]="receivedOtp" name="receivedOtp" type="text" placeholder="OTP" required> </ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col>
+                        <ion-button (click)="requestOtpConfirmation()">
+                            Request OTP Registration Code
+                            <ion-icon name="add"></ion-icon>
+                        </ion-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-button (click)="confirmOTPRegistration()">
+                            Confirm OTP Registration
+                            <ion-icon name="save"></ion-icon>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </ion-content>

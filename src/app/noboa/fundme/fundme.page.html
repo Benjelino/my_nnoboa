@@ -1,0 +1,355 @@
+<app-header ptitle="Noboa App"></app-header>
+
+  <ion-content>
+    <app-progress #progress (stateChange)="onStateChange($event)">
+      <app-progress-step>
+        <h1 class="section-title">Basic Information</h1>
+        <!-- <ion-item> -->
+        <!-- <ion-label>Company Name</ion-label> -->
+        <div class="input-group">
+
+          <label for="company-name" class="basic-label">Company Name</label>
+          <input type="text" class="basic-input-field" id="company-name">
+
+        </div>
+        <div class="input-group">
+
+          <label for="company-industry" class="basic-label">Company Industry</label>
+          <select name="" id="company-industry" class="basic-input-field">
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+          </select>
+
+        </div>
+
+        <h1 class="section-title">Company Location</h1>
+        <p class="basic-textarea-group">
+          <ion-text color="">Please select the country that we’ll be sending funds to (typically where you’re resident).
+            This helps match you to the correct payment processors.</ion-text>
+        </p>
+        <div class="input-group">
+
+          <label for="country" class="basic-label">Country</label>
+          <ion-select name="" id="country" class="basic-input-field">
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+          </ion-select>
+
+        </div>
+        <div class="input-group">
+
+          <label for="city" class="basic-label">City</label>
+          <ion-select name="" id="city" class="basic-input-field">
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+          </ion-select>
+
+        </div>
+        <div class="input-group">
+
+          <label for="company-address" class="basic-label">Company Address</label>
+          <ion-input type="text" class="basic-input-field" id="company-address"></ion-input>
+
+        </div>
+
+        <h1 class="section-title">Investor Reasons</h1>
+        <div class="basic-textarea-group">
+
+          <ion-item class="basic-textarea">
+            <ion-label>The top reasons to invest</ion-label>
+            <ion-textarea placeholder="investor-reasons"></ion-textarea>
+          </ion-item>
+        </div>
+
+        <h1 class="section-title">Links</h1>
+        <div class="basic-textarea-group">
+
+          <ion-item class="basic-textarea">
+            <ion-label>Website or social media links</ion-label>
+            <ion-textarea placeholder="investor-reasons"></ion-textarea>
+          </ion-item>
+        </div>
+        <!-- </ion-item> -->
+        <div class="lower-buttons">
+          <button class="cancel">Cancel</button>
+          <button mat-raised-button color="primary" class="next-btn" (click)="goNext(progress)">
+            Next
+          </button>
+        </div>
+      </app-progress-step>
+      <app-progress-step>
+        <h1 class="section-title">Fundraiser Story</h1>
+
+
+        <div class="input-group">
+
+          <label for="company-address" class="basic-label">10 Seconds Pitch</label>
+          <p class="basic-titarea-group">
+            <ion-text color="">Explain why you're raising money, what the funds will be used for, and how much you value
+              the support</ion-text>
+          </p>
+          <div class="basic-editarea">
+            <quill-editor></quill-editor>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <p class="basic-textarea-group"><ion-text color="" style="font-size: large; padding-top: 30px;">Upload
+              Images</ion-text></p>
+          <label for="company-address" class="basic-label">Click on the button below to upload images about the company
+            that will be shown to the
+            investors</label>
+          <ion-button (click)="selectImage()">
+            upload Images
+          </ion-button>
+        </div>
+
+        <ion-list>
+          <ion-item *ngFor="let file of images">
+            <ion-thumbnail slot="start">
+              <ion-img [src]="file.data"></ion-img>
+            </ion-thumbnail>
+            <ion-label class="ion-text-wrap">
+              {{file.name}}
+            </ion-label>
+            <ion-button slot="end" fill="clear" (click)="startUpload(file)">
+              <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
+            </ion-button>
+            <ion-button slot="end" fill="clear" (click)="deleteImage(file)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-list>
+
+        <h1 class="section-title">Links</h1>
+        <div class="input-group">
+          <p class="basic-textarea-group">
+            <ion-text color="">The inclusion of a personalized video can help your fundraiser raise more
+              money. We support links from YouTube and Vimeo. Simply copy paste your video link
+              into the field below.
+            </ion-text>
+          </p>
+        </div>
+        <div class="basic-textarea-group">
+          <ion-item class="basic-textarea">
+            <ion-label>Upload Video by URL</ion-label>
+            <ion-textarea placeholder="investor-reasons"></ion-textarea>
+          </ion-item>
+        </div>
+
+        <div class="input-group">
+          <p class="basic-textarea-group"><ion-text color="" style="font-size: large; padding-top: 30px;">Do you already
+              have a slide deck?</ion-text></p>
+          <p class="basic-textarea-group">
+            <ion-text color="">If you have already created a slide deck for your fundraiser, we will use it to create
+              your
+              profile
+            </ion-text>
+          </p>
+          <ion-item>
+            <ion-input type="file" accept="document/*" (change)="changeListener($event)"></ion-input>
+          </ion-item>
+          <div></div>
+          <ion-button (click)="uploadSlideDeck()">
+            Upload File
+          </ion-button>
+        </div>
+
+        <div class="lower-buttons">
+          <button progressStepPrev mat-raised-button color="accent" class="previous-button">prev</button>
+          <button mat-raised-button color="primary" class="next-btn" (click)="goNext(progress)">
+            Next
+          </button>
+        </div>
+
+      </app-progress-step>
+      <app-progress-step>
+        <h1>Team Details</h1>
+        <div class="input-group">
+          <label for="full-name" class="basic-label">Full Name</label>
+          <input type="text" [(ngModel)]="fullName" class="basic-input-field" id="full-name">
+        </div>
+        <div class="input-group">
+          <label for="email" class="basic-label">Email</label>
+          <input type="email" [(ngModel)]="email" class="basic-input-field" id="email">
+        </div>
+        <div class="input-group">
+          <label for="team-image" class="basic-label">Image</label>
+          <ion-input type="file" (change)="onFileSelected($event)" id="team-image"></ion-input>
+          <ion-avatar item-start>
+            <ion-img [src]="imageUrl"></ion-img>
+          </ion-avatar>
+        </div>
+        <div class="input-group">
+          <label for="position" class="basic-label">Company Industry</label>
+          <select name="" id="position" class="basic-input-field" [(ngModel)]="role">
+            <option value="Manager"></option>
+            <option value="Developer"></option>
+            <option value="Designer"></option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <ion-button (click)="addTeamMember()">
+            Upload File
+          </ion-button>
+        </div>
+
+        <ion-list>
+          <ion-item *ngFor="let teamMember of teamMembers">
+            <ion-avatar slot="start">
+              <ion-img [src]="teamMember.imageUrl"></ion-img>
+            </ion-avatar>
+            <ion-label>
+              <h2>{{teamMember.fullName}}</h2>
+              <p>{{teamMember.role}}</p>
+            </ion-label>
+            <ion-note slot="end">{{teamMember.email}}</ion-note>
+          </ion-item>
+        </ion-list>
+        <div class="lower-buttons">
+          <button progressStepPrev mat-raised-button color="accent" class="previous-button">prev</button>
+          <button mat-raised-button color="primary" class="next-btn" (click)="goNext(progress)">
+            Next
+          </button>
+        </div>
+      </app-progress-step>
+      <app-progress-step>
+        <h1>Funding Terms</h1>
+        <p>
+          This section is supposed to be used to capture details about the payment
+        </p>
+        <ion-grid>
+          <div class="input-group">
+            <ion-row>
+              <!-- <h3>Raise Target Amount</h3> -->
+              <label for="company-name" class="basic-label">Raise Target Amount</label>
+
+            </ion-row>
+            <ion-row>
+              <ion-col size="2">
+
+
+
+                <select name="" id="currency" class="basic-input-field-dropdown">
+                  <option value="dollar">$</option>
+                  <option value=""></option>
+                  <option value=""></option>
+                </select>
+
+
+              </ion-col>
+              <ion-col>
+                <input type="text" class="basic-input-field-full" id="company-address">
+              </ion-col>
+            </ion-row>
+          </div>
+          <div class="input-group">
+            <ion-row>
+              <!-- <h3>Raise Target Amount</h3> -->
+              <label for="company-name" class="basic-label">Invest Minimum Amount</label>
+
+            </ion-row>
+            <ion-row>
+              <ion-col size="2">
+
+
+
+                <select name="" id="currency" class="basic-input-field-dropdown">
+                  <option value="dollar">$</option>
+                  <option value=""></option>
+                  <option value=""></option>
+                </select>
+
+
+              </ion-col>
+              <ion-col>
+                <input type="text" class="basic-input-field-full" id="company-address">
+              </ion-col>
+            </ion-row>
+          </div>
+          <div class="input-group">
+            <ion-row>
+              <!-- <h3>Raise Target Amount</h3> -->
+              <label for="currency" class="basic-label">Raise Price</label>
+
+            </ion-row>
+            <ion-row>
+              <ion-col size="2">
+
+
+
+                <select name="" id="currency" class="basic-input-field-dropdown">
+                  <option value="dollar">$</option>
+                  <option value=""></option>
+                  <option value=""></option>
+                </select>
+
+
+              </ion-col>
+              <ion-col>
+                <input type="text" class="basic-input-field-full" id="company-address">
+              </ion-col>
+            </ion-row>
+          </div>
+          <div class="input-group">
+
+            <label for="shares" class="basic-label">Raise Shares</label>
+            <input type="text" class="basic-input-field-full" id="shares">
+
+          </div>
+          <ion-row>
+            <ion-col>
+              <div class="input-group">
+
+                <label for="date-start" class="basic-label">Start date</label>
+                <input type="date" class="basic-input-field-full" id="date-start">
+                <!-- <ion-datetime></ion-datetime> -->
+                <!-- <ion-input type="date"></ion-input> -->
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="input-group">
+
+                <label for="date-end" class="basic-label">End date</label>
+                <input type="date" class="basic-input-field-full" id="date-end">
+
+              </div>
+
+            </ion-col>
+          </ion-row>
+          <div class="input-group">
+
+            <label for="equity" class="basic-label">Equity Type</label>
+            <select name="" id="equity" class="basic-input-field-full">
+              <option value="dollar"></option>
+              <option value=""></option>
+              <option value=""></option>
+            </select>
+
+
+          </div>
+          <div class="input-group">
+
+            <label for="offer" class="basic-label">Offer Type</label>
+            <select name="" id="offer" class="basic-input-field-full">
+              <option value="dollar"></option>
+              <option value=""></option>
+              <option value=""></option>
+            </select>
+
+
+          </div>
+        </ion-grid>
+        <div class="lower-buttons">
+
+          <button progressStepPrev mat-raised-button color="accent" class="previous-button">prev</button>
+
+          <button progressStepNext mat-raised-button color="primary" class="next-btn">Submit</button>
+        </div>
+      </app-progress-step>
+    </app-progress>
+  </ion-content>

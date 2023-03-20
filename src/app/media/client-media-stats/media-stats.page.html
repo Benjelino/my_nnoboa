@@ -1,0 +1,73 @@
+<app-header ptitle="My Media Statistics"></app-header>
+
+<ion-content>
+    <div scrollY="true" scrollX="true">
+        <ion-row>
+            <div>Welcome, {{user}}</div>
+        </ion-row>
+
+        <div *ngIf="isLoading">
+            <ion-item-group>
+                <ion-item-divider sticky>
+                    <ion-label>User Statistics</ion-label>
+                </ion-item-divider>
+            </ion-item-group>
+
+            <ion-row class="user-stats-section">
+                <ion-col class="user-stats-wrapper" size-md="4" size-md="4" size-sm="6" size-xs="6">
+                    <ion-icon name="mic-circle" style="zoom: 3"></ion-icon>
+                    <span class="stat-value">
+                        <ion-label>{{data.totAnnounceUserIdCount}}</ion-label>
+                    </span>
+                    <span class="stat-name">Annoucements</span>
+                </ion-col>
+
+                <ion-col class="user-stats-wrapper" size-md="4" size-md="4" size-sm="6" size-xs="6">
+                    <ion-icon name="newspaper" style="zoom: 3"></ion-icon>
+                    <span class="stat-value">
+                        <ion-label>{{data.totNewsUserIdCount}}</ion-label>
+                    </span>
+                    <span class="stat-name">News</span>
+                </ion-col>
+                <ion-col class="user-stats-wrapper" size-md="4" size-md="4" size-sm="6" size-xs="6">
+                    <ion-icon name="people-circle" style="zoom: 3"></ion-icon>
+                    <span class="stat-value">
+                        <ion-label>{{data.totOpinionUserIdCount}}</ion-label>
+                    </span>
+                    <span class="stat-name">Opinions</span>
+                </ion-col>
+
+                <ion-col class="user-stats-wrapper" size-md="4" size-md="4" size-sm="6" size-xs="6">
+                    <ion-icon name="information-circle-outline" style="zoom: 3"></ion-icon>
+                    <span class="stat-value">
+                        <ion-label>{{data.totStoryUserIdCount}}</ion-label>
+                    </span>
+                    <span class="stat-name">Story</span>
+                </ion-col>
+                <ion-col class="user-stats-wrapper" size-md="4" size-md="4" size-sm="6" size-xs="6">
+                    <ion-icon name="link" style="zoom: 3"></ion-icon>
+                    <span class="stat-value">
+                        <ion-label>{{data.totLinksUserIdCount}}</ion-label>
+                    </span>
+                    <span class="stat-name">Links</span>
+                </ion-col>
+
+                <ion-col class="user-stats-wrapper" size-md="4" size-md="4" size-sm="6" size-xs="6">
+                    <ion-icon name="thumbs-up-outline" style="zoom: 3"></ion-icon>
+                    <span class="stat-value">
+                        <ion-label>{{data.totLikesUserIdLikeCount}}</ion-label>
+                    </span>
+                    <span class="stat-name">Likes</span>
+                </ion-col>
+                <ion-col class="user-stats-wrapper" size-md="4" size-md="4" size-sm="6" size-xs="6">
+                    <ion-icon name="thumbs-down" style="zoom: 3"></ion-icon>
+                    <span class="stat-value">
+                        <ion-label>{{data.totLikesUserIdDislikeCount}}</ion-label>
+                    </span>
+                    <span class="stat-name">Dislikes</span>
+                </ion-col>
+            </ion-row>
+        </div>
+
+    </div>
+</ion-content>

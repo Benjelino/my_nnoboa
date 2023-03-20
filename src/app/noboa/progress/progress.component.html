@@ -1,0 +1,122 @@
+<ion-grid>
+  <ion-row>
+    <div class="mobile">
+
+
+      <ion-col size-xs="12" size-sm="12" size-md="2" >
+      
+        <div class="step-progress">
+          <div class="container" #container>
+            <ng-container *ngFor="let item of itemProgressList; index as i" id="section1">
+              <div
+                class="check-box"
+                [ngClass]="{
+                  complete: item.status === 'completed',
+                  active: item.status === 'in progress'
+                }"
+               >
+                <svg id="checkbox" viewBox="0 0 100 100">
+                  <circle class="circle" cx="50.5" cy="49" r="45" />
+                  <polyline class="check" points="28.5,51.9 41.9,65.3 72.5,32.8 " />
+                </svg>
+                <div class="info">
+                  <span class="step">step {{ i + 1 }}</span>
+                  <span
+                    class="progress-info"
+                    [ngClass]="{
+                      'completed': item.status === 'completed',
+                      'in-progress': item.status === 'in progress'
+                    }"
+                    >{{ item.status }}</span
+                  >
+                  <br>
+                  <!-- <p>Set essential fundraiser details such as fundraiser details</p> -->
+                </div>
+                <div
+                  [ngClass]="{
+                    complete: item.status === 'completed',
+                    active: item.status === 'in progress'
+                  }"
+                  class="progress-line"
+                  *ngIf="i !== itemLength - 1"
+                >
+                  <div class="progress-percent"></div>
+                </div>
+        
+        
+                
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      
+      </ion-col>  
+    </div>
+    <ion-col size-xs="12" size-sm="12" size-md="2">
+    
+     <select name="" id="" class="basic-input-field">
+      <option value="">English</option>
+     </select>
+    </ion-col>
+<ion-col size-md="6" size-xs="12" size-sm="12">
+
+  <div class="step-content" #container>
+    <ng-content select="app-progress-step"></ng-content>
+  </div>
+</ion-col>
+
+<div class="web">
+
+  <ion-col>
+  
+    <div class="step-progress">
+      <div class="container" #container>
+        <ng-container *ngFor="let item of itemProgressList; index as i" id="section1">
+          <div
+            class="check-box"
+            [ngClass]="{
+              complete: item.status === 'completed',
+              active: item.status === 'in progress'
+            }"
+           >
+            <svg id="checkbox" viewBox="0 0 100 100">
+              <circle class="circle" cx="50.5" cy="49" r="45" />
+              <polyline class="check" points="28.5,51.9 41.9,65.3 72.5,32.8 " />
+            </svg>
+            <div class="info">
+              <span class="step">step {{ i + 1 }}</span>
+              <span
+                class="progress-info"
+                [ngClass]="{
+                  'completed': item.status === 'completed',
+                  'in-progress': item.status === 'in progress'
+                }"
+                >{{ item.status }}</span
+              >
+              <br>
+              <!-- <p>Set essential fundraiser details such as fundraiser details</p> -->
+            </div>
+            <div
+              [ngClass]="{
+                complete: item.status === 'completed',
+                active: item.status === 'in progress'
+              }"
+              class="progress-line"
+              *ngIf="i !== itemLength - 1"
+            >
+              <div class="progress-percent"></div>
+            </div>
+    
+    
+            
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  
+  </ion-col>  
+</div>
+
+
+  </ion-row>  
+</ion-grid>  

@@ -1,0 +1,203 @@
+<app-header ptitle="Categories"></app-header>
+
+<ion-content class="notifications-content" #content [scrollEvents]="true">
+  <ion-item-group>
+    <ion-item-divider sticky>
+      <ion-label>Categories</ion-label>
+    </ion-item-divider>
+  </ion-item-group>
+
+  <p *ngIf="errorOccurred == true" class="details-name">
+    Error Occured, Please contact Administrator
+  </p>
+
+  <div *ngIf="categoryLoaded && errorOccurred == false">
+    <ion-item
+      *ngFor="let pymt of categories;let i = index;"
+      style="padding-top: 0px; padding-bottom: 0px"
+    >
+      <ion-label>
+        <ion-row align-items-center>
+          <ion-col size="10">
+            <ion-row>
+              <div class="notification-item" lines="none">
+                <ion-row class="notification-item-wrapper">
+                  <ion-col class="details-wrapper">
+                    <h2 class="details-name">
+                      <ion-text color="secondary"> {{pymt.title}} </ion-text>
+                    </h2>
+                    <p class="details-description">
+                      {{ pymt.description | truncatetext:150}}
+                    </p>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </ion-row>
+
+            <ion-row class="description-row">
+              <ion-col size="12">
+                <ion-row class="details-tags">
+                  <ion-col
+                    class="tag-wrapper"
+                    *ngFor="let tag of pymt.tags.split(',')"
+                  >
+                    <span class="item-tag"> {{tag}} </span>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col size="2" class="ion-justify-content-end">
+            <ion-row class="ion-justify-content-end" align-items-center>
+              <ion-button
+                color="secondary"
+                expand="block"
+                (click)="editCategory(pymt.catId)"
+              >
+                <ion-icon name="create-outline"></ion-icon
+                ><span class="hide-sm hide-xs">Edit</span>
+              </ion-button>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-label>
+    </ion-item>
+  </div>
+
+  <div *ngIf="showForm">
+    <ion-item-group>
+      <ion-item-divider sticky>
+        <ion-label>New Category</ion-label>
+      </ion-item-divider>
+
+      <form (ngSubmit)="storeCategory(userForm.value)" [formGroup]="userForm">
+        <ion-list>
+          <ion-item class="input-item">
+            <ion-label position="floating">Title</ion-label>
+            <ion-input
+              type="text"
+              formControlName="title"
+              name="title"
+              placeholder="title"
+              clearInput
+            >
+            </ion-input>
+          </ion-item>
+
+          <div class="error-container">
+            <div *ngFor="let validation of validationMessages.title">
+              <div
+                class="error-message"
+                *ngIf="userForm.get('title').hasError(validation.type) && (userForm.get('title').dirty || userForm.get('title').touched)"
+              >
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </div>
+          </div>
+
+          <ion-item class="input-item">
+            <ion-label>Description</ion-label>
+            <ion-textarea
+              rows="6"
+              cols="20"
+              formControlName="description"
+              name="description"
+              placeholder="Enter description here..."
+              clearInput
+            ></ion-textarea>
+          </ion-item>
+          <div class="error-container">
+            <div *ngFor="let validation of validationMessages.description">
+              <div
+                class="error-message"
+                *ngIf="userForm.get('description').hasError(validation.type) && (userForm.get('description').dirty || userForm.get('description').touched)"
+              >
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </div>
+          </div>
+
+          <ion-item class="input-item">
+            <ion-label position="floating">Color</ion-label>
+            <ion-input
+              type="text"
+              formControlName="color"
+              name="color"
+              clearInput
+            >
+            </ion-input>
+          </ion-item>
+
+          <div class="error-container">
+            <div *ngFor="let validation of validationMessages.color">
+              <div
+                class="error-message"
+                *ngIf="userForm.get('color').hasError(validation.type) && (userForm.get('color').dirty || userForm.get('color').touched)"
+              >
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </div>
+          </div>
+
+          <ion-item class="input-item">
+            <ion-label position="floating">Tags</ion-label>
+            <ion-input
+              type="text"
+              formControlName="tags"
+              name="tags"
+              clearInput
+            >
+            </ion-input>
+          </ion-item>
+
+          <div class="error-container">
+            <div *ngFor="let validation of validationMessages.tags">
+              <div
+                class="error-message"
+                *ngIf="userForm.get('tags').hasError(validation.type) && (userForm.get('tags').dirty || userForm.get('tags').touched)"
+              >
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </div>
+          </div>
+        </ion-list>
+
+        <ion-row>
+          <ion-col>
+            <ion-button
+              color="primary"
+              type="submit"
+              [disabled]="!userForm.valid"
+            >
+              <ion-icon name="save"></ion-icon>
+              Save Category
+            </ion-button>
+          </ion-col>
+
+          <ion-col>
+            <ion-button (click)="closeForm()" color="secondary" type="button">
+              <ion-icon name="close"></ion-icon>
+              Close Form
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-item-group>
+  </div>
+
+  <ion-fab
+    *ngIf="isLoggedIn==true"
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    (click)="openForm()"
+  >
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

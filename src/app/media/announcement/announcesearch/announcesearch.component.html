@@ -1,0 +1,173 @@
+<form [formGroup]="searchForm">
+  <ion-searchbar
+    placeholder="Search by name, city or town..."
+    formControlName="searchControl"
+    value=""
+  ></ion-searchbar>
+</form>
+
+<ion-item-group>
+  <ion-item-divider sticky>
+    <ion-label
+      >List of {{ mediaType[mtype] }}. Send sympathy card by
+      <a
+        href="https://www.123greetings.com/encouragement_and_inspiration/sympathy"
+        target="_blank"
+        >123greetings</a
+      >
+      or
+      <a href="https://www.punchbowl.com/ecards/sympathy" target="_blank"
+        >Punchbowl</a
+      >
+    </ion-label>
+  </ion-item-divider>
+</ion-item-group>
+<p *ngIf="errorOccurred == true" class="details-name">
+  Error Occured, Please contact Administrator
+</p>
+<div *ngIf="isLoading && errorOccurred == false">
+  <p *ngIf="testData.length == 0" class="details-name">No record found</p>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        class="real-estate-listing-content"
+        size-md="4"
+        size-sm="6"
+        size-xs="12"
+        *ngFor="let item of testData; let i = index"
+      >
+        <ion-card class="listing-item">
+          <ion-row class="image-row">
+            <ion-col size="8">
+              <img
+                [src]="getPicture(item.imageUrl)"
+                alt="picture"
+                class="item-picture"
+                style="
+                  display: block;
+                  max-width: 230px;
+                  max-height: 95px;
+                  width: 100%;
+                  height: auto;
+                  object-fit: contain;
+                "
+              />
+            </ion-col>
+            <ion-col size="4">
+              <ion-item
+                class="notification-item"
+                lines="none"
+                tappable
+                [routerLink]="['/medium-detail/', item.mediumId]"
+                routerDirection="forward"
+              >
+                <ion-text color="facebook"> <span>Details</span></ion-text>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="description-row">
+            <ion-col size="12" class="details-col">
+              <ion-row class="details-wrapper">
+                <ion-col>
+                  <h6 class="item-price">
+                    <app-text-shell [data]="item.title"></app-text-shell>
+                  </h6>
+                  <p class="item-address">
+                    <app-text-shell
+                      [data]="item.content | truncatetext: 250"
+                    ></app-text-shell>
+                  </p>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+
+            <ion-col class="accommodations-col" size="12">
+              <ion-row class="accommodations-wrapper">
+                <ion-col
+                  size="4"
+                  class="item-accommodation"
+                  tappable
+                  (click)="openEventsModal(item.events)"
+                >
+                  <ion-icon
+                    class="accommodation-icon"
+                    name="videocam-outline"
+                  ></ion-icon>
+                  <span class="accommodation-property">Events</span>
+                  <span class="accommodation-value">
+                    <app-text-shell
+                      style="
+                        color: #004261;
+                        text-decoration: underline;
+                        font-weight: bold;
+                      "
+                      [data]="item.events.length"
+                    ></app-text-shell>
+                  </span>
+                </ion-col>
+
+                <ion-col
+                  size="4"
+                  class="item-accommodation"
+                  tappable
+                  (click)="openLinkssModal(item.links)"
+                >
+                  <ion-icon
+                    class="accommodation-icon"
+                    name="link-outline"
+                  ></ion-icon>
+                  <span class="accommodation-property">Links</span>
+                  <span class="accommodation-value">
+                    <app-text-shell
+                      style="
+                        color: #004261;
+                        text-decoration: underline;
+                        font-weight: bold;
+                      "
+                      [data]="item.links.length"
+                    ></app-text-shell>
+                  </span>
+                </ion-col>
+                <ion-col
+                  size="4"
+                  class="item-accommodation"
+                  tappable
+                  (click)="openTributeModal(item.tributes)"
+                >
+                  <ion-icon
+                    class="accommodation-icon"
+                    name="heart-outline"
+                  ></ion-icon>
+                  <span class="accommodation-property">Tributes</span>
+                  <span class="accommodation-value">
+                    <app-text-shell
+                      style="
+                        color: #004261;
+                        text-decoration: underline;
+                        font-weight: bold;
+                      "
+                      [data]="item.tributes.length"
+                    ></app-text-shell>
+                  </span>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
+<div *ngIf="!isLoading && errorOccurred == false" class="spinner-container">
+  <ion-spinner></ion-spinner>
+</div>
+
+<ion-infinite-scroll (ionInfinite)="loadNews(true, $event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more annoucements..."
+  >
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>

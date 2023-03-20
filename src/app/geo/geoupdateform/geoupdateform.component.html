@@ -1,0 +1,97 @@
+<ion-content>
+  <form [formGroup]="rForm">
+    <ion-item-divider color="twitter">
+      <ion-label> Geo Data Update Form</ion-label>
+    </ion-item-divider>
+
+    <ion-list class="notifications-content">
+      <ion-item class="notification-item" lines="none">
+        <ion-row class="notification-item-wrapper">
+          <ion-col size="12">
+            <ion-row>
+              <ion-col size="6" class="details-wrapper">
+                <p class="details-name">
+                  {{ tourismData.tourismName }} - {{ tourismData.tourismType }}
+                </p>
+                <p class="details-description">
+                  Region: {{ tourismData.region }} - Location:
+                  {{ tourismData.tourismLocation }}
+                </p>
+                <p class="details-description">
+                  Phone: {{ tourismData.phone }}
+                </p>
+              </ion-col>
+
+              <ion-col size="6" class="details-wrapper">
+                <p class="details-description">
+                  Grade: {{ tourismData.grade }}
+                </p>
+                <p class="details-description">
+                  Cost: {{ tourismData.tourismCost }}
+                </p>
+                <p class="details-description">
+                  Capacity: {{ tourismData.capacity }}
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+
+    <app-geo
+      [showAddress1]="false"
+      [showAddress2]="false"
+      [showDistrict]="true"
+      [showCity]="true"
+      [showRegion]="true"
+      [showSuburb]="true"
+      [showCordinates]="false"
+      [showPostalCode]="false"
+      [showUnitNumber]="false"
+      [showComment]="true"
+      [partyContactProfile]="geoModel"
+      [companyUserId]="geoModel.userId"
+      (formReady)="addFormControl('geo', $event)"
+    ></app-geo>
+
+    <ion-row>
+      <ion-col size-md="6" size-sm="6" size-xs="12">
+        <ion-item class="input-item">
+          <ion-label position="floating">Data Status</ion-label>
+          <ionic-selectable
+            formControlName="status"
+            [hasVirtualScroll]="true"
+            [items]="geoDataStatus"
+            [canSearch]="true"
+            itemValueField="enumId"
+            itemTextField="description"
+            searchPlaceholder="Enter first few characters to narrow search"
+          >
+          </ionic-selectable>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button
+          color="primary"
+          type="button"
+          (click)="cancelModal()"
+          [disabled]="!rForm.valid"
+          (click)="submitForm(rForm)"
+        >
+          <ion-icon name="save"></ion-icon>
+          Save
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button color="primary" type="button" (click)="cancelModal()">
+          <ion-icon name="close-circle-outline"></ion-icon>
+          Close
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

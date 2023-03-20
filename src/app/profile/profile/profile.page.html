@@ -1,0 +1,296 @@
+<app-header ptitle="common.profile"></app-header>
+
+<ion-content class="user-profile-content">
+  <ion-item button (click)="gotoEdit()">
+    <ion-label>
+      Edit Profile
+      <ion-icon name="create"></ion-icon>
+    </ion-label>
+  </ion-item>
+
+  <ion-row *ngIf="isPerson" class="user-details-section">
+    <ion-col class="user-image-wrapper">
+      <app-aspect-ratio [ratio]="{w: 1, h: 1}">
+        <app-image-shell
+          class="user-image"
+          animation="spinner"
+          [src]="avatar || imageUrl"
+        ></app-image-shell>
+      </app-aspect-ratio>
+    </ion-col>
+
+    <ion-col class="user-info-wrapper">
+      <ion-row class="user-stats-section">
+        <ion-col class="user-stats-wrapper" size="6">
+          <span class="stat-value">
+            <app-text-shell
+              [data]="partyContactProfile.userAccount.userFullName"
+            ></app-text-shell>
+          </span>
+          <span class="stat-name">User Fullname</span>
+        </ion-col>
+
+        <ion-col class="user-stats-wrapper" size="6">
+          <span class="stat-value">
+            <app-text-shell
+              [data]="partyContactProfile.party.nickname"
+            ></app-text-shell>
+          </span>
+          <span class="stat-name">Nickname</span>
+        </ion-col>
+      </ion-row>
+
+      <ion-row
+        class="user-stats-section"
+        *ngIf="partyContactProfile.party.firstName"
+      >
+        <ion-col class="user-stats-wrapper" size-md="4" size-xs="6">
+          <span class="stat-value">
+            <app-text-shell
+              [data]="partyContactProfile.party.firstName"
+            ></app-text-shell>
+          </span>
+          <span class="stat-name">Firstname</span>
+        </ion-col>
+
+        <ion-col class="user-stats-wrapper" size-md="4" size-xs="6">
+          <span class="stat-value">
+            <app-text-shell
+              [data]="partyContactProfile.party.lastName"
+            ></app-text-shell>
+          </span>
+          <span class="stat-name">Lastname</span>
+        </ion-col>
+
+        <ion-col class="user-stats-wrapper" size-md="4" size-xs="6">
+          <span class="stat-value">
+            <app-text-shell
+              [data]="partyContactProfile.party.middleName"
+            ></app-text-shell>
+          </span>
+          <span class="stat-name">Middlename</span>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!isPerson" class="user-details-section">
+    <ion-col class="user-image-wrapper">
+      <app-aspect-ratio [ratio]="{w: 1, h: 1}">
+        <app-image-shell
+          class="user-image"
+          animation="spinner"
+          [src]="logo ||imageUrl"
+        ></app-image-shell>
+      </app-aspect-ratio>
+    </ion-col>
+
+    <ion-col class="user-info-wrapper">
+      <ion-row
+        class="user-stats-section"
+        *ngIf="partyContactProfile.party.organizationName"
+      >
+        <ion-col class="user-stats-wrapper" size="6">
+          <span class="stat-value">
+            <app-text-shell
+              [data]="partyContactProfile.party.organizationName"
+            ></app-text-shell>
+          </span>
+          <span class="stat-name">Company Name</span>
+        </ion-col>
+
+        <ion-col class="user-stats-wrapper" size="6">
+          <span class="stat-value">
+            <app-text-shell
+              [data]="partyContactProfile.userProfile.userSlogan"
+            ></app-text-shell>
+          </span>
+          <span class="stat-name">Company Slogan</span>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+
+  <div class="user-about-section">
+    <h3 class="details-section-title">Address Information</h3>
+    <ion-row class="user-stats-section">
+      <ion-col class="user-stats-wrapper" size="4">
+        <span class="stat-value">
+          <app-text-shell
+            [data]="partyContactProfile.postalAddress.address1"
+          ></app-text-shell>
+        </span>
+        <span class="stat-name">Address Line 1</span>
+      </ion-col>
+
+      <ion-col class="user-stats-wrapper" size="4">
+        <span class="stat-value">
+          <app-text-shell
+            [data]="partyContactProfile.postalAddress.address2"
+          ></app-text-shell>
+        </span>
+        <span class="stat-name">Address Line 2</span>
+      </ion-col>
+
+      <ion-col class="user-stats-wrapper" size="4">
+        <span class="stat-value">
+          <app-text-shell
+            [data]="partyContactProfile.postalAddress.city"
+          ></app-text-shell>
+        </span>
+        <span class="stat-name">City</span>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="user-stats-section">
+      <ion-col class="user-stats-wrapper" size="4">
+        <span class="stat-value">
+          <app-text-shell
+            [data]="partyContactProfile.postalAddress.country"
+          ></app-text-shell>
+        </span>
+        <span class="stat-name">Country</span>
+      </ion-col>
+
+      <ion-col class="user-stats-wrapper" size="4">
+        <span class="stat-value">
+          <app-text-shell
+            [data]="partyContactProfile.postalAddress.stateProvince"
+          ></app-text-shell>
+        </span>
+        <span class="stat-name">State/Province/Region</span>
+      </ion-col>
+
+      <ion-col class="user-stats-wrapper" size="4">
+        <span class="stat-value">
+          <app-text-shell
+            [data]="partyContactProfile.postalAddress.postalCode"
+          ></app-text-shell>
+        </span>
+        <span class="stat-name">Postal Code</span>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="user-about-section">
+    <h3 class="details-section-title">Contact Information</h3>
+    <ion-row class="user-stats-section">
+      <ion-col class="user-stats-wrapper" size="4">
+        <span class="stat-value">
+          <app-text-shell
+            [data]="partyContactProfile.contactInfo.contactFirstName"
+          ></app-text-shell>
+        </span>
+        <span class="stat-name">First Name</span>
+      </ion-col>
+      <ion-col class="user-stats-wrapper" size="4">
+        <span class="stat-value">
+          <app-text-shell
+            [data]=" partyContactProfile.contactInfo.contactLastName "
+          ></app-text-shell>
+        </span>
+        <span class="stat-name">Last Name</span>
+      </ion-col>
+      <ion-col class="user-stats-wrapper" size="4">
+        <span class="stat-value">
+          <app-text-shell
+            [data]="partyContactProfile.userProfile.prefContactMethod "
+          ></app-text-shell>
+        </span>
+        <span class="stat-name">Preferred Contact Method</span>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="user-stats-section">
+      <ion-col class="user-stats-wrapper" size="6">
+        <span class="stat-value">
+          <app-text-shell
+            [data]="partyContactProfile.phoneNumber.phone"
+          ></app-text-shell>
+        </span>
+        <span class="stat-name">Cell Phone Number</span>
+      </ion-col>
+
+      <ion-col class="user-stats-wrapper" size="6">
+        <span class="stat-value">
+          <app-text-shell
+            [data]="partyContactProfile.emailAddress.emailAddress"
+          ></app-text-shell>
+        </span>
+        <span class="stat-name">Email</span>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="user-about-section">
+    <h3 class="details-section-title">Locale Information</h3>
+    <ion-row class="user-stats-section">
+      <ion-col class="user-stats-wrapper" size="6">
+        <span class="stat-value">
+          <app-text-shell
+            [data]="partyContactProfile.userProfile.countryCode"
+          ></app-text-shell>
+        </span>
+        <span class="stat-name">3 Digit Country Code</span>
+      </ion-col>
+
+      <ion-col class="user-stats-wrapper" size="6">
+        <span class="stat-value">
+          <app-text-shell
+            [data]="partyContactProfile.userAccount.currencyUomId"
+          ></app-text-shell>
+        </span>
+        <span class="stat-name">3 Digit Currency Code</span>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="user-stats-section">
+      <ion-col class="user-stats-wrapper" size="6">
+        <span class="stat-value">
+          <app-text-shell
+            [data]="partyContactProfile.userAccount.locale"
+          ></app-text-shell>
+        </span>
+        <span class="stat-name">Locale</span>
+      </ion-col>
+
+      <ion-col class="user-stats-wrapper" size="6">
+        <span class="stat-value">
+          <app-text-shell
+            [data]="partyContactProfile.userAccount.timeZone"
+          ></app-text-shell>
+        </span>
+        <span class="stat-name">Time Zone</span>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="user-about-section">
+    <h3 class="details-section-title">Chat Information</h3>
+
+    <ion-row class="user-details-section">
+      <ion-col class="user-image-wrapper">
+        <app-aspect-ratio [ratio]="{w: 1, h: 1}">
+          <app-image-shell
+            class="user-image"
+            animation="spinner"
+            [src]="avatar || imageUrl"
+          ></app-image-shell>
+        </app-aspect-ratio>
+      </ion-col>
+
+      <ion-col class="user-info-wrapper">
+        <ion-row class="user-stats-section" lines="none">
+          <ion-col class="user-stats-wrapper" size="6">
+            <span class="stat-value">
+              <app-text-shell
+                [data]="partyContactProfile.userProfile.welcomeMsg"
+              ></app-text-shell>
+            </span>
+            <span class="stat-name">Welcome Message</span>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

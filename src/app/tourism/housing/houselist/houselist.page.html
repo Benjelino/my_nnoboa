@@ -1,0 +1,203 @@
+<app-header ptitle="Housing" loggedIn="isLoggedIn"></app-header>
+
+<ion-content class="notifications-content">
+  <p *ngIf="errorOccurred == true" class="details-name">
+    Error Occured, Please contact Administrator
+  </p>
+
+  <div *ngIf="isLoading && errorOccurred == false">
+    <p *ngIf="testData.length == 0" class="details-name">No record found</p>
+
+    <ion-card-content
+      *ngFor="let item of testData let i = index"
+      style="padding-top: 0px; padding-bottom: 0px"
+    >
+      <ion-item>
+        <ion-label>
+          <ion-row class="full" align-items-center>
+            <ion-col
+              size-md="2"
+              size-sm="2"
+              size-xs="12"
+              class="paymentColSection"
+            >
+              <ion-row align-items-center class="imgSection">
+                <img
+                  [src]="getPicture(item)"
+                  style="width: 70px; height: 70px"
+                  alt=""
+                />
+              </ion-row>
+            </ion-col>
+            <ion-col
+              size-md="4"
+              size-sm="4"
+              size-xs="12"
+              class="ion-justify-content-center"
+            >
+              <ion-row align-items-center>
+                <p no-margin>
+                  Property: <strong>{{ item.dPropertyType }}</strong>
+                </p>
+              </ion-row>
+              <ion-row align-items-center>
+                <p no-margin>Lease: <strong>{{ item.dLeaseType }}</strong></p>
+              </ion-row>
+              <ion-row align-items-center>
+                <p no-margin>Rental: <strong>{{ item.dRentalType }}</strong></p>
+              </ion-row>
+              <ion-row align-items-center>
+                <p no-margin>
+                  Status: <strong>{{ item.dPropertyStatusType }}</strong>
+                </p>
+              </ion-row>
+              <ion-row>
+                <p no-margin>Amount: <strong>{{ item.amount }}</strong></p>
+              </ion-row>
+              <ion-row>
+                <p no-margin>
+                  <span *ngIf="item.dPropertyType != 'land'"> Rooms: </span>
+                  <span *ngIf="item.dPropertyType == 'land'"> Plots: </span>
+                  <strong>{{ item.noOfRooms }}</strong>
+                </p>
+              </ion-row>
+
+              <ion-row
+                *ngIf="item.dRentalType == 'Rent' || item.dRentalType == 'Share'"
+              >
+                <p no-margin>
+                  Period: <strong>{{ item.periodOfLease }}</strong>
+                </p>
+              </ion-row>
+            </ion-col>
+            <ion-col
+              size-md="4"
+              size-sm="4"
+              size-xs="12"
+              class="ion-justify-content-center"
+            >
+              <ion-row
+                class="ion-justify-content-center"
+                *ngIf="item.furnished"
+              >
+                <p no-margin>
+                  Furnished:
+                  <strong>({{ item.furnished}})</strong>
+                </p>
+              </ion-row>
+
+              <ion-row
+                class="ion-justify-content-center"
+                *ngIf="item.currencyUomId"
+              >
+                <p no-margin>
+                  {{item.currency}}
+                  <strong>({{ item.currencyUomId}})</strong>
+                </p>
+              </ion-row>
+
+              <ion-row
+                class="ion-justify-content-center"
+                *ngIf="item.postalAddress.country "
+              >
+                <p no-margin>
+                  Country:
+                  <strong>{{ item.postalAddress.country }}</strong>
+                </p>
+              </ion-row>
+
+              <ion-row
+                class="ion-justify-content-center"
+                *ngIf="item.postalAddress.region "
+              >
+                <p no-margin>
+                  Region:
+                  <strong>{{ item.postalAddress.region }}</strong>
+                </p>
+              </ion-row>
+
+              <ion-row
+                class="ion-justify-content-center"
+                *ngIf="item.postalAddress.district "
+              >
+                <p no-margin>
+                  District:
+                  <strong>{{ item.postalAddress.district }}</strong>
+                </p>
+              </ion-row>
+
+              <ion-row
+                class="ion-justify-content-end"
+                *ngIf="item.postalAddress.city "
+              >
+                <p no-margin>
+                  City:
+                  <strong>{{ item.postalAddress.city }}</strong>
+                </p>
+              </ion-row>
+
+              <ion-row *ngIf="item.postalAddress.address1 ">
+                <p no-margin>
+                  Address:
+                  <strong>{{ item.postalAddress.address1 }}</strong>
+                </p>
+              </ion-row>
+
+              <ion-row *ngIf="item.postalAddress.postalCode ">
+                <p no-margin>
+                  Postal Code:
+                  <strong>{{ item.postalAddress.postalCode }}</strong>
+                </p>
+              </ion-row>
+
+              <ion-row *ngIf="item.postalAddress.directions ">
+                <p no-margin>
+                  Directions:
+                  <strong>{{ item.postalAddress.directions }}</strong>
+                </p>
+              </ion-row>
+            </ion-col>
+
+            <ion-col
+              size-md="2"
+              size-sm="2"
+              size-xs="12"
+              class="ion-justify-content-center"
+            >
+              <ion-row class="ion-justify-content-center" align-items-center>
+                <ion-button
+                  color="secondary"
+                  expand="block"
+                  (click)="
+                  editHousing($event,item)
+                  "
+                >
+                  <ion-icon name="create-outline"></ion-icon
+                  ><span class="hide-sm hide-xs">Edit</span>
+                </ion-button>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </div>
+
+  <ion-fab *ngIf="isLoggedIn" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="newHouse($event)">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div *ngIf="!isLoading && errorOccurred == false" class="spinner-container">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <ion-infinite-scroll (ionInfinite)="loadData(true, $event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more opinions..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

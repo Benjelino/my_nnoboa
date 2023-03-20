@@ -1,0 +1,33 @@
+.badge{
+
+    display: flex;
+    background-color: aqua;
+    float: auto;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    max-width: 150px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    // display: inline-block;
+    height: 20px;
+ 
+}
+
+.genChip {
+  margin-left: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 2px;
+  font-size: 13px;
+  display: inline-block;
+    padding: 7px 20px;
+    font-family: 'Inter', sans-serif;
+}
+.chip { 
+    background-color: #D9D9D9;
+    color: #828282;
+  }
+  .chip-secondary {
+    background-color: #FFE1E1;
+    color: #828282; 
+  }

@@ -1,0 +1,310 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabnav/home"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center">Question Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="travel-details-content" #content [scrollEvents]="true">
+  <div *ngIf="questionLoaded">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title color="secondary">{{question.title}}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-row>
+          <ion-col size="2">
+            <ion-row>
+              <div *ngIf="question.hasVotedQuestion == true; else notuser">
+                <ion-icon
+                  name="chevron-up-circle-outline"
+                  style="zoom: 1.3"
+                  tappable
+                  color="secondary"
+                  (click)="voteQuestion(question.questionId,'Y')"
+                ></ion-icon>
+              </div>
+
+              <ng-template #notuser>
+                <ion-icon
+                  name="chevron-up-circle-outline"
+                  style="zoom: 1.3"
+                  tappable
+                  (click)="voteQuestion(question.questionId,'Y')"
+                ></ion-icon>
+              </ng-template>
+            </ion-row>
+            <ion-row>
+              <ion-label class="ion-text-center" style="padding-left: 5px">
+                <strong
+                  >{{question.QuestionStatistics.totQuestionVotesCount}}
+                </strong>
+              </ion-label>
+            </ion-row>
+            <ion-row>
+              <div *ngIf="question.hasVotedQuestion == true; else notuser1">
+                <ion-icon
+                  name="chevron-down-circle-outline"
+                  style="zoom: 1.3"
+                  tappable
+                  color="secondary"
+                  (click)="voteQuestion(question.questionId,'N')"
+                ></ion-icon>
+              </div>
+
+              <ng-template #notuser1>
+                <ion-icon
+                  name="chevron-down-circle-outline"
+                  style="zoom: 1.3"
+                  tappable
+                  (click)="voteQuestion(question.questionId,'N')"
+                ></ion-icon>
+              </ng-template>
+            </ion-row>
+          </ion-col>
+          <ion-col size="10">
+            <p class="details-description">{{question.description}}</p>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="description-row">
+          <ion-col size="7">
+            <ion-row class="details-tags">
+              <ion-col
+                class="tag-wrapper"
+                *ngFor="let tag of question.tags.split(',')"
+              >
+                <span class="item-tag"> {{tag}} </span>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col size="5">
+            <ion-row class="full" align-items-center>
+              <ion-col>
+                <ion-text>
+                  asked {{ (question.createdDate | appTimeAgo ) }} Answered
+                  {{answers?.length}} times</ion-text
+                >
+                <ion-text color="tertiary" tappable>
+                  {{question.userId}}</ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+
+      <ion-footer>
+        <ion-item-group>
+          <ion-item-divider sticky>
+            <ion-label>Answer List</ion-label>
+
+            <ion-button
+              *ngIf="question.hasSubscribed==false && isLoggedIn==true "
+              slot="end"
+              class="social-auth-btn twitter-auth-btn"
+              expand="block"
+              color="twitter"
+              (click)="subscribeToNews()"
+            >
+              <ion-icon name="notifications-circle-outline"></ion-icon>
+              Subscribe
+            </ion-button>
+            <ion-button
+              *ngIf="question.hasSubscribed==true && isLoggedIn==true "
+              slot="end"
+              class="social-auth-btn twitter-auth-btn"
+              expand="block"
+              color="danger"
+              (click)="unSubscribeToNews()"
+            >
+              <ion-icon name="notifications-off"></ion-icon>
+              Un-Subscribe
+            </ion-button>
+          </ion-item-divider>
+        </ion-item-group>
+
+        <ion-item
+          *ngFor="let pymt of answers;let i = index;"
+          style="padding-top: 0px; padding-bottom: 0px"
+        >
+          <ion-label>
+            <ion-row class="full" align-items-center>
+              <ion-col size="2">
+                <ion-row>
+                  <div
+                    *ngIf="pymt.AnswerStatistics.totUserAnswerUpVotesCount >0; else notupvotedanswer"
+                  >
+                    <ion-icon
+                      name="chevron-up-circle-outline"
+                      style="zoom: 1.3"
+                      tappable
+                      color="secondary"
+                      (click)="voteAnswer(pymt.answerId,'Y')"
+                    ></ion-icon>
+                  </div>
+
+                  <ng-template #notupvotedanswer>
+                    <ion-icon
+                      name="chevron-up-circle-outline"
+                      style="zoom: 1.3"
+                      tappable
+                      (click)="voteAnswer(pymt.answerId,'Y')"
+                    ></ion-icon>
+                  </ng-template>
+                </ion-row>
+                <ion-row>
+                  <ion-label class="ion-text-center" style="padding-left: 5px">
+                    {{pymt.AnswerStatistics.totAnswerUpVotesCount-pymt.AnswerStatistics.totAnswerDownVotesCount}}
+                  </ion-label>
+                </ion-row>
+                <ion-row>
+                  <div
+                    *ngIf="pymt.AnswerStatistics.totUserAnswerDownVotesCount>0; else notdownvotedanswer"
+                  >
+                    <ion-icon
+                      name="chevron-down-circle-outline"
+                      style="zoom: 1.3"
+                      tappable
+                      color="secondary"
+                      (click)="voteAnswer(pymt.answerId,'N')"
+                    ></ion-icon>
+                  </div>
+
+                  <ng-template #notdownvotedanswer>
+                    <ion-icon
+                      name="chevron-down-circle-outline"
+                      style="zoom: 1.3"
+                      tappable
+                      (click)="voteAnswer(pymt.answerId,'N')"
+                    ></ion-icon>
+                  </ng-template>
+                </ion-row>
+              </ion-col>
+              <ion-col size="8">
+                <ion-row align-items-center>
+                  <p no-margin>
+                    <strong>
+                      <ion-text color="secondary"> {{pymt.answer}} </ion-text>
+                    </strong>
+                  </p>
+                </ion-row>
+
+                <ion-row align-items-center>
+                  <ion-col size="6">
+                    <div *ngIf="userId==pymt.userId; else notuser">
+                      <ion-text
+                        color="tertiary"
+                        tappable
+                        (click)="editAnswer(pymt.answerId)"
+                      >
+                        edit
+                      </ion-text>
+                      <ion-text
+                        color="tertiary"
+                        tappable
+                        (click)="sendShare(pymt.answer)"
+                      >
+                        share
+                      </ion-text>
+                    </div>
+
+                    <ng-template #notuser>
+                      <ion-text color="tertiary" tappable> share </ion-text>
+                    </ng-template>
+                  </ion-col>
+
+                  <ion-col size="6">
+                    <p no-margin>
+                      Answered {{ (pymt.createdDate | appTimeAgo)}} by:
+                      <ion-text color="tertiary"> {{pymt.userId}}</ion-text>
+                    </p>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+
+        <div *ngIf="showForm">
+          <ion-item-group>
+            <ion-item-divider sticky>
+              <ion-label>Answer Form</ion-label>
+            </ion-item-divider>
+
+            <form
+              (ngSubmit)="storeAnswer(userForm.value)"
+              [formGroup]="userForm"
+            >
+              <ion-list>
+                <div class="form-group">
+                  <label>Answer</label>
+                  <quill-editor
+                    formControlName="answer"
+                    name="answer"
+                    rows="6"
+                    placeholder="Enter answer here..."
+                    [styles]="{height: '200px'}"
+                  >
+                  </quill-editor>
+                </div>
+
+                <div class="error-container">
+                  <div *ngFor="let validation of validationMessages.answer">
+                    <div
+                      class="error-message"
+                      *ngIf="userForm.get('answer').hasError(validation.type) && (userForm.get('answer').dirty || userForm.get('answer').touched)"
+                    >
+                      <ion-icon name="information-circle-outline"></ion-icon>
+                      <span>{{ validation.message }}</span>
+                    </div>
+                  </div>
+                </div>
+              </ion-list>
+
+              <ion-row>
+                <ion-col>
+                  <ion-button
+                    color="primary"
+                    type="submit"
+                    [disabled]="!userForm.valid"
+                  >
+                    <ion-icon name="save"></ion-icon>
+                    Save Answer
+                  </ion-button>
+                </ion-col>
+
+                <ion-col>
+                  <ion-button
+                    (click)="closeForm()"
+                    color="secondary"
+                    type="button"
+                  >
+                    <ion-icon name="close"></ion-icon>
+                    Close
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </form>
+          </ion-item-group>
+        </div>
+      </ion-footer>
+    </ion-card>
+  </div>
+
+  <ion-fab
+    *ngIf="isLoggedIn==true"
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    (click)="addNew()"
+  >
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

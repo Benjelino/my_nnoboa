@@ -1,0 +1,145 @@
+<form [formGroup]="rForm">
+  <ion-row>
+    <ion-col>
+      <ion-item class="input-item">
+        <ion-label position="floating">State/Province/Region</ion-label>
+        <ionic-selectable
+          formControlName="regionCode"
+          [hasVirtualScroll]="true"
+          [items]="stateCodes"
+          [canSearch]="true"
+          itemValueField="geoId"
+          itemTextField="geoName"
+          (onChange)="ionChangeRegion($event)"
+          searchPlaceholder="Enter first few characters to narrow search"
+        >
+        </ionic-selectable>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item class="input-item">
+        <ion-label position="floating">District/County</ion-label>
+        <ionic-selectable
+          formControlName="districtCode"
+          [hasVirtualScroll]="true"
+          [items]="districts"
+          [canSearch]="true"
+          itemValueField="geoId"
+          itemTextField="geoName"
+          searchPlaceholder="Enter first few characters to narrow search"
+          (onChange)="ionChangeDistrict($event)"
+        >
+        </ionic-selectable>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</form>
+
+<ion-row>
+  <ion-searchbar
+    [(ngModel)]="searchTerm"
+    [formControl]="searchControl"
+    (ionInput)="onSearchInput()"
+    [placeholder]="'Search'"
+  ></ion-searchbar>
+</ion-row>
+
+<ion-row>
+  <div *ngIf="cities != null && cities.length <= 0">
+    <ion-item>
+      <p text-wrap no-lines>No Record Found !!!</p>
+      <ion-icon name="warning" item-left></ion-icon>
+    </ion-item>
+  </div>
+</ion-row>
+
+<!-- <div *ngIf="loading" class="spinner-container">
+  <ion-spinner></ion-spinner>
+</div> -->
+
+<!-- <cdk-virtual-scroll-viewport
+  class="notifications-content"
+  #scroll
+  [itemSize]="56"
+  minBufferPx="900"
+  maxBufferPx="1350"
+>
+ 
+</cdk-virtual-scroll-viewport> -->
+
+<ion-list class="notifications-content">
+  <ion-item
+    *ngFor="let item of cities; trackBy: trackByFn"
+    class="notification-item"
+    lines="none"
+  >
+    <ion-row class="notification-item-wrapper">
+      <ion-col size="5" class="details-wrapper">
+        <h6 class="details-description">Country: {{ item.country }}</h6>
+        <p class="details-description">Region: {{ item.region }}</p>
+      </ion-col>
+
+      <ion-col size="5" class="details-wrapper">
+        <h6 class="details-description">District: {{ item.district }}</h6>
+        <p class="details-name">City/Town: {{ item.geoName }}</p>
+      </ion-col>
+
+      <ion-col size="2">
+        <ion-button
+          tappable
+          (click)="showSuburbs(item)"
+          color="facebook"
+          *ngIf="item.suburbCount > 0"
+        >
+          <ion-icon name="chevron-down-circle-outline"></ion-icon>
+          <span class="hide-sm hide-xs"> <h6>suburb</h6></span>
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="12" *ngIf="item.geoId == citySuburbId">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3" *ngFor="let tag of suburbs">
+              <ion-card>
+                <ion-card-content>
+                  <p>{{ tag.geoName }}</p>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <!-- <ion-row class="description-row">
+          <ion-col size="12">
+            <ion-row class="details-tags">
+              <ion-col class="tag-wrapper" *ngFor="let tag of suburbs">
+                <span class="item-tag"> {{ tag.geoName }} </span>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row> -->
+
+        <ion-row>
+          <div *ngIf="suburbs != null && suburbs.length <= 0">
+            <ion-item no-lines>
+              <p text-wrap no-lines>No Record Found !!!</p>
+              <ion-icon name="warning" item-left></ion-icon>
+            </ion-item>
+          </div>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-item>
+</ion-list>
+
+<div *ngIf="!isLoading" class="spinner-container">
+  <ion-spinner></ion-spinner>
+</div>
+
+<ion-infinite-scroll (ionInfinite)="loadGeoData(true, $event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data..."
+  >
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>

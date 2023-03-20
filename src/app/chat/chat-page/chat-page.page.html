@@ -1,0 +1,70 @@
+<app-header ptitle="Chat Details"></app-header>
+
+<ion-content #contentchat [scrollEvents]="true">
+  <ion-fab
+    vertical="top"
+    horizontal="end"
+    slot="fixed"
+    (click)="settingsPopover($event)"
+  >
+    <ion-fab-button>
+      <ion-icon name="chatbubbles"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list lines="none">
+    <ion-item
+      *ngFor="let chat of data?.msgList; trackBy: trackListFn"
+      lines="none"
+    >
+      <ion-col
+        size="6"
+        offset="6"
+        *ngIf="chat.whichUser === Me"
+        class="message me-user ion-float-right"
+      >
+        <div class="ion-margin-bottom">{{ chat.message }}</div>
+        <ion-note class="ion-float-right" style="font-size: small"
+          >{{computeAgeDifference(chat?.age)}}
+        </ion-note>
+      </ion-col>
+
+      <ion-col
+        size="6"
+        *ngIf="chat.whichUser === Other"
+        class="message other-user ion-float-left"
+      >
+        <div class="ion-margin-bottom">{{ chat.message }}</div>
+        <ion-note class="ion-float-right" style="font-size: small"
+          >{{computeAgeDifference(chat?.age)}}
+        </ion-note>
+      </ion-col>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <form (ngSubmit)="sendMsg()">
+      <ion-item>
+        <ion-input
+          type="text"
+          spellcheck="true"
+          autoComplete="true"
+          autocorrect="true"
+          placeholder="Message"
+          name="message"
+          [(ngModel)]="message"
+        ></ion-input>
+        <ion-icon
+          name="send"
+          expand="icon-only"
+          color="medium"
+          slot="end"
+          tappable
+          (click)="sendMsg()"
+        ></ion-icon>
+      </ion-item>
+    </form>
+  </ion-toolbar>
+</ion-footer>

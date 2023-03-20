@@ -1,0 +1,35 @@
+<app-header ptitle="contacts.messages"></app-header>
+
+<ion-content class="notifications-content">
+    <ion-item-group>
+        <div *ngIf="isLoading"></div>
+    </ion-item-group>
+
+    <div *ngIf="isLoading">
+        <ion-item-group>
+            <ion-item-divider sticky>
+                <ion-label>Contacts Messages</ion-label>
+            </ion-item-divider>
+        </ion-item-group>
+
+        <ion-card-content *ngFor="let msg of contactusInfo.ContactItems let i = index">
+            <ion-item class="notification-item" lines="none">
+                <ion-row class="notification-item-wrapper">
+                    <ion-row>
+                        <ion-col size="9" class="details-wrapper">
+                            <h4 class="details-name">
+                                {{ msg.description }} | {{ msg.email }} | {{ msg.phone }}
+                            </h4>
+                            <p class="details-description">{{ msg.message }}</p>
+                        </ion-col>
+                        <ion-col size="3" class="date-wrapper">
+                            <h3 class="notification-date">
+                                {{ (msg.contactDate | appTimeAgo)}}
+                            </h3>
+                        </ion-col>
+                    </ion-row>
+                </ion-row>
+            </ion-item>
+        </ion-card-content>
+    </div>
+</ion-content>

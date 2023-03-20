@@ -1,0 +1,373 @@
+<app-header ptitle="My Questions"></app-header>
+
+<ion-content class="notifications-content" #content [scrollEvents]="true">
+  <ion-row>
+    <ion-col size="10">
+      <form [formGroup]="searchForm">
+        <ion-searchbar
+          placeholder="search..."
+          formControlName="searchControl"
+          value=""
+        ></ion-searchbar>
+      </form>
+    </ion-col>
+    <ion-col size="2">
+      <ion-button tappable (click)="searchAll()" color="facebook">
+        <ion-icon name="eye-outline"></ion-icon>
+        <span class="hide-sm hide-xs"> <h6>My Questions</h6></span>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-item-group>
+    <ion-item-divider sticky>
+      <ion-label>Questions List</ion-label>
+    </ion-item-divider>
+  </ion-item-group>
+
+  <p *ngIf="errorOccurred == true" class="details-name">
+    Error Occured, Please contact Administrator
+  </p>
+
+  <div *ngIf="isLoading && errorOccurred == false">
+    <p *ngIf="testData.length == 0" class="details-name">No record found</p>
+
+    <ion-item
+      *ngFor="let pymt of testData;let i = index;"
+      style="padding-top: 0px; padding-bottom: 0px"
+    >
+      <ion-label>
+        <ion-row align-items-center>
+          <ion-col size="2">
+            <ion-row>
+              <ion-label>
+                {{pymt.QuestionStatistics?.totQuestionVotesCount}}
+              </ion-label>
+              <div *ngIf="pymt.hasVotedQuestion == true; else notuser">
+                <ion-icon
+                  name="thumbs-up"
+                  style="zoom: 2"
+                  color="secondary"
+                ></ion-icon>
+              </div>
+
+              <ng-template #notuser>
+                <ion-icon name="thumbs-up" style="zoom: 2"></ion-icon>
+              </ng-template>
+
+              <span class="hide-sm hide-xs">Votes</span>
+            </ion-row>
+            <br /><br />
+            <ion-row>
+              <ion-label>
+                {{pymt.QuestionStatistics?.totQuestionAnswersCount}}
+              </ion-label>
+              <ion-icon
+                name="chatbubble-ellipses-outline"
+                style="zoom: 2"
+              ></ion-icon>
+              <span class="hide-sm hide-xs">Answers</span>
+            </ion-row>
+          </ion-col>
+          <ion-col size="8">
+            <ion-row>
+              <div class="notification-item" lines="none">
+                <ion-row class="notification-item-wrapper">
+                  <ion-col class="details-wrapper">
+                    <h2 class="details-name">
+                      <ion-text
+                        color="secondary"
+                        tappable
+                        [routerLink]="['/questiondetail/', pymt.questionId]"
+                        routerDirection="forward"
+                      >
+                        <div
+                          [innerHTML]="pymt.title | highlight:searchTerm "
+                        ></div>
+                      </ion-text>
+                    </h2>
+
+                    <div
+                      class="details-description"
+                      [innerHTML]="pymt.description | truncatetext:150 |
+                      highlight:searchTerm"
+                    ></div>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </ion-row>
+
+            <ion-row class="description-row">
+              <ion-col size="6">
+                <ion-row class="details-tags">
+                  <ion-col class="tag-wrapper">
+                    <ion-text color="secondary">
+                      <h6>Tags :</h6>
+                    </ion-text>
+                  </ion-col>
+
+                  <ion-col
+                    class="tag-wrapper"
+                    *ngFor="let tag of pymt.tags.split(',')"
+                  >
+                    <span class="item-tag" tappable (click)="searchByTag(tag)">
+                      {{tag}}
+                    </span>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+
+              <ion-col size="6">
+                <ion-row class="details-tags">
+                  <ion-col class="tag-wrapper">
+                    <ion-text color="secondary">
+                      <h6>Category :</h6>
+                    </ion-text>
+                  </ion-col>
+                  <ion-col class="tag-wrapper">
+                    <span
+                      class="item-tag"
+                      tappable
+                      (click)="searchByCategory(pymt.catId)"
+                    >
+                      {{pymt.CatTitle}}
+                    </span>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+
+            <ion-row align-items-center>
+              <ion-col>
+                <p no-margin>
+                  asked {{ (pymt.createdDate | appTimeAgo)}} by:
+                  <ion-text
+                    color="tertiary"
+                    tappable
+                    (click)="searchByUser(pymt.userId)"
+                  >
+                    {{pymt.userId}}</ion-text
+                  >
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col size="2" class="ion-justify-content-end">
+            <ion-row class="ion-justify-content-end" align-items-center>
+              <ion-button
+                color="facebook"
+                expand="block"
+                (click)="editQuestion(pymt.questionId)"
+                *ngIf="isLoggedIn == true  && userId == pymt.userId"
+              >
+                <ion-icon name="create-outline"></ion-icon
+                ><span class="hide-sm hide-xs">Edit</span>
+              </ion-button>
+
+              <ion-button
+                color="primary"
+                expand="block"
+                [routerLink]="['/questiondetail/', pymt.questionId]"
+                routerDirection="forward"
+              >
+                <ion-icon name="eye-outline"></ion-icon
+                ><span class="hide-sm hide-xs">Details</span>
+              </ion-button>
+
+              <ion-button
+                *ngIf="isLoggedIn==true &&  pymt.hasSubscribed==false "
+                expand="block"
+                color="twitter"
+                (click)="subscribeToNews(pymt.questionId)"
+              >
+                <ion-icon name="notifications-circle-outline"></ion-icon>
+
+                <span class="hide-sm hide-xs">Subscribe</span>
+              </ion-button>
+              <ion-button
+                *ngIf="isLoggedIn==true && pymt.hasSubscribed==true"
+                expand="block"
+                color="danger"
+                (click)="unSubscribeToNews(pymt.questionId)"
+              >
+                <ion-icon name="notifications-off-outline"></ion-icon>
+
+                <span class="hide-sm hide-xs">Un-Subscribe</span>
+              </ion-button>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-label>
+    </ion-item>
+  </div>
+
+  <div *ngIf="showForm">
+    <ion-item-group>
+      <ion-item-divider sticky>
+        <ion-label>Questions Form</ion-label>
+      </ion-item-divider>
+
+      <form (ngSubmit)="storeQuestion(userForm.value)" [formGroup]="userForm">
+        <ion-list>
+          <ion-item class="input-item" *ngIf="categoryLoaded==true">
+            <ion-label position="floating">Category</ion-label>
+           
+
+            <ionic-selectable
+              formControlName="categoryId"
+              [hasVirtualScroll]="true"
+              [items]="categories"
+              [canSearch]="true"
+              itemValueField="catId"
+              itemTextField="title"
+              searchPlaceholder="Enter first character to narrow search"
+            >
+            </ionic-selectable>
+          </ion-item>
+
+          <div class="error-container">
+            <div *ngFor="let validation of validationMessages.categoryId">
+              <div
+                class="error-message"
+                *ngIf="userForm.get('categoryId').hasError(validation.type) && (userForm.get('categoryId').dirty || userForm.get('categoryId').touched)"
+              >
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </div>
+          </div>
+
+          <ion-item class="input-item">
+            <ion-label position="floating">Title</ion-label>
+            <ion-input
+              type="text"
+              formControlName="title"
+              name="title"
+              clearInput
+            >
+            </ion-input>
+          </ion-item>
+
+          <div class="error-container">
+            <div *ngFor="let validation of validationMessages.title">
+              <div
+                class="error-message"
+                *ngIf="userForm.get('title').hasError(validation.type) && (userForm.get('title').dirty || userForm.get('title').touched)"
+              >
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </div>
+          </div>
+
+         
+
+          <div class="form-group" *ngIf="showEditor==true">
+            <label>Description</label>
+            <quill-editor
+              formControlName="description"
+              name="description"
+              rows="6"
+              placeholder="Enter any description here..."
+              [styles]="{height: '200px'}"
+            >
+            </quill-editor>
+          </div>
+
+          <div *ngIf="showEditor==false">
+            <ion-label>Description</ion-label>
+            <ion-item class="input-item">
+              <ion-textarea
+                rows="6"
+                cols="20"
+                formControlName="description"
+                name="description"
+                placeholder="Enter any description here..."
+                clearInput
+              ></ion-textarea>
+            </ion-item>
+          </div>
+
+          <div class="error-container">
+            <div *ngFor="let validation of validationMessages.description">
+              <div
+                class="error-message"
+                *ngIf="userForm.get('description').hasError(validation.type) && (userForm.get('description').dirty || userForm.get('description').touched)"
+              >
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </div>
+          </div>
+
+          <ion-item class="input-item">
+            <ion-label position="floating">Tags</ion-label>
+            <ion-input
+              type="text"
+              formControlName="tags"
+              name="tags"
+              clearInput
+            >
+            </ion-input>
+          </ion-item>
+
+          <div class="error-container">
+            <div *ngFor="let validation of validationMessages.tags">
+              <div
+                class="error-message"
+                *ngIf="userForm.get('tags').hasError(validation.type) && (userForm.get('tags').dirty || userForm.get('tags').touched)"
+              >
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </div>
+          </div>
+        </ion-list>
+
+        <ion-row>
+          <ion-col>
+            <ion-button
+              color="primary"
+              type="submit"
+              [disabled]="!userForm.valid"
+            >
+              <ion-icon name="save"></ion-icon>
+              Save Question
+            </ion-button>
+          </ion-col>
+
+          <ion-col>
+            <ion-button (click)="closeForm()" color="secondary" type="button">
+              <ion-icon name="close"></ion-icon>
+              Close Form
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-item-group>
+  </div>
+
+  <ion-fab
+    *ngIf="isLoggedIn==true"
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    (click)="openForm()"
+  >
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div *ngIf="!isLoading && errorOccurred == false" class="spinner-container">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <ion-infinite-scroll (ionInfinite)="loadNews(true, $event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more news..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

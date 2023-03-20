@@ -1,0 +1,154 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Add Link</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="notifications-content">
+  <ion-item-group>
+    <ion-item-divider sticky>
+      <div *ngIf="isSaved">
+        <ion-label>{{response.message}}</ion-label>
+      </div>
+      <div *ngIf="isLoading">
+        <ion-label>{{mediaType[medium.mtype]}}</ion-label>
+      </div>
+    </ion-item-divider>
+    <div *ngIf="isLoading">
+      <ion-item class="notification-item" lines="none">
+        <ion-row class="notification-item-wrapper">
+          <ion-col class="details-wrapper">
+            <h2 class="details-name">{{ medium.author }}</h2>
+            <p class="details-description">{{ medium.title }}</p>
+          </ion-col>
+          <ion-col size="2" class="date-wrapper">
+            <h3 class="notification-date">
+              {{ (medium.datePosted | appTimeAgo)}}
+            </h3>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </div>
+  </ion-item-group>
+
+  <ion-item-divider color="twitter">
+    <ion-label> Enter New Link Details </ion-label>
+  </ion-item-divider>
+
+  <form (ngSubmit)="postLink(userForm.value)" [formGroup]="userForm">
+    <ion-list class="inputs-list" lines="full">
+      <ion-item class="input-item">
+        <ion-label>Select Link Type</ion-label>
+        
+
+        <ionic-selectable
+          formControlName="ltype"
+          [hasVirtualScroll]="true"
+          [items]="linkTypesArray"
+          [canSearch]="true"
+          itemValueField="value"
+          itemTextField="name"
+          searchPlaceholder="Enter first character to narrow search"
+        >
+        </ionic-selectable>
+      </ion-item>
+
+      <div class="error-container">
+        <div *ngFor="let validation of validationMessages.ltype">
+          <div
+            class="error-message"
+            *ngIf="userForm.get('ltype').hasError(validation.type) && (userForm.get('ltype').dirty || userForm.get('ltype').touched)"
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>{{ validation.message }}</span>
+          </div>
+        </div>
+      </div>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Title</ion-label>
+        <ion-input
+          type="text"
+          formControlName="title"
+          name="title"
+          placeholder="Title"
+        >
+        </ion-input>
+      </ion-item>
+      <div class="error-container">
+        <div *ngFor="let validation of validationMessages.title">
+          <div
+            class="error-message"
+            *ngIf="userForm.get('title').hasError(validation.type) && (userForm.get('title').dirty || userForm.get('title').touched)"
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>{{ validation.message }}</span>
+          </div>
+        </div>
+      </div>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Media Name</ion-label>
+        <ion-input
+          type="text"
+          formControlName="mname"
+          name="mname"
+          placeholder="Media Name"
+        >
+        </ion-input>
+      </ion-item>
+      <div class="error-container">
+        <div *ngFor="let validation of validationMessages.mname">
+          <div
+            class="error-message"
+            *ngIf="userForm.get('mname').hasError(validation.type) && (userForm.get('mname').dirty || userForm.get('mname').touched)"
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>{{ validation.message }}</span>
+          </div>
+        </div>
+      </div>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">URL</ion-label>
+        <ion-input type="text" formControlName="urlink" name="urlink">
+        </ion-input>
+      </ion-item>
+
+      <div class="error-container">
+        <div *ngFor="let validation of validationMessages.urlink">
+          <div
+            class="error-message"
+            *ngIf="userForm.get('urlink').hasError(validation.type) && (userForm.get('urlink').dirty || userForm.get('urlink').touched)"
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>{{ validation.message }}</span>
+          </div>
+        </div>
+      </div>
+
+      <ion-item class="input-item">
+        <ion-label>Tags</ion-label>
+        <ion-textarea
+          rows="6"
+          cols="20"
+          formControlName="tag"
+          name="tag"
+          placeholder="should be comma separated"
+        ></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+    <ion-row>
+      <ion-col>
+        <ion-button color="primary" type="submit" [disabled]="!userForm.valid">
+          <ion-icon name="save"></ion-icon>
+          Save Link
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
