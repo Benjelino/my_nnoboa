@@ -2,109 +2,46 @@
 
   <ion-content>
     <app-progress #progress (stateChange)="onStateChange($event)">
+     
       <app-progress-step>
-        <h1 class="section-title">Basic Information</h1>
-        <!-- <ion-item> -->
-        <!-- <ion-label>Company Name</ion-label> -->
-        <div class="input-group">
-
-          <label for="company-name" class="basic-label">Company Name</label>
-          <input type="text" class="basic-input-field" id="company-name">
-
-        </div>
-        <div class="input-group">
-
-          <label for="company-industry" class="basic-label">Company Industry</label>
-          <select name="" id="company-industry" class="basic-input-field">
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-          </select>
-
-        </div>
-
-        <h1 class="section-title">Company Location</h1>
-        <p class="basic-textarea-group">
-          <ion-text color="">Please select the country that we’ll be sending funds to (typically where you’re resident).
-            This helps match you to the correct payment processors.</ion-text>
-        </p>
-        <div class="input-group">
-
-          <label for="country" class="basic-label">Country</label>
-          <ion-select name="" id="country" class="basic-input-field">
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-          </ion-select>
-
-        </div>
-        <div class="input-group">
-
-          <label for="city" class="basic-label">City</label>
-          <ion-select name="" id="city" class="basic-input-field">
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-          </ion-select>
-
-        </div>
-        <div class="input-group">
-
-          <label for="company-address" class="basic-label">Company Address</label>
-          <ion-input type="text" class="basic-input-field" id="company-address"></ion-input>
-
-        </div>
-
-        <h1 class="section-title">Investor Reasons</h1>
-        <div class="basic-textarea-group">
-
-          <ion-item class="basic-textarea">
-            <ion-label>The top reasons to invest</ion-label>
-            <ion-textarea placeholder="investor-reasons"></ion-textarea>
-          </ion-item>
-        </div>
-
-        <h1 class="section-title">Links</h1>
-        <div class="basic-textarea-group">
-
-          <ion-item class="basic-textarea">
-            <ion-label>Website or social media links</ion-label>
-            <ion-textarea placeholder="investor-reasons"></ion-textarea>
-          </ion-item>
-        </div>
-        <!-- </ion-item> -->
-        <div class="lower-buttons">
-          <button class="cancel">Cancel</button>
-          <button mat-raised-button color="primary" class="next-btn" (click)="goNext(progress)">
-            Next
-          </button>
-        </div>
-      </app-progress-step>
-      <app-progress-step>
-        <h1 class="section-title">Fundraiser Story</h1>
+        <h1 class="section-title">Investment Information</h1>
 
 
         <div class="input-group">
 
-          <label for="company-address" class="basic-label">10 Seconds Pitch</label>
+          <label for="company-address" class="basic-label">Fund Request Description</label>
           <p class="basic-titarea-group">
-            <ion-text color="">Explain why you're raising money, what the funds will be used for, and how much you value
-              the support</ion-text>
+            <ion-text color="">Briefly describe the purpose for the fund you require</ion-text>
           </p>
           <div class="basic-editarea">
             <quill-editor></quill-editor>
           </div>
         </div>
-
+        <br/>
         <div class="input-group">
-          <p class="basic-textarea-group"><ion-text color="" style="font-size: large; padding-top: 30px;">Upload
-              Images</ion-text></p>
+          <p class="basic-textarea-group section-title"><ion-text color="" style="font-size: large; padding-top: 30px;">Documents Upload</ion-text></p>
           <label for="company-address" class="basic-label">Click on the button below to upload images about the company
             that will be shown to the
             investors</label>
-          <ion-button (click)="selectImage()">
-            upload Images
-          </ion-button>
+            <ion-row>
+              <ion-col size="auto">
+                <ion-button (click)="selectImage()">
+                <ion-icon name="document-attach-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+              <ion-col size="7">
+                <select name="" id="offer" class="basic-input-field-full">
+                  <option value="dollar"> Document type</option>
+                  <option value=""></option>
+                  <option value=""></option>
+                </select>
+              </ion-col>
+              <ion-col size="auto">
+                <ion-button (click)="selectImage()">
+Add More              </ion-button>
+            </ion-col>
+            </ion-row>
+          
         </div>
 
         <ion-list>
@@ -125,7 +62,7 @@
         </ion-list>
 
         <h1 class="section-title">Links</h1>
-        <div class="input-group">
+        <!-- <div class="input-group">
           <p class="basic-textarea-group">
             <ion-text color="">The inclusion of a personalized video can help your fundraiser raise more
               money. We support links from YouTube and Vimeo. Simply copy paste your video link
@@ -138,17 +75,17 @@
             <ion-label>Upload Video by URL</ion-label>
             <ion-textarea placeholder="investor-reasons"></ion-textarea>
           </ion-item>
-        </div>
+        </div> -->
 
         <div class="input-group">
-          <p class="basic-textarea-group"><ion-text color="" style="font-size: large; padding-top: 30px;">Do you already
+          <!-- <p class="basic-textarea-group"><ion-text color="" style="font-size: large; padding-top: 30px;">Do you already
               have a slide deck?</ion-text></p>
           <p class="basic-textarea-group">
             <ion-text color="">If you have already created a slide deck for your fundraiser, we will use it to create
               your
               profile
             </ion-text>
-          </p>
+          </p> -->
           <ion-item>
             <ion-input type="file" accept="document/*" (change)="changeListener($event)"></ion-input>
           </ion-item>
@@ -166,57 +103,7 @@
         </div>
 
       </app-progress-step>
-      <app-progress-step>
-        <h1>Team Details</h1>
-        <div class="input-group">
-          <label for="full-name" class="basic-label">Full Name</label>
-          <input type="text" [(ngModel)]="fullName" class="basic-input-field" id="full-name">
-        </div>
-        <div class="input-group">
-          <label for="email" class="basic-label">Email</label>
-          <input type="email" [(ngModel)]="email" class="basic-input-field" id="email">
-        </div>
-        <div class="input-group">
-          <label for="team-image" class="basic-label">Image</label>
-          <ion-input type="file" (change)="onFileSelected($event)" id="team-image"></ion-input>
-          <ion-avatar item-start>
-            <ion-img [src]="imageUrl"></ion-img>
-          </ion-avatar>
-        </div>
-        <div class="input-group">
-          <label for="position" class="basic-label">Company Industry</label>
-          <select name="" id="position" class="basic-input-field" [(ngModel)]="role">
-            <option value="Manager"></option>
-            <option value="Developer"></option>
-            <option value="Designer"></option>
-          </select>
-        </div>
-
-        <div class="input-group">
-          <ion-button (click)="addTeamMember()">
-            Upload File
-          </ion-button>
-        </div>
-
-        <ion-list>
-          <ion-item *ngFor="let teamMember of teamMembers">
-            <ion-avatar slot="start">
-              <ion-img [src]="teamMember.imageUrl"></ion-img>
-            </ion-avatar>
-            <ion-label>
-              <h2>{{teamMember.fullName}}</h2>
-              <p>{{teamMember.role}}</p>
-            </ion-label>
-            <ion-note slot="end">{{teamMember.email}}</ion-note>
-          </ion-item>
-        </ion-list>
-        <div class="lower-buttons">
-          <button progressStepPrev mat-raised-button color="accent" class="previous-button">prev</button>
-          <button mat-raised-button color="primary" class="next-btn" (click)="goNext(progress)">
-            Next
-          </button>
-        </div>
-      </app-progress-step>
+    
       <app-progress-step>
         <h1>Funding Terms</h1>
         <p>

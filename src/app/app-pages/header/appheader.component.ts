@@ -70,6 +70,6 @@ export class Appheader {
   }
 
   fundme(){
-    this.router.navigate(["/menu/fundme"])
+    this.router.navigate(["/fundme"])
   }
 }
