@@ -77,6 +77,10 @@ const routes: Routes = [
         (m) => m.PageNotFoundPageModule
       ),
   },
+  {
+    path: 'companies',
+    loadChildren: () => import('./noboa/companies/companies.module').then( m => m.CompaniesPageModule)
+  },
 
 
 ];
