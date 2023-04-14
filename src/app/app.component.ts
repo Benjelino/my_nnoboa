@@ -106,6 +106,9 @@ export class AppComponent {
           case "contactus":
             this.router.navigate(["/contactus"]);
             break;
+          case "companies":
+            this.router.navigate(["/companies"]);
+            break;
           default:
             this.router.navigate(["/home"]);
             break;

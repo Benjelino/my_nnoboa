@@ -71,8 +71,8 @@ const routes: Routes = [
     ),
   },
     {
-    path: 'companies',
-    loadChildren: () => import('./noboa/companies/companies.module').then( m => m.CompaniesPageModule)
+    path: "companies",
+    loadChildren: () => import("src/app/noboa/companies/companies.module").then( m => m.CompaniesPageModule)
   },
   {
     path: "**",
