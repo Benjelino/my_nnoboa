@@ -5,6 +5,8 @@ import { IonicModule } from '@ionic/angular';
 import { ComponentsPageModule } from 'src/app/components/components.module';
 import { CompaniesPageRoutingModule } from './companies-routing.module';
 import { CompaniesPage } from './companies.page';
+import { NoboaPageModule } from '../noboa.module';
+
  
 @NgModule({
   imports: [
@@ -12,7 +14,8 @@ import { CompaniesPage } from './companies.page';
     FormsModule,
     IonicModule,
     ComponentsPageModule,
-    CompaniesPageRoutingModule
+    CompaniesPageRoutingModule,
+    NoboaPageModule
   ],
   declarations: [CompaniesPage]
 })
